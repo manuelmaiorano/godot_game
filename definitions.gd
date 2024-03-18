@@ -1,0 +1,4 @@
+extends Node
+
+class_name GLOBAL_DEFINITIONS
+enum CHARACTER_ACTION {NONE, SIT, STAND, THROW, OPEN, PICK}
