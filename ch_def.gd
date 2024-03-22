@@ -33,11 +33,11 @@ var motion = Vector2()
 @export var current_animation := ANIMATIONS.WALK
 #@export var current_interaction := ACTIONS.NONE
 
-@onready var opening = false
-@onready var picked = false
+@onready var inside_car = false
 
 #@onready var current_door = null
 @onready var current_pistol = null
+@onready var current_car = null
 
 class ActionInfo:
 	var object_action_id
@@ -90,6 +90,10 @@ func animate(anim: int, delta:=0.0):
 func apply_input(delta: float):
 	motion = motion.lerp(player_input.motion, MOTION_INTERPOLATE_SPEED * delta)
 
+	if current_car:
+		current_car.set_motion(motion)
+		global_position = current_car.global_position
+		return
 	var camera_basis : Basis = player_input.get_camera_rotation_basis()
 	var camera_z := camera_basis.z
 	var camera_x := camera_basis.x
@@ -164,25 +168,6 @@ func apply_input(delta: float):
 			animation_tree["parameters/combat/choose_action/blend_position"] = -1
 		if player_input.talking:
 			animation_tree["parameters/state/transition_request"] = "talk"
-		#if player_input.action > 0:
-			#do_action_by_number(player_input.action)
-			
-			#if current_interaction == ACTIONS.SIT:
-				#animation_tree["parameters/state/transition_request"] = "sit"
-				#animation_tree["parameters/sit/conditions/stand"] =  false
-			#elif current_interaction == ACTIONS.THROW:
-				#animation_tree["parameters/state/transition_request"] = "throw"
-			#elif current_interaction == ACTIONS.OPEN:
-				#animation_tree["parameters/state/transition_request"] = "open"
-				#if current_door and not opening:
-					#current_door.action()
-					#action_label.clear()
-					#opening = true
-			#elif current_interaction == ACTIONS.PICK:
-				#animation_tree["parameters/state/transition_request"] = "pick"
-				#current_pistol.pick_up()
-				#current_pistol.reparent($Human_rig/GeneralSkeleton/BoneAttachment3D)
-				#current_pistol.transform = Transform3D(Basis(Quaternion(0.51, 0.53, 0.47, -0.48)), Vector3(-0.01, -0.014, 0.048))
 
 
 	root_motion = Transform3D(animation_tree.get_root_motion_rotation(), animation_tree.get_root_motion_position())
@@ -229,6 +214,9 @@ func do_action_by_number(num):
 				match action_info.player_action_id:
 					GLOBAL_DEFINITIONS.CHARACTER_ACTION.PICK: 
 						animation_tree["parameters/state/transition_request"] = "pick"
+						current_pistol = object
+						current_pistol.reparent($Human_rig/GeneralSkeleton/BoneAttachment3D)
+						current_pistol.transform = Transform3D(Basis(Quaternion(0.51, 0.53, 0.47, -0.48)), Vector3(-0.01, -0.014, 0.048))
 					GLOBAL_DEFINITIONS.CHARACTER_ACTION.THROW: 
 						animation_tree["parameters/state/transition_request"] = "throw"
 					GLOBAL_DEFINITIONS.CHARACTER_ACTION.SIT: 
@@ -238,6 +226,14 @@ func do_action_by_number(num):
 						animation_tree["parameters/sit/conditions/stand"] =  true
 					GLOBAL_DEFINITIONS.CHARACTER_ACTION.OPEN: 
 						animation_tree["parameters/state/transition_request"] = "open"
+					GLOBAL_DEFINITIONS.CHARACTER_ACTION.ENTER_CAR:
+						current_car = object
+						$CollisionShape3D.disabled = true
+						hide()
+					GLOBAL_DEFINITIONS.CHARACTER_ACTION.EXIT_CAR:
+						current_car = null
+						$CollisionShape3D.disabled = false
+						show()
 				return
 	
 func update_action_labels():

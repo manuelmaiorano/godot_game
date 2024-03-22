@@ -160,12 +160,7 @@ func _input(event):
 	if Input.is_action_just_pressed("ui_cancel"):
 		toggle_fullscreen()
 		get_viewport().set_input_as_handled()
-		is_capturing = !is_capturing
-
-		if is_capturing:
-			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-		else:
-			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		
 			
 
 func rotate_camera(move):
