@@ -280,6 +280,7 @@ blend_point_1/pos = 1.0
 min_space = 0.0
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_4mxwd"]
+graph_offset = Vector2(1029, 612.167)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_4owai")
 nodes/Animation/position = Vector2(100, 360)
 "nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_spx2n")

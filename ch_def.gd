@@ -46,6 +46,14 @@ class ActionInfo:
 	
 @onready var objects_to_actions: Dictionary = {}
 
+
+@onready var fire_cooldown: Timer = $FireCoolDown
+@onready var shoot_from = $Human_rig/GeneralSkeleton/GunBone/ShootFrom
+
+
+@onready var sound_effects = $SoundEffects
+@onready var sound_effect_shoot = sound_effects.get_node("Shoot")
+
 func _ready():
 	# Pre-initialize orientation transform.
 	orientation = player_model.global_transform
@@ -129,6 +137,18 @@ func apply_input(delta: float):
 
 		# Change state to strafe.
 		animate(ANIMATIONS.STRAFE, delta)
+		
+		if player_input.shooting and fire_cooldown.time_left == 0:
+			var shoot_origin = shoot_from.global_transform.origin
+			var shoot_dir = (player_input.shoot_target - shoot_origin).normalized()
+
+			var bullet = preload("res://bullet.tscn").instantiate()
+			get_parent().add_child(bullet, true)
+			bullet.global_transform.origin = shoot_origin
+			# If we don't rotate the bullets there is no useful way to control the particles ..
+			bullet.look_at(shoot_origin + shoot_dir, Vector3.UP)
+			bullet.add_collision_exception_with(self)
+			shoot.rpc()
 	elif animation_tree["parameters/state/current_state"] == "combat":
 		if animation_tree["parameters/combat/playback"].get_current_node() == "basic_f_idle":
 			animate(ANIMATIONS.WALK, delta)
@@ -215,13 +235,17 @@ func do_action_by_number(num):
 					GLOBAL_DEFINITIONS.CHARACTER_ACTION.PICK: 
 						animation_tree["parameters/state/transition_request"] = "pick"
 						current_pistol = object
-						current_pistol.reparent($Human_rig/GeneralSkeleton/BoneAttachment3D)
+						current_pistol.reparent($Human_rig/GeneralSkeleton/GunBone)
 						current_pistol.transform = Transform3D(Basis(Quaternion(0.51, 0.53, 0.47, -0.48)), Vector3(-0.01, -0.014, 0.048))
 					GLOBAL_DEFINITIONS.CHARACTER_ACTION.THROW: 
 						animation_tree["parameters/state/transition_request"] = "throw"
 					GLOBAL_DEFINITIONS.CHARACTER_ACTION.SIT: 
 						animation_tree["parameters/state/transition_request"] = "sit"
 						animation_tree["parameters/sit/conditions/stand"] =  false
+						var sit_position: Transform3D = object.get_node("SitPosition").global_transform
+						global_position.x = sit_position.origin.x
+						global_position.z = sit_position.origin.z
+						orientation.basis = sit_position.basis
 					GLOBAL_DEFINITIONS.CHARACTER_ACTION.STAND: 
 						animation_tree["parameters/sit/conditions/stand"] =  true
 					GLOBAL_DEFINITIONS.CHARACTER_ACTION.OPEN: 
@@ -269,3 +293,16 @@ func _on_area_3d_area_exited(area):
 	objects_to_actions.erase(object)
 	object.state_changed.disconnect(_on_actions_update)
 	update_action_labels()
+	
+	
+@rpc("call_local")
+func shoot():
+	#var shoot_particle = $PlayerModel/Robot_Skeleton/Skeleton3D/GunBone/ShootFrom/ShootParticle
+	#shoot_particle.restart()
+	#shoot_particle.emitting = true
+	#var muzzle_particle = $PlayerModel/Robot_Skeleton/Skeleton3D/GunBone/ShootFrom/MuzzleFlash
+	#muzzle_particle.restart()
+	#muzzle_particle.emitting = true
+	fire_cooldown.start()
+	sound_effect_shoot.play()
+	#add_camera_shake_trauma(0.35)

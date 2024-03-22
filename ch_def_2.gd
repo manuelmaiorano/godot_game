@@ -18,7 +18,7 @@ var motion = Vector2()
 @onready var initial_position = transform.origin
 @onready var gravity = ProjectSettings.get_setting("physics/3d/default_gravity") * ProjectSettings.get_setting("physics/3d/default_gravity_vector")
 
-@onready var animation_tree = $AnimationTree
+@onready var animation_tree = $AnimationManager/AnimationTree
 @onready var player_model = $Human_rig
 
 
@@ -165,6 +165,9 @@ func apply_input(delta: float):
 	elif animation_tree["parameters/state/current_state"] == "pick":
 		if animation_tree["parameters/pick/playback"].get_current_node() == "basic_f_idle":
 			animate(ANIMATIONS.WALK, delta)
+	elif animation_tree["parameters/state/current_state"] == "hit":
+		if animation_tree["parameters/hit/playback"].get_current_node() == "basic_f_idle":
+			animate(ANIMATIONS.WALK, delta)
 	else: # Not in air or aiming, idle.
 		# Convert orientation to quaternions for interpolating rotation.
 		var target = camera_x * motion.x + camera_z * motion.y
@@ -267,3 +270,7 @@ func _on_area_3d_area_exited(area):
 	var object = area.get_parent()
 	objects_to_actions.erase(object)
 	object.state_changed.disconnect(_on_actions_update)
+	
+@rpc("call_local")
+func hit():
+	animation_tree["parameters/state/transition_request"] = "hit"
