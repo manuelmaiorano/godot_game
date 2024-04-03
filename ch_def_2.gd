@@ -25,8 +25,7 @@ var motion = Vector2()
 @export var current_animation := ANIMATIONS.WALK
 #@export var current_interaction := ACTIONS.NONE
 
-@onready var opening = false
-@onready var picked = false
+@onready var ragdoll = false
 
 #@onready var current_door = null
 @onready var current_pistol = null
@@ -110,6 +109,8 @@ func animate(anim: int, delta:=0.0):
 
 
 func apply_input(delta: float):
+	if ragdoll:
+		return
 	motion = motion.lerp(agent_input.motion, MOTION_INTERPOLATE_SPEED * delta)
 
 	var camera_basis : Basis = Basis(orientation.basis)
@@ -273,4 +274,13 @@ func _on_area_3d_area_exited(area):
 	
 @rpc("call_local")
 func hit():
-	animation_tree["parameters/state/transition_request"] = "hit"
+	$Human_rig/GeneralSkeleton.physical_bones_start_simulation()
+	ragdoll = true
+	schedule_ragdoll_end()
+	#animation_tree["parameters/state/transition_request"] = "hit"
+	
+	
+func schedule_ragdoll_end():
+	await get_tree().create_timer(10.0).timeout
+	$Human_rig/GeneralSkeleton.physical_bones_stop_simulation()
+	ragdoll = false

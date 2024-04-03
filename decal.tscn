@@ -1,0 +1,38 @@
+[gd_scene load_steps=7 format=3 uid="uid://cchhrov7awuhr"]
+
+[ext_resource type="PackedScene" uid="uid://d178plmnru3dg" path="res://assets/test_decal/decal.glb" id="1_ecjgq"]
+[ext_resource type="PackedScene" uid="uid://ccdjbgkyqnwqx" path="res://ch_def_1.tscn" id="2_oulig"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_a8up3"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_ovts3"]
+sky_material = SubResource("ProceduralSkyMaterial_a8up3")
+
+[sub_resource type="Environment" id="Environment_r43it"]
+background_mode = 2
+sky = SubResource("Sky_ovts3")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_s5hh6"]
+size = Vector3(3.84235, 0.500854, 32.7301)
+
+[node name="decal" instance=ExtResource("1_ecjgq")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="0"]
+environment = SubResource("Environment_r43it")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." index="1"]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Plane" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plane/StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000152588, -0.249573, -3.18419)
+shape = SubResource("BoxShape3D_s5hh6")
+
+[node name="ch_def1" parent="." index="4" instance=ExtResource("2_oulig")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.057889, 0)

@@ -57,6 +57,7 @@ points = PackedVector3Array(0.0051028, -6.11879e-06, 0.00442891, 0.0047142, -0.0
 
 [node name="bullet" type="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, 0, 0, 0)
+collision_mask = 3
 script = ExtResource("1_i2e3x")
 
 [node name="bullet_pistol_0" type="MeshInstance3D" parent="."]
