@@ -1,0 +1,95 @@
+[gd_scene load_steps=19 format=3 uid="uid://cc1g5ttqug651"]
+
+[ext_resource type="Terrain3DStorage" uid="uid://dx12nfa51i0ir" path="res://terrains/new_terrain_3d_storage.res" id="1_3do5i"]
+[ext_resource type="Texture2D" uid="uid://d12juuamvraii" path="res://terrains/texture_grass/rgba-compose.png" id="2_pdscp"]
+[ext_resource type="Texture2D" uid="uid://cvy6i3uk2i33q" path="res://terrains/texture_grass/grass_normal.png" id="3_11vr8"]
+[ext_resource type="PackedScene" uid="uid://ccdjbgkyqnwqx" path="res://ch_def_1.tscn" id="4_uttlt"]
+[ext_resource type="Texture2D" uid="uid://0kll0n6h3aby" path="res://terrains/texrure_dry_rock/dry_rick_rgba.png" id="4_vcw28"]
+[ext_resource type="Texture2D" uid="uid://buc6qcdohs3lm" path="res://terrains/texrure_dry_rock/rgba-compose.png" id="5_xbr7q"]
+[ext_resource type="PackedScene" uid="uid://bw276s7bov1ow" path="res://police_car.tscn" id="7_w0xe0"]
+[ext_resource type="PackedScene" uid="uid://cttavr7q8427c" path="res://road.tscn" id="8_qqwc0"]
+
+[sub_resource type="Gradient" id="Gradient_10b88"]
+offsets = PackedFloat32Array(0.2, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_etq3t"]
+noise_type = 2
+frequency = 0.03
+cellular_jitter = 3.0
+cellular_return_type = 0
+domain_warp_enabled = true
+domain_warp_type = 1
+domain_warp_amplitude = 50.0
+domain_warp_fractal_type = 2
+domain_warp_fractal_lacunarity = 1.5
+domain_warp_fractal_gain = 1.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_8lxm0"]
+seamless = true
+color_ramp = SubResource("Gradient_10b88")
+noise = SubResource("FastNoiseLite_etq3t")
+
+[sub_resource type="Terrain3DMaterial" id="Terrain3DMaterial_2fmir"]
+_shader_parameters = {
+"_mouse_layer": 2147483648,
+"blend_sharpness": null,
+"height_blending": null,
+"macro_variation1": null,
+"macro_variation2": null,
+"noise1_angle": null,
+"noise1_offset": null,
+"noise1_scale": null,
+"noise2_scale": null,
+"noise3_scale": null,
+"noise_texture": SubResource("NoiseTexture2D_8lxm0")
+}
+
+[sub_resource type="Terrain3DTexture" id="Terrain3DTexture_6vvet"]
+name = "grass_texture"
+albedo_texture = ExtResource("2_pdscp")
+normal_texture = ExtResource("3_11vr8")
+
+[sub_resource type="Terrain3DTexture" id="Terrain3DTexture_8yeok"]
+texture_id = 1
+albedo_texture = ExtResource("4_vcw28")
+normal_texture = ExtResource("5_xbr7q")
+uv_scale = 0.339
+uv_rotation = 0.093
+
+[sub_resource type="Terrain3DTextureList" id="Terrain3DTextureList_rdgaq"]
+textures = Array[Terrain3DTexture]([SubResource("Terrain3DTexture_6vvet"), SubResource("Terrain3DTexture_8yeok")])
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_bkrgl"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_wcnbf"]
+sky_material = SubResource("ProceduralSkyMaterial_bkrgl")
+
+[sub_resource type="Environment" id="Environment_xxsni"]
+background_mode = 2
+sky = SubResource("Sky_wcnbf")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="Terrain3D" type="Terrain3D"]
+storage = ExtResource("1_3do5i")
+material = SubResource("Terrain3DMaterial_2fmir")
+texture_list = SubResource("Terrain3DTextureList_rdgaq")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_xxsni")
+
+[node name="ch_def1" parent="." instance=ExtResource("4_uttlt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.76077, 0, 4.33814)
+
+[node name="police_car" parent="." instance=ExtResource("7_w0xe0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.8886, 0, 60.6812)
+
+[node name="road" parent="." instance=ExtResource("8_qqwc0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.201355, 192)
