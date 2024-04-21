@@ -48,16 +48,20 @@ func _ready():
 	schedule_plan()
 	
 func schedule_plan():
-	await get_tree().create_timer(3.0).timeout
-	set_movement_target(get_tree().get_root().get_node("Main/Location3").transform.origin)
-	await get_tree().create_timer(3.0).timeout
-	set_movement_target(get_tree().get_root().get_node("Main/Location1").transform.origin)
-	await get_tree().create_timer(5.0).timeout
-	set_movement_target(get_tree().get_root().get_node("Main/Location2").transform.origin)
-	await get_tree().create_timer(5.0).timeout
-	set_movement_target(get_tree().get_root().get_node("Main/Location4").transform.origin)
-	await get_tree().create_timer(10.0).timeout
-	set_movement_target(get_tree().get_root().get_node("Main/Location5").transform.origin)
+	while true:
+		await get_tree().create_timer(3.0).timeout
+
+		#set_movement_target(get_tree().get_root().get_child(0).find_child("ch_def1").transform.origin)
+	#await get_tree().create_timer(3.0).timeout
+	#set_movement_target(get_tree().get_root().get_node("Main/Location3").transform.origin)
+	#await get_tree().create_timer(3.0).timeout
+	#set_movement_target(get_tree().get_root().get_node("Main/Location1").transform.origin)
+	#await get_tree().create_timer(5.0).timeout
+	#set_movement_target(get_tree().get_root().get_node("Main/Location2").transform.origin)
+	#await get_tree().create_timer(5.0).timeout
+	#set_movement_target(get_tree().get_root().get_node("Main/Location4").transform.origin)
+	#await get_tree().create_timer(10.0).timeout
+	#set_movement_target(get_tree().get_root().get_node("Main/Location5").transform.origin)
 
 func _on_velocity_computed(safe_velocity: Vector3) -> void:
 	pass

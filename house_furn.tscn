@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://cj51cpjlqe5r3"]
+
+[ext_resource type="PackedScene" uid="uid://bxlbco1ox5lqd" path="res://assets/test_house_gltf/house_furn.glb" id="1_lrywr"]
+
+[node name="house_furn" instance=ExtResource("1_lrywr")]
+
+[node name="Cube_088_002" parent="entranceDoor_002/wallSingleModular_011_002" index="5"]
+transform = Transform3D(-0.400877, 0, 0.916132, 0, 1, 0, -0.916132, 0, -0.400877, 0.460323, -0.127, 0.0142441)
+
+[node name="Cube_005_001" parent="doubleDoorExt_001/wallSingleModular_001_001" index="2"]
+transform = Transform3D(-0.120968, 0, 0.992656, 0, 1, 0, -0.992656, 0, -0.120968, 0.0572968, -0.127, 0.0264359)
+
+[node name="Cube_006_001" parent="doubleDoorExt_001/wallSingleModular_001_001" index="3"]
+transform = Transform3D(-0.335534, 0, -0.942028, 0, 1, 0, 0.942028, 0, -0.335534, 1.87626, -0.127, 0.026432)

@@ -1,0 +1,172 @@
+[gd_scene load_steps=16 format=3 uid="uid://drxj5483d7ja"]
+
+[ext_resource type="PackedScene" uid="uid://ba82noxbltokx" path="res://assets/test_house_compositon/house.blend" id="1_hipov"]
+[ext_resource type="PackedScene" uid="uid://ccdjbgkyqnwqx" path="res://ch_def_1.tscn" id="2_pocj1"]
+[ext_resource type="Script" path="res://door.gd" id="3_iqy62"]
+[ext_resource type="PackedScene" uid="uid://c7d8h78nwsmml" path="res://ch_def_2.tscn" id="3_lawuf"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2cchw"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_q6eiy"]
+sky_material = SubResource("ProceduralSkyMaterial_2cchw")
+
+[sub_resource type="Environment" id="Environment_x172e"]
+background_mode = 2
+sky = SubResource("Sky_q6eiy")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_55n4g"]
+
+[sub_resource type="Animation" id="Animation_rqf5p"]
+resource_name = "open"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("entranceDoor_001/wallSingleModular_011_001/Cube_088_001:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 2.26053, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_bxqnq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("entranceDoor_001/wallSingleModular_011_001/Cube_088_001:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6xvfl"]
+_data = {
+"RESET": SubResource("Animation_bxqnq"),
+"open": SubResource("Animation_rqf5p")
+}
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kn2ng"]
+
+[sub_resource type="Animation" id="Animation_2aeq8"]
+resource_name = "open"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("wallSingleModular_001_001/Cube_006_001:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, -2.79253, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("wallSingleModular_001_001/Cube_005_001:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 2.79253, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_unk1x"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("wallSingleModular_001_001/Cube_006_001:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("wallSingleModular_001_001/Cube_005_001:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nkxpd"]
+_data = {
+"RESET": SubResource("Animation_unk1x"),
+"open": SubResource("Animation_2aeq8")
+}
+
+[node name="house" instance=ExtResource("1_hipov")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="0"]
+environment = SubResource("Environment_x172e")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." index="1"]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="entranceDoor_001" parent="." index="66"]
+script = ExtResource("3_iqy62")
+
+[node name="Cube_088_001" parent="entranceDoor_001/wallSingleModular_011_001" index="5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.460323, -0.127, 0.0142441)
+
+[node name="Area3D" type="Area3D" parent="entranceDoor_001" index="3"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="entranceDoor_001/Area3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.24516, -1.3395, 0)
+shape = SubResource("BoxShape3D_55n4g")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="entranceDoor_001" index="4"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_6xvfl")
+}
+
+[node name="doubleDoorExt_001" parent="." index="67"]
+script = ExtResource("3_iqy62")
+
+[node name="Cube_005_001" parent="doubleDoorExt_001/wallSingleModular_001_001" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0572968, -0.127, 0.0264359)
+
+[node name="Cube_006_001" parent="doubleDoorExt_001/wallSingleModular_001_001" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.87626, -0.127, 0.0264359)
+
+[node name="Area3D" type="Area3D" parent="doubleDoorExt_001" index="3"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="doubleDoorExt_001/Area3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.22431, -1.17105, 0)
+shape = SubResource("BoxShape3D_kn2ng")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="doubleDoorExt_001" index="4"]
+libraries = {
+"": SubResource("AnimationLibrary_nkxpd")
+}
+
+[node name="ch_def1" parent="." index="77" instance=ExtResource("2_pocj1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.1325, 0, 14.8921)
+
+[node name="ch_def2" parent="." index="79" instance=ExtResource("3_lawuf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.3232, 0, 12.5148)

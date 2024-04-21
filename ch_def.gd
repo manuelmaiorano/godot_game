@@ -235,8 +235,9 @@ func do_action_by_number(num):
 					GLOBAL_DEFINITIONS.CHARACTER_ACTION.PICK: 
 						animation_tree["parameters/state/transition_request"] = "pick"
 						current_pistol = object
-						current_pistol.reparent($Human_rig/GeneralSkeleton/GunBone)
-						current_pistol.transform = Transform3D(Basis(Quaternion(0.51, 0.53, 0.47, -0.48)), Vector3(-0.01, -0.014, 0.048))
+						current_pistol.reparent($Human_rig/GeneralSkeleton/GunBone/ShootFrom)
+						#current_pistol.transform = Transform3D(Basis(Quaternion(0.51, 0.53, 0.47, -0.48)), Vector3(-0.01, -0.014, 0.048))
+						current_pistol.transform = Transform3D(Basis.from_euler(Vector3(-1.57, -1.57 , 0)), Vector3(0, 0, 0))
 					GLOBAL_DEFINITIONS.CHARACTER_ACTION.THROW: 
 						animation_tree["parameters/state/transition_request"] = "throw"
 					GLOBAL_DEFINITIONS.CHARACTER_ACTION.SIT: 
