@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://fs5021nryor5"]
+[gd_scene load_steps=7 format=3 uid="uid://fs5021nryor5"]
 
 [ext_resource type="PackedScene" uid="uid://c2pxvex2dvyr8" path="res://assets/test_office_gltf/office.glb" id="1_ad47b"]
 [ext_resource type="PackedScene" uid="uid://ccdjbgkyqnwqx" path="res://ch_def_1.tscn" id="2_c1awj"]
+[ext_resource type="PackedScene" uid="uid://bpyqiq17rrev4" path="res://debug_view.tscn" id="3_dabvo"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5tq0n"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -26,3 +27,5 @@ transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -
 shadow_enabled = true
 
 [node name="ch_def1" parent="." index="15" instance=ExtResource("2_c1awj")]
+
+[node name="DebugView" parent="." index="17" instance=ExtResource("3_dabvo")]

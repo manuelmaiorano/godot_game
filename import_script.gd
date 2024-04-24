@@ -3,6 +3,7 @@ extends EditorScenePostImport
 
 var root = null
 var door_script = null
+var door_regex = null
 # This sample changes all node names.
 # Called right after the scene is imported and gets the root node.
 func _post_import(scene):
@@ -10,6 +11,8 @@ func _post_import(scene):
 	root = scene
 	door_script = load("res://door.gd")
 	print(root)
+	door_regex = RegEx.new()
+	door_regex.compile("\\(([p|n])(\\d+)\\)")
 	iterate(scene)
 	return scene # Remember to return the imported scene
 
@@ -19,6 +22,18 @@ func iterate(node: Node):
 	if node != null:
 		if node.name.contains("Door"):
 			print_rich("Post-import: [b]%s[/b] -> [b]%s[/b]" % [node.name, "modified_" + node.name])
+			var angle = 120.0
+			var result: RegExMatch = door_regex.search(node.name)
+			if result:
+				var value = result.get_string(2).to_float()
+				var sign = result.get_string(1)
+				if sign == "p":
+					angle = value
+				else:
+					angle = -value
+					
+			print(angle)
+				
 			var area = Area3D.new()
 			var collision_shape = CollisionShape3D.new()
 			var box_shape = BoxShape3D.new()
@@ -29,7 +44,7 @@ func iterate(node: Node):
 			
 			animation.track_set_path(0, NodePath("%s:rotation" % node.find_child("door*").name))
 			animation.track_insert_key(0, 0.0, Basis.from_euler(Vector3()))
-			animation.track_insert_key(0, 1.0, Basis.from_euler(Vector3(0, deg_to_rad(120.0), 0)))
+			animation.track_insert_key(0, 1.0, Basis.from_euler(Vector3(0, deg_to_rad(angle), 0)))
 			#box_shape.size = 1.0
 			
 			collision_shape.shape = box_shape
