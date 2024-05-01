@@ -6,28 +6,39 @@ signal state_changed(me)
 @export var opened = false
 
 var collision_shape : CollisionShape3D = null
+var collision_shape2 : CollisionShape3D = null
+var pl_pos: Node3D = null
 
 enum ACTION {OPEN, CLOSE, LOCK, UNLOCK}
 
 func iterate(node):
-	if node != null and  node is StaticBody3D:
+	if node != null and  node is StaticBody3D and node.get_parent_node_3d().name.contains("door"):
 		for child in node.get_children():
+			print(node.get_parent_node_3d().name)
 			if child is CollisionShape3D:
+				if collision_shape != null:
+					collision_shape2 = child
+					return
 				collision_shape = child
-				print(collision_shape)
-				return
 	for child in node.get_children():
 		iterate(child)
 		
 func _ready():
 	iterate(self)
 
-func get_possible_actions():
+func get_possible_actions(pl_pos: Node3D = null):
 	if opened:
 		return [ACTION.CLOSE]
 	if locked:
-		return [ACTION.UNLOCK]
-	return [ACTION.LOCK, ACTION.OPEN]
+		if can_lock():
+			return [ACTION.UNLOCK]
+		else:
+			return []
+		
+	if can_lock():
+		return [ACTION.LOCK, ACTION.OPEN]
+	else:
+		return [ACTION.OPEN]
 	
 func get_player_action(action: ACTION):
 	match action:
@@ -48,6 +59,8 @@ func open():
 		return
 	$"AnimationPlayer".play("open")
 	collision_shape.disabled = true
+	if collision_shape2 != null:
+		collision_shape2.disabled = true
 	delayed_state_change(false)
 	opened = true
 
@@ -56,6 +69,8 @@ func close():
 		return
 	$"AnimationPlayer".play_backwards("open")
 	collision_shape.disabled = true
+	if collision_shape2 != null:
+		collision_shape2.disabled = true
 	delayed_state_change(false)
 	opened = false
 
@@ -81,4 +96,17 @@ func _on_area_3d_body_entered(body):
 func delayed_state_change(value: bool):
 	await get_tree().create_timer(1.0).timeout
 	collision_shape.disabled = value
+	if collision_shape2 != null:
+		collision_shape2.disabled = value
+	
+func can_lock():
+	if pl_pos == null:
+		return false
+	var origTrans: Transform3D = find_child("areaOrigin*").global_transform 
+	var openingDir: Vector3 = origTrans.basis * Vector3(0, 0, 1)
+	var player_dir: Vector3 = pl_pos.global_transform.origin - origTrans.origin
+	return (player_dir).dot(openingDir) > 0
+	
+func set_player(pl):
+	pl_pos = pl
 	

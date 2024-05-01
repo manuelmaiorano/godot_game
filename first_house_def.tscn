@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://4fxmt7gu4rvj"]
+
+[ext_resource type="PackedScene" uid="uid://ctdqx6dpcg3kg" path="res://assets/huge/first_house/house.glb" id="1_nam7e"]
+[ext_resource type="PackedScene" uid="uid://ccdjbgkyqnwqx" path="res://ch_def_1.tscn" id="2_3h52i"]
+[ext_resource type="PackedScene" uid="uid://bpyqiq17rrev4" path="res://debug_view.tscn" id="3_yjp53"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_or45p"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_elu5i"]
+sky_material = SubResource("ProceduralSkyMaterial_or45p")
+
+[sub_resource type="Environment" id="Environment_nenmy"]
+background_mode = 2
+sky = SubResource("Sky_elu5i")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="house" instance=ExtResource("1_nam7e")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="0"]
+environment = SubResource("Environment_nenmy")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." index="1"]
+transform = Transform3D(0.922109, 0.300179, -0.244145, -0.24528, 0.941487, 0.231172, 0.299252, -0.153282, 0.941782, -22.5377, 2.48099, 50.3687)
+light_energy = 3.366
+shadow_enabled = true
+
+[node name="areaOrigin_007" parent="wallW_002/Window_002" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.429012, -0.243888, -0.167715)
+
+[node name="areaOrigin_006" parent="DModular_002/Dway Empty_002/Door (p140)Six Panel_002" index="0"]
+transform = Transform3D(1, 0, -2.84217e-14, 0, 1, 0, 2.84217e-14, 0, 1, -0.459297, 0.960526, -0.079011)
+
+[node name="ch_def1" parent="." index="73" instance=ExtResource("2_3h52i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.3801, 0.806772, 41.8397)
+
+[node name="DebugView" parent="." index="75" instance=ExtResource("3_yjp53")]
+
+[node name="sittingPos3" parent="Sofa" index="4"]
+transform = Transform3D(-1.19209e-07, 6.72881e-08, -1, -0.00704485, 0.999975, 6.77537e-08, 0.999975, 0.00704485, -1.19209e-07, -0.979557, 0.695952, 1.02331)

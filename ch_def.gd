@@ -39,6 +39,8 @@ var motion = Vector2()
 @onready var current_pistol = null
 @onready var current_car = null
 
+@onready var seated = false
+
 class ActionInfo:
 	var object_action_id
 	var player_action_id
@@ -192,18 +194,20 @@ func apply_input(delta: float):
 
 	root_motion = Transform3D(animation_tree.get_root_motion_rotation(), animation_tree.get_root_motion_position())
 	
-	orientation *= root_motion
+	if not motion.length() < 0.001:# or seated:#to fix
+		orientation *= root_motion
 	
 	var h_velocity = orientation.origin / delta
 
 	velocity.x = h_velocity.x
 	velocity.z = h_velocity.z
-	if animation_tree["parameters/jump/active"] and not on_air:
-		velocity.y = h_velocity.y
-	else:
-		velocity += gravity * delta
-	if on_air:
-		velocity += gravity * delta
+	if not seated:
+		if animation_tree["parameters/jump/active"] and not on_air:
+			velocity.y = h_velocity.y
+		else:
+			velocity += gravity * delta
+		if on_air:
+			velocity += gravity * delta
 	
 	set_velocity(velocity)
 	set_up_direction(Vector3.UP)
@@ -247,8 +251,12 @@ func do_action_by_number(num):
 						global_position.x = sit_position.origin.x
 						global_position.z = sit_position.origin.z
 						orientation.basis = sit_position.basis
+						$CollisionShape3D.disabled = true
+						seated = true
 					GLOBAL_DEFINITIONS.CHARACTER_ACTION.STAND: 
 						animation_tree["parameters/sit/conditions/stand"] =  true
+						$CollisionShape3D.disabled = false
+						seated = false
 					GLOBAL_DEFINITIONS.CHARACTER_ACTION.OPEN: 
 						animation_tree["parameters/state/transition_request"] = "open"
 					GLOBAL_DEFINITIONS.CHARACTER_ACTION.ENTER_CAR:
@@ -274,6 +282,8 @@ func update_action_labels():
 	
 func _on_actions_update(object):
 	objects_to_actions[object] = []
+	if object.has_method("set_player"):
+		object.set_player(self)
 	for action in object.get_possible_actions():
 		var action_info = ActionInfo.new()
 		action_info.desc = object.get_action_description(action)

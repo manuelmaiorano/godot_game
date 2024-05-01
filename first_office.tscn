@@ -1,0 +1,33 @@
+[gd_scene load_steps=7 format=3 uid="uid://brulltitvy7f1"]
+
+[ext_resource type="PackedScene" uid="uid://bc3mp88o3wlei" path="res://assets/huge/first_office/office.glb" id="1_mhg8w"]
+[ext_resource type="PackedScene" uid="uid://ccdjbgkyqnwqx" path="res://ch_def_1.tscn" id="2_y15af"]
+[ext_resource type="PackedScene" uid="uid://bpyqiq17rrev4" path="res://debug_view.tscn" id="3_1qsrs"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_we2qh"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_d36li"]
+sky_material = SubResource("ProceduralSkyMaterial_we2qh")
+
+[sub_resource type="Environment" id="Environment_dbphk"]
+background_mode = 2
+sky = SubResource("Sky_d36li")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="office" instance=ExtResource("1_mhg8w")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="0"]
+environment = SubResource("Environment_dbphk")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." index="1"]
+transform = Transform3D(-0.866024, -0.433016, 0.250001, 0.481781, -0.588913, 0.648898, -0.133755, 0.682406, 0.718632, 45.9807, 0, 7.61999)
+light_energy = 2.0
+shadow_enabled = true
+
+[node name="ch_def1" parent="." index="139" instance=ExtResource("2_y15af")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 59.0049, 0.0695361, -7.20016)
+
+[node name="DebugView" parent="." index="140" instance=ExtResource("3_1qsrs")]

@@ -78,7 +78,6 @@ glow_enabled = true
 storage = ExtResource("1_3do5i")
 material = SubResource("Terrain3DMaterial_2fmir")
 texture_list = SubResource("Terrain3DTextureList_rdgaq")
-mesh_lods = 5
 mesh_size = 8
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
