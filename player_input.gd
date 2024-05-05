@@ -32,7 +32,7 @@ var is_capturing := false
 @export var talking := false
 @export var kicking := false
 @export var interacting := false
-@export var action := 0
+@export var action_id := 0
 
 # Camera and effects
 @export var camera_animation : AnimationPlayer
@@ -111,27 +111,20 @@ func _process(delta):
 	kicking = Input.is_action_just_pressed("kick")
 	interacting = Input.is_action_just_pressed("interact")
 
-	var some = false
+	var action = 0
 	if Input.is_action_just_pressed("action_1"): 
 		action = 1
-		some = true
 	if Input.is_action_just_pressed("action_2"): 
 		action = 2
-		some = true
 	if Input.is_action_just_pressed("action_3"): 
 		action = 3
-		some = true
 	if Input.is_action_just_pressed("action_4"): 
 		action = 4
-		some = true
 	if Input.is_action_just_pressed("action_5"): 
 		action = 5
-		some = true
 	if Input.is_action_just_pressed("action_6"): 
 		action = 6
-		some = true
-	if not some: action = 0
-	
+	action_id = action
 	# Fade out to black if falling out of the map. -17 is lower than
 	# the lowest valid position checked the map (which is a bit under -16).
 	# At 15 units below -17 (so -32), the screen turns fully black.

@@ -1,5 +1,5 @@
 extends RigidBody3D
-
+class_name Pistol
 enum ACTION {PICK}
 
 signal state_changed(me)
@@ -32,3 +32,6 @@ func act(action: ACTION):
 	match action:
 		ACTION.PICK: pick()
 	state_changed.emit(self)
+
+func get_object_id():
+	return GLOBAL_DEFINITIONS.OBJECTS.PISTOL

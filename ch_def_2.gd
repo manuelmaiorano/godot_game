@@ -51,7 +51,7 @@ func schedule_plan():
 	while true:
 		await get_tree().create_timer(3.0).timeout
 
-		set_movement_target(get_tree().get_root().get_child(0).find_child("ch_def1").transform.origin)
+		set_movement_target(get_parent().find_child("ch_def1").transform.origin)
 	#await get_tree().create_timer(3.0).timeout
 	#set_movement_target(get_tree().get_root().get_node("Main/Location3").transform.origin)
 	#await get_tree().create_timer(3.0).timeout

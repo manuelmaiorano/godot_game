@@ -1,0 +1,41 @@
+[gd_scene load_steps=8 format=3 uid="uid://bttnxe5a4q3kl"]
+
+[ext_resource type="PackedScene" uid="uid://bn46pcakja2gs" path="res://assets/test_blending/untitled.glb" id="1_e32mk"]
+[ext_resource type="Material" uid="uid://cdesw21atbvcs" path="res://assets/test_blending/mm_test.tres" id="2_pa5b4"]
+[ext_resource type="PackedScene" uid="uid://ccdjbgkyqnwqx" path="res://ch_def_1.tscn" id="3_7cawe"]
+[ext_resource type="PackedScene" uid="uid://bpyqiq17rrev4" path="res://debug_view.tscn" id="4_y2dt5"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_mkvbm"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_fotjk"]
+sky_material = SubResource("ProceduralSkyMaterial_mkvbm")
+
+[sub_resource type="Environment" id="Environment_pbk61"]
+background_mode = 2
+sky = SubResource("Sky_fotjk")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="untitled" instance=ExtResource("1_e32mk")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="0"]
+environment = SubResource("Environment_pbk61")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." index="1"]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Plane" parent="." index="2"]
+surface_material_override/0 = ExtResource("2_pa5b4")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.58722, 3.17552, 0.494324)
+use_collision = true
+size = Vector3(15.2054, 1, 17.8148)
+
+[node name="ch_def1" parent="." index="4" instance=ExtResource("3_7cawe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.818361, 4.01079, 0)
+
+[node name="DebugView" parent="." index="5" instance=ExtResource("4_y2dt5")]

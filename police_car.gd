@@ -1,5 +1,5 @@
 extends VehicleBody3D
-
+class_name Car
 enum ACTION {ENTER, EXIT}
 
 signal state_changed(me)
@@ -68,3 +68,7 @@ func _physics_process(delta):
 	
 	rpm = abs($Wheel_RR.get_rpm())
 	$Wheel_RR.engine_force = acc * MAX_TRQ * (1-rpm/MAX_RPM)
+
+
+func get_object_id():
+	return GLOBAL_DEFINITIONS.OBJECTS.CAR

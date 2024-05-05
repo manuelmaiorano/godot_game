@@ -1,6 +1,5 @@
 extends Node3D
-
-
+class_name Chair
 enum ACTION {SIT, STAND}
 
 signal state_changed(me)
