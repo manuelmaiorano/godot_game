@@ -1,11 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://deqtiwcx4a07l"]
+[gd_scene load_steps=11 format=3 uid="uid://deqtiwcx4a07l"]
 
 [ext_resource type="PackedScene" uid="uid://cw8hjd46xvcco" path="res://assets/models/dog.glb" id="1_on80e"]
-[ext_resource type="Script" uid="uid://yvlgjjkmf4r4" path="res://scripts/dog.gd" id="1_vwjdu"]
-[ext_resource type="Script" uid="uid://dxg0yepbv63k0" path="res://addons/godot_state_charts/state_chart.gd" id="3_tpbal"]
-[ext_resource type="Script" uid="uid://cwxxkh1jh6pp4" path="res://addons/godot_state_charts/compound_state.gd" id="4_iaoh4"]
-[ext_resource type="Script" uid="uid://bitddddrhbl0d" path="res://addons/godot_state_charts/atomic_state.gd" id="5_i2xh6"]
-[ext_resource type="Script" uid="uid://knk6whqnftyj" path="res://addons/godot_state_charts/transition.gd" id="6_iaoh4"]
+[ext_resource type="Script" uid="uid://yvlgjjkmf4r4" path="res://scripts/entity.gd" id="1_vwjdu"]
+[ext_resource type="PackedScene" uid="uid://dis5xffdkf7e6" path="res://scenes/components/enemy_behaviour_component.tscn" id="2_qjqk5"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_on80e"]
 radius = 2.45747
@@ -51,59 +48,23 @@ node_connections = [&"Transition", 0, &"Animation", &"Transition", 1, &"Animatio
 [sub_resource type="BoxShape3D" id="BoxShape3D_iaoh4"]
 size = Vector3(21.8606, 16.7523, 25.4759)
 
-[node name="Dog" type="CharacterBody3D"]
+[node name="Dog" type="CharacterBody3D" node_paths=PackedStringArray("animation_tree", "model")]
 collision_layer = 2
 collision_mask = 3
 script = ExtResource("1_vwjdu")
+animation_tree = NodePath("AnimationTree")
+model = NodePath("dog")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.61026, 0)
 shape = SubResource("CapsuleShape3D_on80e")
 
-[node name="EnemyBehaviourComponent" type="Node" parent="."]
-
-[node name="StateChart" type="Node" parent="EnemyBehaviourComponent"]
-unique_name_in_owner = true
-script = ExtResource("3_tpbal")
-metadata/_custom_type_script = "uid://dxg0yepbv63k0"
-
-[node name="MovingLogic" type="Node" parent="EnemyBehaviourComponent/StateChart"]
-script = ExtResource("4_iaoh4")
-initial_state = NodePath("Idle")
-metadata/_custom_type_script = "uid://cwxxkh1jh6pp4"
-
-[node name="Idle" type="Node" parent="EnemyBehaviourComponent/StateChart/MovingLogic"]
-script = ExtResource("5_i2xh6")
-
-[node name="ToWalk" type="Node" parent="EnemyBehaviourComponent/StateChart/MovingLogic/Idle"]
-script = ExtResource("6_iaoh4")
-to = NodePath("../../Walk")
-event = &"go_to_target"
-delay_in_seconds = "0.0"
-
-[node name="Walk" type="Node" parent="EnemyBehaviourComponent/StateChart/MovingLogic"]
-script = ExtResource("5_i2xh6")
-
-[node name="ToAttack" type="Node" parent="EnemyBehaviourComponent/StateChart/MovingLogic/Walk"]
-script = ExtResource("6_iaoh4")
-to = NodePath("../../Attack")
-event = &"attack"
-delay_in_seconds = "0.5"
-
-[node name="ToIdle" type="Node" parent="EnemyBehaviourComponent/StateChart/MovingLogic/Walk"]
-script = ExtResource("6_iaoh4")
-to = NodePath("../../Idle")
-event = &"stop_moving"
-delay_in_seconds = "0.0"
-metadata/_custom_type_script = "uid://knk6whqnftyj"
-
-[node name="Attack" type="Node" parent="EnemyBehaviourComponent/StateChart/MovingLogic"]
-script = ExtResource("5_i2xh6")
-
-[node name="ToCooldown" type="Node" parent="EnemyBehaviourComponent/StateChart/MovingLogic/Attack"]
-script = ExtResource("6_iaoh4")
-to = NodePath("../../Walk")
-delay_in_seconds = "1.5"
+[node name="EnemyBehaviourComponent" parent="." node_paths=PackedStringArray("agent", "model", "animation_tree", "detection_area") instance=ExtResource("2_qjqk5")]
+agent = NodePath("..")
+model = NodePath("../dog")
+animation_tree = NodePath("../AnimationTree")
+detection_area = NodePath("../DetectionArea")
+distance_to_attack = 10.0
 
 [node name="dog" parent="." instance=ExtResource("1_on80e")]
 
@@ -114,7 +75,7 @@ bones/5/rotation = Quaternion(1, -1.83743e-15, -3.13917e-07, -2.98023e-08)
 bones/8/rotation = Quaternion(-1.04216e-14, 2.38419e-07, 4.37114e-08, 1)
 bones/10/rotation = Quaternion(-7.09264e-08, 0.98426, 0.176724, 7.43096e-08)
 bones/11/rotation = Quaternion(1, -6.15618e-15, 3.13917e-07, -2.98023e-08)
-bones/13/position = Vector3(0, 0, 4.4257)
+bones/13/position = Vector3(0, 0, 4.42564)
 bones/13/rotation = Quaternion(-5.33851e-08, 0.707107, 0.707107, -5.33851e-08)
 bones/15/rotation = Quaternion(0.167584, -3.82891e-15, 3.9955e-08, 0.985858)
 bones/16/rotation = Quaternion(0.482513, -1.41964e-14, 1.1504e-07, 0.875889)
@@ -126,13 +87,13 @@ bones/23/rotation = Quaternion(-0.911961, 1.14733e-07, 1.37806e-07, 0.410278)
 bones/25/rotation = Quaternion(0.16769, 0.304416, 0.554551, 0.756098)
 bones/26/rotation = Quaternion(0.833781, 2.29685e-08, 2.48509e-08, 0.552096)
 bones/27/rotation = Quaternion(-0.91196, 1.55382e-07, -3.03579e-07, 0.410278)
-bones/28/rotation = Quaternion(-2.60043e-07, 0.31585, 0.948809, 3.60342e-07)
-bones/29/rotation = Quaternion(-0.533666, 3.0003e-07, 3.98076e-07, 0.845695)
-bones/30/rotation = Quaternion(0.75083, -7.354e-07, -4.20069e-08, 0.660495)
+bones/28/rotation = Quaternion(-2.60043e-07, 0.315859, 0.948806, 3.60354e-07)
+bones/29/rotation = Quaternion(-0.533682, 3.00026e-07, 3.98087e-07, 0.845685)
+bones/30/rotation = Quaternion(0.750836, -7.35402e-07, -4.20166e-08, 0.660489)
 bones/31/rotation = Quaternion(0.176724, -2.37357e-08, -1.83966e-07, 0.984261)
-bones/32/rotation = Quaternion(4.01914e-08, 0.31585, 0.948809, -2.88055e-07)
-bones/33/rotation = Quaternion(-0.533666, -3.04859e-07, -3.99266e-07, 0.845695)
-bones/34/rotation = Quaternion(0.75083, 6.35282e-07, 8.11668e-08, 0.660496)
+bones/32/rotation = Quaternion(4.01921e-08, 0.315859, 0.948806, -2.88065e-07)
+bones/33/rotation = Quaternion(-0.533682, -3.04855e-07, -3.99278e-07, 0.845685)
+bones/34/rotation = Quaternion(0.750836, 6.35284e-07, 8.11755e-08, 0.660489)
 bones/35/rotation = Quaternion(0.176723, -7.5225e-09, 3.58058e-07, 0.984261)
 bones/36/position = Vector3(2.08915, 4.15549, 3.8907)
 bones/36/rotation = Quaternion(-1.17479e-07, 0.0179086, 0.99984, -3.91629e-08)
@@ -155,7 +116,7 @@ callback_mode_process = 0
 tree_root = SubResource("AnimationNodeBlendTree_v3i3p")
 anim_player = NodePath("../dog/AnimationPlayer")
 parameters/Transition/current_state = "idle"
-parameters/Transition/transition_request = "idle"
+parameters/Transition/transition_request = ""
 parameters/Transition/current_index = 0
 
 [node name="DetectionArea" type="Area3D" parent="."]
@@ -167,13 +128,6 @@ monitorable = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.824051, 8.22229, 18.4533)
 shape = SubResource("BoxShape3D_iaoh4")
 
-[connection signal="state_entered" from="EnemyBehaviourComponent/StateChart/MovingLogic/Idle" to="." method="_on_idle_state_entered"]
-[connection signal="state_physics_processing" from="EnemyBehaviourComponent/StateChart/MovingLogic/Idle" to="." method="_on_idle_state_physics_processing"]
-[connection signal="state_entered" from="EnemyBehaviourComponent/StateChart/MovingLogic/Walk" to="." method="_on_walk_state_entered"]
-[connection signal="state_physics_processing" from="EnemyBehaviourComponent/StateChart/MovingLogic/Walk" to="." method="_on_walk_state_physics_processing"]
-[connection signal="state_entered" from="EnemyBehaviourComponent/StateChart/MovingLogic/Attack" to="." method="_on_attack_state_entered"]
-[connection signal="state_exited" from="EnemyBehaviourComponent/StateChart/MovingLogic/Attack" to="." method="_on_attack_state_exited"]
-[connection signal="state_physics_processing" from="EnemyBehaviourComponent/StateChart/MovingLogic/Attack" to="." method="_on_attack_state_physics_processing"]
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
 
 [editable path="dog"]
