@@ -1,0 +1,63 @@
+[gd_scene load_steps=9 format=3 uid="uid://dkk0f5wj0at7x"]
+
+[ext_resource type="PackedScene" uid="uid://cjca6mx3264lj" path="res://scenes/player.tscn" id="1_ig7tw"]
+[ext_resource type="Texture2D" uid="uid://dujcu7jcy8evu" path="res://assets/textures/texture_01.png" id="2_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://deqtiwcx4a07l" path="res://scenes/dog.tscn" id="3_h2yge"]
+[ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="4_1bvp3"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0xm2m"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_h2yge"]
+sky_material = SubResource("ProceduralSkyMaterial_0xm2m")
+
+[sub_resource type="Environment" id="Environment_1bvp3"]
+background_mode = 2
+sky = SubResource("Sky_h2yge")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h2yge"]
+albedo_texture = ExtResource("2_0xm2m")
+
+[node name="main" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1bvp3")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Player" parent="." instance=ExtResource("1_ig7tw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9.964, 0)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.7263, -10.1609, 3.072)
+material_override = SubResource("StandardMaterial3D_h2yge")
+use_collision = true
+size = Vector3(135.261, 0.388672, 119.935)
+
+[node name="Dog" parent="." instance=ExtResource("3_h2yge")]
+transform = Transform3D(-0.0792073, 0, 0.996858, 0, 1, 0, -0.996858, 0, -0.0792073, -14.9277, -9.96656, -29.52)
+
+[node name="Skeleton3D" parent="Dog/dog/Armature_003" index="0"]
+bones/13/position = Vector3(0, 0, 4.43321)
+bones/28/rotation = Quaternion(-2.60045e-07, 0.314801, 0.949158, 3.58994e-07)
+bones/29/rotation = Quaternion(-0.531865, 3.00432e-07, 3.96732e-07, 0.846829)
+bones/30/rotation = Quaternion(0.750154, -7.35126e-07, -4.08963e-08, 0.661263)
+bones/32/rotation = Quaternion(4.01095e-08, 0.314801, 0.949158, -2.86944e-07)
+bones/33/rotation = Quaternion(-0.531865, -3.05267e-07, -3.97919e-07, 0.846829)
+bones/34/rotation = Quaternion(0.750154, 6.3505e-07, 8.01591e-08, 0.661263)
+
+[node name="AnimationTree" parent="Dog" index="3"]
+parameters/Transition/transition_request = ""
+
+[node name="StateChartDebugger" parent="." instance=ExtResource("4_1bvp3")]
+offset_left = 1476.0
+offset_top = 835.0
+initial_node_to_watch = NodePath("../Dog/StateChart")
+
+[editable path="Dog"]
+[editable path="Dog/dog"]
