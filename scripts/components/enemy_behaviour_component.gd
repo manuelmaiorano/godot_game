@@ -24,6 +24,14 @@ func _on_detection_area_body_entered(body: Node3D) -> void:
 			target = body
 			state_chart.send_event("go_to_target")
 			return
+
+func take_damage_from_bullet(bullet, damage):
+	var body = bullet.shooter
+	for group in body.get_groups():
+		if antagonist_groups.find(group) > -1:
+			target = body
+			state_chart.send_event("go_to_target")
+			return
 	
 
 #IDLE

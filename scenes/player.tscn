@@ -75,6 +75,18 @@ tracks/0/keys = {
 "update": 0,
 "values": [0.0, 4.885]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Yaw/Pitch:spring_length")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [10.0, 5.0]
+}
 
 [sub_resource type="Animation" id="Animation_fjrip"]
 length = 0.001
@@ -89,6 +101,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Yaw/Pitch:spring_length")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [10.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_smehm"]
@@ -248,12 +272,27 @@ libraries = {
 &"": SubResource("AnimationLibrary_smehm")
 }
 
+[node name="ShootFrom" type="Marker3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.569077, 1.56689, -1.51667)
+
+[node name="DummyCollision" type="StaticBody3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DummyCollision"]
+
 [connection signal="state_entered" from="StateChart/CompoundState/Onground/Idle" to="." method="_on_idle_state_entered"]
 [connection signal="state_physics_processing" from="StateChart/CompoundState/Onground/Idle" to="." method="_on_idle_state_physics_processing"]
+[connection signal="state_unhandled_input" from="StateChart/CompoundState/Onground/Idle" to="." method="_on_idle_state_unhandled_input"]
 [connection signal="state_entered" from="StateChart/CompoundState/Onground/Run" to="." method="_on_run_state_entered"]
 [connection signal="state_physics_processing" from="StateChart/CompoundState/Onground/Run" to="." method="_on_run_state_physics_processing"]
 [connection signal="state_entered" from="StateChart/CompoundState/Onground/Jumping" to="." method="_on_jumping_state_entered"]
 [connection signal="state_physics_processing" from="StateChart/CompoundState/Onground/Jumping" to="." method="_on_jumping_state_physics_processing"]
+[connection signal="state_entered" from="StateChart/CompoundState/Onground/Aiming" to="." method="_on_aiming_state_entered"]
+[connection signal="state_exited" from="StateChart/CompoundState/Onground/Aiming" to="." method="_on_aiming_state_exited"]
+[connection signal="state_physics_processing" from="StateChart/CompoundState/Onground/Aiming" to="." method="_on_aiming_state_physics_processing"]
+[connection signal="state_unhandled_input" from="StateChart/CompoundState/Onground/Aiming" to="." method="_on_aiming_state_unhandled_input"]
 [connection signal="state_entered" from="StateChart/CompoundState/Falling" to="." method="_on_falling_state_entered"]
 [connection signal="state_physics_processing" from="StateChart/CompoundState/Falling" to="." method="_on_falling_state_physics_processing"]
 
