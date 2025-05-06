@@ -179,10 +179,10 @@ func _on_aiming_state_physics_processing(delta: float) -> void:
 
 func get_target_posiiton():
 	var crosshair = get_tree().get_first_node_in_group("crosshair")
+	
 	var ch_pos = crosshair.position + crosshair.size * 0.5
 	var ray_from = camera_3d.project_ray_origin(ch_pos)
 	var ray_dir = camera_3d.project_ray_normal(ch_pos)
-	var collision_mask = $DummyCollision.collision_mask
 	var target_position
 		
 	var col = get_parent().get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(

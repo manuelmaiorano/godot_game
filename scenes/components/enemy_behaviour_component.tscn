@@ -17,46 +17,63 @@ metadata/_custom_type_script = "uid://dxg0yepbv63k0"
 
 [node name="MovingLogic" type="Node" parent="StateChart"]
 script = ExtResource("3_v3goe")
+initial_state = NodePath("Alive")
+metadata/_custom_type_script = "uid://cwxxkh1jh6pp4"
+
+[node name="Alive" type="Node" parent="StateChart/MovingLogic"]
+script = ExtResource("3_v3goe")
 initial_state = NodePath("Idle")
 metadata/_custom_type_script = "uid://cwxxkh1jh6pp4"
 
-[node name="Idle" type="Node" parent="StateChart/MovingLogic"]
+[node name="Idle" type="Node" parent="StateChart/MovingLogic/Alive"]
 script = ExtResource("4_ch1o0")
 
-[node name="ToWalk" type="Node" parent="StateChart/MovingLogic/Idle"]
+[node name="ToWalk" type="Node" parent="StateChart/MovingLogic/Alive/Idle"]
 script = ExtResource("5_hkovr")
 to = NodePath("../../Walk")
 event = &"go_to_target"
 delay_in_seconds = "0.0"
 
-[node name="Walk" type="Node" parent="StateChart/MovingLogic"]
+[node name="Walk" type="Node" parent="StateChart/MovingLogic/Alive"]
 script = ExtResource("4_ch1o0")
 
-[node name="ToAttack" type="Node" parent="StateChart/MovingLogic/Walk"]
+[node name="ToAttack" type="Node" parent="StateChart/MovingLogic/Alive/Walk"]
 script = ExtResource("5_hkovr")
 to = NodePath("../../Attack")
 event = &"attack"
 delay_in_seconds = "0.5"
 
-[node name="ToIdle" type="Node" parent="StateChart/MovingLogic/Walk"]
+[node name="ToIdle" type="Node" parent="StateChart/MovingLogic/Alive/Walk"]
 script = ExtResource("5_hkovr")
 to = NodePath("../../Idle")
 event = &"stop_moving"
 delay_in_seconds = "0.0"
 metadata/_custom_type_script = "uid://knk6whqnftyj"
 
-[node name="Attack" type="Node" parent="StateChart/MovingLogic"]
+[node name="Attack" type="Node" parent="StateChart/MovingLogic/Alive"]
 script = ExtResource("4_ch1o0")
 
-[node name="ToCooldown" type="Node" parent="StateChart/MovingLogic/Attack"]
+[node name="ToCooldown" type="Node" parent="StateChart/MovingLogic/Alive/Attack"]
 script = ExtResource("5_hkovr")
 to = NodePath("../../Walk")
 delay_in_seconds = "1.5"
 
-[connection signal="state_entered" from="StateChart/MovingLogic/Idle" to="." method="_on_idle_state_entered"]
-[connection signal="state_physics_processing" from="StateChart/MovingLogic/Idle" to="." method="_on_idle_state_physics_processing"]
-[connection signal="state_entered" from="StateChart/MovingLogic/Walk" to="." method="_on_walk_state_entered"]
-[connection signal="state_physics_processing" from="StateChart/MovingLogic/Walk" to="." method="_on_walk_state_physics_processing"]
-[connection signal="state_entered" from="StateChart/MovingLogic/Attack" to="." method="_on_attack_state_entered"]
-[connection signal="state_exited" from="StateChart/MovingLogic/Attack" to="." method="_on_attack_state_exited"]
-[connection signal="state_physics_processing" from="StateChart/MovingLogic/Attack" to="." method="_on_attack_state_physics_processing"]
+[node name="ToDead" type="Node" parent="StateChart/MovingLogic/Alive"]
+script = ExtResource("5_hkovr")
+to = NodePath("../../Dead")
+event = &"die"
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://knk6whqnftyj"
+
+[node name="Dead" type="Node" parent="StateChart/MovingLogic"]
+script = ExtResource("4_ch1o0")
+metadata/_custom_type_script = "uid://bitddddrhbl0d"
+
+[connection signal="state_entered" from="StateChart/MovingLogic/Alive/Idle" to="." method="_on_idle_state_entered"]
+[connection signal="state_physics_processing" from="StateChart/MovingLogic/Alive/Idle" to="." method="_on_idle_state_physics_processing"]
+[connection signal="state_entered" from="StateChart/MovingLogic/Alive/Walk" to="." method="_on_walk_state_entered"]
+[connection signal="state_physics_processing" from="StateChart/MovingLogic/Alive/Walk" to="." method="_on_walk_state_physics_processing"]
+[connection signal="state_entered" from="StateChart/MovingLogic/Alive/Attack" to="." method="_on_attack_state_entered"]
+[connection signal="state_exited" from="StateChart/MovingLogic/Alive/Attack" to="." method="_on_attack_state_exited"]
+[connection signal="state_physics_processing" from="StateChart/MovingLogic/Alive/Attack" to="." method="_on_attack_state_physics_processing"]
+[connection signal="state_entered" from="StateChart/MovingLogic/Dead" to="." method="_on_dead_state_entered"]

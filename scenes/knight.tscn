@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://bhw884mxsuvea"]
+[gd_scene load_steps=12 format=3 uid="uid://bhw884mxsuvea"]
 
 [ext_resource type="PackedScene" uid="uid://18wsrhgq604p" path="res://assets/models/knight.glb" id="1_dp28g"]
 [ext_resource type="Script" uid="uid://yvlgjjkmf4r4" path="res://scripts/entity.gd" id="1_qxgmm"]
+[ext_resource type="Resource" uid="uid://dw1kb07uq6u4w" path="res://resources/knight.tres" id="2_0dyjn"]
 [ext_resource type="PackedScene" uid="uid://dis5xffdkf7e6" path="res://scenes/components/enemy_behaviour_component.tscn" id="2_3i0j8"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3i0j8"]
@@ -51,6 +52,7 @@ size = Vector3(13.7151, 6.22039, 15.0116)
 script = ExtResource("1_qxgmm")
 animation_tree = NodePath("AnimationTree")
 model = NodePath("knight")
+entity_stats = ExtResource("2_0dyjn")
 
 [node name="knight" parent="." instance=ExtResource("1_dp28g")]
 

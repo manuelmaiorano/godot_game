@@ -3,6 +3,7 @@ extends CharacterBody3D
 
 @export var animation_tree: AnimationTree
 @export var model: Node3D
+@export var entity_stats: EntityStats
 
 
 var orientation = Transform3D()
@@ -38,6 +39,12 @@ func apply_root_motion_to_velocity(delta):
 func apply_orientation_to_model():
 	orientation = orientation.orthonormalized()
 	model.global_transform.basis = orientation.basis
+	
+func do_damage():
+	pass
 
 func take_damage_from_bullet(bullet, damage):
 	$EnemyBehaviourComponent.take_damage_from_bullet(bullet, damage)
+	
+func take_melee_damage(attaker, damage):
+	$EnemyBehaviourComponent.take_melee_damage(attaker, damage)

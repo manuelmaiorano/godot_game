@@ -276,12 +276,6 @@ libraries = {
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.569077, 1.56689, -1.51667)
 
-[node name="DummyCollision" type="StaticBody3D" parent="."]
-collision_layer = 0
-collision_mask = 2
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="DummyCollision"]
-
 [connection signal="state_entered" from="StateChart/CompoundState/Onground/Idle" to="." method="_on_idle_state_entered"]
 [connection signal="state_physics_processing" from="StateChart/CompoundState/Onground/Idle" to="." method="_on_idle_state_physics_processing"]
 [connection signal="state_unhandled_input" from="StateChart/CompoundState/Onground/Idle" to="." method="_on_idle_state_unhandled_input"]
