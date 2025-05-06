@@ -12,6 +12,7 @@ const ROTATION_INTERPOLATE_SPEED = 10
 @onready var yaw:Node3D =  %Yaw
 @onready var gravity = ProjectSettings.get_setting("physics/3d/default_gravity") * ProjectSettings.get_setting("physics/3d/default_gravity_vector")
 @onready var animation_tree: AnimationTree = %AnimationTree
+@onready var camera_animation: AnimationPlayer = %CameraAnimation
 
 @onready var state_chart: StateChart = %StateChart
 
@@ -33,6 +34,10 @@ func _input(event:InputEvent) -> void:
 	
 	pitch.rotation_degrees.x = clamp(pitch.rotation_degrees.x - rad_to_deg(mouse_movement.y), -clamp_pitch_rotation, clamp_pitch_rotation )
 	yaw.rotate_y(-mouse_movement.x )
+
+func _unhandled_input(event: InputEvent) -> void:
+	if Input.is_action_just_pressed("aim"):
+		camera_animation.play("zoom_in")
 
 ### IDLE
 

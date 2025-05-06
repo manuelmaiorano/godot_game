@@ -9,6 +9,7 @@ extends Node
 @export var detection_area: Area3D
 
 @export var distance_to_attack: float
+@export var antagonist_groups: Array[StringName]
 
 var target: Node3D
 
@@ -18,8 +19,12 @@ func _ready() -> void:
 func _on_detection_area_body_entered(body: Node3D) -> void:
 	if body == self:
 		return
-	target = body
-	state_chart.send_event("go_to_target")
+	for group in body.get_groups():
+		if antagonist_groups.find(group) > -1:
+			target = body
+			state_chart.send_event("go_to_target")
+			return
+	
 
 #IDLE
 func _on_idle_state_entered() -> void:
@@ -58,7 +63,7 @@ func _on_attack_state_entered() -> void:
 
 
 func _on_attack_state_physics_processing(delta: float) -> void:
-	
+	agent.rotate_towards_target(delta, target)
 	agent.apply_root_motion_to_velocity(delta)
 	agent.velocity += gravity * delta
 	

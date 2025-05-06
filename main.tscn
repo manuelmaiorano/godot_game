@@ -1,10 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://dkk0f5wj0at7x"]
+[gd_scene load_steps=8 format=3 uid="uid://dkk0f5wj0at7x"]
 
 [ext_resource type="PackedScene" uid="uid://cjca6mx3264lj" path="res://scenes/player.tscn" id="1_ig7tw"]
 [ext_resource type="Texture2D" uid="uid://dujcu7jcy8evu" path="res://assets/textures/texture_01.png" id="2_0xm2m"]
-[ext_resource type="PackedScene" uid="uid://deqtiwcx4a07l" path="res://scenes/dog.tscn" id="3_h2yge"]
-[ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="4_1bvp3"]
-[ext_resource type="PackedScene" uid="uid://0xnk1iydrnbm" path="res://scenes/giant.tscn" id="5_lquwl"]
+[ext_resource type="Texture2D" uid="uid://c5axvbviovpdm" path="res://assets/textures/icons/crosshair.png" id="3_h2yge"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0xm2m"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -32,33 +30,126 @@ transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -
 shadow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("1_ig7tw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9.964, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -135, -396, 1191)
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.7263, -10.1609, 3.072)
+[node name="World" type="Node3D" parent="."]
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="World"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.6433, -206.467, -169.499)
 material_override = SubResource("StandardMaterial3D_h2yge")
 use_collision = true
-size = Vector3(135.261, 0.388672, 119.935)
+size = Vector3(384, 393, 486)
 
-[node name="Dog" parent="." instance=ExtResource("3_h2yge")]
-transform = Transform3D(-0.0792073, 0, 0.996858, 0, 1, 0, -0.996858, 0, -0.0792073, -14.9277, -9.96656, -29.52)
+[node name="CSGBox3D15" type="CSGBox3D" parent="World"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 181.643, -497.467, 1438.5)
+material_override = SubResource("StandardMaterial3D_h2yge")
+use_collision = true
+size = Vector3(1374, 201, 1476)
 
-[node name="Skeleton3D" parent="Dog/dog/Armature_003" index="0"]
-bones/13/position = Vector3(0, 0, 4.43837)
-bones/28/rotation = Quaternion(-2.60046e-07, 0.314076, 0.949398, 3.58063e-07)
-bones/29/rotation = Quaternion(-0.530619, 3.00709e-07, 3.95802e-07, 0.847611)
-bones/30/rotation = Quaternion(0.749686, -7.34936e-07, -4.01294e-08, 0.661794)
-bones/32/rotation = Quaternion(4.00532e-08, 0.314076, 0.949398, -2.86176e-07)
-bones/33/rotation = Quaternion(-0.530619, -3.05549e-07, -3.96986e-07, 0.847611)
-bones/34/rotation = Quaternion(0.749686, 6.34889e-07, 7.94632e-08, 0.661794)
+[node name="CSGBox3D13" type="CSGBox3D" parent="World"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.1433, -209.467, 226.501)
+material_override = SubResource("StandardMaterial3D_h2yge")
+use_collision = true
+size = Vector3(129, 141, 306)
 
-[node name="StateChartDebugger" parent="." instance=ExtResource("4_1bvp3")]
-offset_left = 1476.0
-offset_top = 835.0
-initial_node_to_watch = NodePath("../Dog/StateChart")
+[node name="CSGBox3D12" type="CSGBox3D" parent="World"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 21.1433, -236.916, 220.599)
+material_override = SubResource("StandardMaterial3D_h2yge")
+use_collision = true
+size = Vector3(129, 240, 486)
 
-[node name="Giant" parent="." instance=ExtResource("5_lquwl")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -74.8988, -9.96224, -5.99578)
+[node name="CSGBox3D14" type="CSGBox3D" parent="World"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.1433, -308.467, 556.501)
+material_override = SubResource("StandardMaterial3D_h2yge")
+use_collision = true
+size = Vector3(129, 141, 306)
 
-[editable path="Dog"]
-[editable path="Dog/dog"]
+[node name="CSGBox3D16" type="CSGBox3D" parent="World"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 21.1433, -365.916, 530.387)
+material_override = SubResource("StandardMaterial3D_h2yge")
+use_collision = true
+size = Vector3(129, 240, 486)
+
+[node name="CSGBox3D17" type="CSGBox3D" parent="World"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 21.1433, -462.516, 857.387)
+material_override = SubResource("StandardMaterial3D_h2yge")
+use_collision = true
+size = Vector3(129, 240, 486)
+
+[node name="CSGBox3D11" type="CSGBox3D" parent="World"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.6433, 82.8391, -181.499)
+material_override = SubResource("StandardMaterial3D_h2yge")
+use_collision = true
+size = Vector3(258, 0.388672, 264)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="World"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.88024, 5.03344, -51.5297)
+material_override = SubResource("StandardMaterial3D_h2yge")
+use_collision = true
+size = Vector3(10, 30, 10)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="World"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.2012, 37.9409, -52.2178)
+material_override = SubResource("StandardMaterial3D_h2yge")
+use_collision = true
+size = Vector3(264, 95.8149, 2.9436)
+
+[node name="CSGBox3D10" type="CSGBox3D" parent="World"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.238, 37.9409, -310.218)
+material_override = SubResource("StandardMaterial3D_h2yge")
+use_collision = true
+size = Vector3(264.074, 95.8149, 2.9436)
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="World"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 147.238, 37.9409, -181.218)
+material_override = SubResource("StandardMaterial3D_h2yge")
+use_collision = true
+size = Vector3(264.074, 95.8149, 2.9436)
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="World"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -114, 39, -180)
+material_override = SubResource("StandardMaterial3D_h2yge")
+use_collision = true
+size = Vector3(264.074, 95.8149, 2.9436)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="World"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37.0914, 5.03344, -51.5297)
+material_override = SubResource("StandardMaterial3D_h2yge")
+use_collision = true
+size = Vector3(10, 30, 10)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="World"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 20.0216, 25.0334, -53.4402)
+material_override = SubResource("StandardMaterial3D_h2yge")
+use_collision = true
+size = Vector3(10, 55.2651, 10)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_h2yge")
+stretch_mode = 4

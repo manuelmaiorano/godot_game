@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cjca6mx3264lj"]
+[gd_scene load_steps=18 format=3 uid="uid://cjca6mx3264lj"]
 
 [ext_resource type="PackedScene" uid="uid://bjrdo414yrqyh" path="res://assets/models/chessinggame.glb" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://dgkrnefdt5vfk" path="res://scripts/player.gd" id="1_tuyoq"]
@@ -22,6 +22,8 @@ animation = &"fall"
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fjrip"]
 animation = &"idle"
 
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_tuyoq"]
+
 [sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_smehm"]
 xfade_time = 0.2
 input_0/name = "idle"
@@ -42,19 +44,58 @@ input_3/break_loop_at_end = false
 input_3/reset = true
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_tuyoq"]
-graph_offset = Vector2(-385.372, 113.87)
+graph_offset = Vector2(-436, -104)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_fjrip")
 nodes/Animation/position = Vector2(60, 20)
 "nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_tuyoq")
-"nodes/Animation 2/position" = Vector2(60, 200)
+"nodes/Animation 2/position" = Vector2(-80, 220)
 "nodes/Animation 3/node" = SubResource("AnimationNodeAnimation_smehm")
 "nodes/Animation 3/position" = Vector2(120, 340)
 "nodes/Animation 4/node" = SubResource("AnimationNodeAnimation_ur7pv")
 "nodes/Animation 4/position" = Vector2(40, 520)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_tuyoq")
+nodes/TimeScale/position = Vector2(180, 160)
 nodes/Transition/node = SubResource("AnimationNodeTransition_smehm")
 nodes/Transition/position = Vector2(500, 60)
 nodes/output/position = Vector2(760, 120)
-node_connections = [&"Transition", 0, &"Animation", &"Transition", 1, &"Animation 2", &"Transition", 2, &"Animation 3", &"Transition", 3, &"Animation 4", &"output", 0, &"Transition"]
+node_connections = [&"TimeScale", 0, &"Animation 2", &"Transition", 0, &"Animation", &"Transition", 1, &"TimeScale", &"Transition", 2, &"Animation 3", &"Transition", 3, &"Animation 4", &"output", 0, &"Transition"]
+
+[sub_resource type="Animation" id="Animation_tuyoq"]
+resource_name = "zoom_in"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Yaw/Pitch/Camera3D:h_offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 4.885]
+}
+
+[sub_resource type="Animation" id="Animation_fjrip"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Yaw/Pitch/Camera3D:h_offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_smehm"]
+_data = {
+&"RESET": SubResource("Animation_fjrip"),
+&"zoom_in": SubResource("Animation_tuyoq")
+}
 
 [node name="Player" type="CharacterBody3D" groups=["player"]]
 collision_layer = 2
@@ -78,18 +119,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.53279, 4.40783)
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
 [node name="Skeleton3D" parent="chessinggame/Armature_001" index="0"]
-bones/7/position = Vector3(0, 0, 1.0704)
+bones/7/position = Vector3(0, 0, 1.06835)
 bones/7/rotation = Quaternion(3.09086e-08, 0.707107, 0.707107, 3.09086e-08)
 bones/13/rotation = Quaternion(0.0220125, 0.434717, -0.06845, 0.897692)
 bones/14/rotation = Quaternion(0.411066, 1.72524e-08, 1.52854e-07, 0.911606)
 bones/17/rotation = Quaternion(0.0320414, -0.463594, 0.107068, 0.878971)
 bones/18/rotation = Quaternion(0.331471, 1.58489e-08, -1.02186e-07, 0.943466)
-bones/20/rotation = Quaternion(-5.11241e-08, 0.106881, 0.994272, 2.7546e-07)
-bones/21/rotation = Quaternion(-0.19887, -6.58794e-09, 4.44353e-07, 0.980026)
-bones/22/rotation = Quaternion(0.535358, -3.37356e-07, -2.24647e-07, 0.844625)
-bones/24/rotation = Quaternion(6.69381e-08, 0.106881, 0.994272, -2.77159e-07)
-bones/25/rotation = Quaternion(-0.19887, 6.58793e-09, -4.44353e-07, 0.980026)
-bones/26/rotation = Quaternion(0.535358, 3.52135e-07, 2.18767e-07, 0.844625)
+bones/20/rotation = Quaternion(-5.09737e-08, 0.112505, 0.993651, 2.88352e-07)
+bones/21/rotation = Quaternion(-0.209206, -6.57346e-09, 4.67448e-07, 0.977872)
+bones/22/rotation = Quaternion(0.539491, -3.42171e-07, -2.35483e-07, 0.841992)
+bones/24/rotation = Quaternion(6.67778e-08, 0.112505, 0.993651, -2.90142e-07)
+bones/25/rotation = Quaternion(-0.209206, 6.57346e-09, -4.67448e-07, 0.977872)
+bones/26/rotation = Quaternion(0.539491, 3.56977e-07, 2.29675e-07, 0.841992)
 bones/27/rotation = Quaternion(0.308471, 4.15797e-08, 1.33607e-07, 0.951234)
 bones/28/position = Vector3(0.961641, -0.184145, 0.267276)
 bones/30/position = Vector3(-0.976214, -0.246263, 0.171608)
@@ -137,6 +178,13 @@ to = NodePath("../../Run")
 event = &"running"
 delay_in_seconds = "0.0"
 
+[node name="ToAiming" type="Node" parent="StateChart/CompoundState/Onground/Idle"]
+script = ExtResource("6_y4r1p")
+to = NodePath("../../Aiming")
+event = &"aim"
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://knk6whqnftyj"
+
 [node name="Run" type="Node" parent="StateChart/CompoundState/Onground"]
 script = ExtResource("5_ur7pv")
 
@@ -161,6 +209,17 @@ to = NodePath("../../Run")
 event = &"landed"
 delay_in_seconds = "0.7"
 
+[node name="Aiming" type="Node" parent="StateChart/CompoundState/Onground"]
+script = ExtResource("5_ur7pv")
+metadata/_custom_type_script = "uid://bitddddrhbl0d"
+
+[node name="ToIdle" type="Node" parent="StateChart/CompoundState/Onground/Aiming"]
+script = ExtResource("6_y4r1p")
+to = NodePath("../../Idle")
+event = &"stop_aim"
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://knk6whqnftyj"
+
 [node name="Falling" type="Node" parent="StateChart/CompoundState"]
 script = ExtResource("5_ur7pv")
 
@@ -178,9 +237,16 @@ root_motion_local = false
 callback_mode_process = 0
 tree_root = SubResource("AnimationNodeBlendTree_tuyoq")
 anim_player = NodePath("../chessinggame/AnimationPlayer")
+parameters/TimeScale/scale = 2.0
 parameters/Transition/current_state = "idle"
 parameters/Transition/transition_request = ""
-parameters/Transition/current_index = 0.366665
+parameters/Transition/current_index = 0.0666305
+
+[node name="CameraAnimation" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+&"": SubResource("AnimationLibrary_smehm")
+}
 
 [connection signal="state_entered" from="StateChart/CompoundState/Onground/Idle" to="." method="_on_idle_state_entered"]
 [connection signal="state_physics_processing" from="StateChart/CompoundState/Onground/Idle" to="." method="_on_idle_state_physics_processing"]

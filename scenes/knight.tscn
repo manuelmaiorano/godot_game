@@ -1,0 +1,126 @@
+[gd_scene load_steps=11 format=3 uid="uid://bhw884mxsuvea"]
+
+[ext_resource type="PackedScene" uid="uid://18wsrhgq604p" path="res://assets/models/knight.glb" id="1_dp28g"]
+[ext_resource type="Script" uid="uid://yvlgjjkmf4r4" path="res://scripts/entity.gd" id="1_qxgmm"]
+[ext_resource type="PackedScene" uid="uid://dis5xffdkf7e6" path="res://scenes/components/enemy_behaviour_component.tscn" id="2_3i0j8"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3i0j8"]
+radius = 0.525481
+height = 3.22796
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qxgmm"]
+animation = &"walk"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0dyjn"]
+animation = &"attack"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5fsgc"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_swm0g"]
+xfade_time = 0.05
+input_0/name = "idle"
+input_0/auto_advance = false
+input_0/break_loop_at_end = false
+input_0/reset = true
+input_1/name = "walk"
+input_1/auto_advance = false
+input_1/break_loop_at_end = false
+input_1/reset = true
+input_2/name = "attack"
+input_2/auto_advance = false
+input_2/break_loop_at_end = false
+input_2/reset = true
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_k2txo"]
+graph_offset = Vector2(-727.21, 64.0578)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_5fsgc")
+nodes/Animation/position = Vector2(-160, 60)
+"nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_qxgmm")
+"nodes/Animation 2/position" = Vector2(-380, 200)
+"nodes/Animation 3/node" = SubResource("AnimationNodeAnimation_0dyjn")
+"nodes/Animation 3/position" = Vector2(-320, 440)
+nodes/Transition/node = SubResource("AnimationNodeTransition_swm0g")
+nodes/Transition/position = Vector2(80, 120)
+node_connections = [&"Transition", 0, &"Animation", &"Transition", 1, &"Animation 2", &"Transition", 2, &"Animation 3", &"output", 0, &"Transition"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mvyd6"]
+size = Vector3(13.7151, 6.22039, 15.0116)
+
+[node name="Knight" type="CharacterBody3D" node_paths=PackedStringArray("animation_tree", "model")]
+script = ExtResource("1_qxgmm")
+animation_tree = NodePath("AnimationTree")
+model = NodePath("knight")
+
+[node name="knight" parent="." instance=ExtResource("1_dp28g")]
+
+[node name="Skeleton3D" parent="knight/Armature_001" index="0"]
+bones/1/position = Vector3(0.392722, 0.242933, -5.92994e-08)
+bones/3/rotation = Quaternion(7.30694e-08, 0.983287, 0.182064, -7.42361e-08)
+bones/4/rotation = Quaternion(1, -3.34287e-14, -3.13916e-07, -8.9407e-08)
+bones/5/position = Vector3(0.372812, 0.477611, -0.912245)
+bones/6/position = Vector3(0.392722, 0.242933, -5.92994e-08)
+bones/10/rotation = Quaternion(-7.30694e-08, 0.983287, 0.182064, 7.42361e-08)
+bones/11/rotation = Quaternion(1, 3.34287e-14, 3.13916e-07, -8.9407e-08)
+bones/12/position = Vector3(-0.185507, -0.113147, 2.80108e-08)
+bones/13/position = Vector3(-2.4735e-07, 7.76034e-35, -1.63813)
+bones/13/rotation = Quaternion(-0.571074, 6.19762e-08, 4.31149e-08, 0.820899)
+bones/19/rotation = Quaternion(0.415164, 0.0534256, -0.196494, 0.886665)
+bones/20/rotation = Quaternion(0.256149, -1.42663e-08, 9.34327e-08, 0.966637)
+bones/21/rotation = Quaternion(0.0802159, 0.154524, -0.312724, 0.933751)
+bones/23/rotation = Quaternion(0.663159, -0.0562101, 0.456314, 0.590626)
+bones/24/rotation = Quaternion(0.00271091, -1.53857e-08, -9.20952e-10, 0.999996)
+bones/25/rotation = Quaternion(0.190851, -0.46796, -0.214072, 0.83592)
+bones/26/rotation = Quaternion(0.130519, 0.489451, 0.860429, -0.0553569)
+bones/27/rotation = Quaternion(-0.439501, 2.49972e-07, 7.93615e-07, 0.898242)
+bones/28/rotation = Quaternion(0.651045, 0.106024, -0.0941205, 0.745681)
+bones/29/rotation = Quaternion(0.182195, 2.88338e-06, -1.58835e-05, 0.983262)
+bones/30/rotation = Quaternion(1.15938e-07, 0.411326, 0.911488, -5.22698e-07)
+bones/31/rotation = Quaternion(-0.505081, -2.42623e-07, -9.11227e-07, 0.863072)
+bones/32/rotation = Quaternion(0.774209, 7.09638e-07, 3.30803e-07, 0.63293)
+bones/33/rotation = Quaternion(0.182217, -1.11097e-08, 3.71047e-07, 0.983258)
+bones/34/position = Vector3(0.662766, 0.527524, 1.04004)
+bones/34/rotation = Quaternion(0.658553, -0.338457, -0.662087, 0.11574)
+bones/35/position = Vector3(1.25255, 0.483355, 0.074641)
+bones/35/rotation = Quaternion(0.252752, -0.252752, 0.660391, -0.660391)
+bones/36/position = Vector3(0.201201, 0.317126, 0.969312)
+bones/36/rotation = Quaternion(0.635102, 0.635102, 0.310879, 0.310879)
+bones/37/position = Vector3(-1.01724, 0.729545, -0.35804)
+
+[node name="AnimationPlayer" parent="knight" index="1"]
+root_motion_track = NodePath("Armature_001/Skeleton3D:root")
+root_motion_local = false
+callback_mode_process = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.62107, 0)
+shape = SubResource("CapsuleShape3D_3i0j8")
+
+[node name="EnemyBehaviourComponent" parent="." node_paths=PackedStringArray("agent", "model", "animation_tree", "detection_area") instance=ExtResource("2_3i0j8")]
+agent = NodePath("..")
+model = NodePath("../knight")
+animation_tree = NodePath("../AnimationTree")
+detection_area = NodePath("../DetectionArea")
+distance_to_attack = 3.0
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+root_node = NodePath("../knight")
+root_motion_track = NodePath("Armature_001/Skeleton3D:root")
+root_motion_local = false
+callback_mode_process = 0
+tree_root = SubResource("AnimationNodeBlendTree_k2txo")
+anim_player = NodePath("../knight/AnimationPlayer")
+parameters/Transition/current_state = "attack"
+parameters/Transition/transition_request = ""
+parameters/Transition/current_index = 2
+
+[node name="DetectionArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.23991, 3.17396, 8.33543)
+shape = SubResource("BoxShape3D_mvyd6")
+
+[editable path="knight"]
