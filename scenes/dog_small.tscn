@@ -1,9 +1,14 @@
-[gd_scene load_steps=13 format=3 uid="uid://dyugdxrsv73ma"]
+[gd_scene load_steps=16 format=3 uid="uid://dyugdxrsv73ma"]
 
 [ext_resource type="PackedScene" uid="uid://16ptmfjmso7r" path="res://assets/models/dogsmall.glb" id="1_jbm7t"]
 [ext_resource type="Script" uid="uid://yvlgjjkmf4r4" path="res://scripts/entity.gd" id="1_vt3n5"]
-[ext_resource type="Resource" uid="uid://cad150pbfw3ck" path="res://resources/dog_small.tres" id="2_7ggby"]
+[ext_resource type="Resource" uid="uid://cad150pbfw3ck" path="res://resources/enemies/dog_small.tres" id="2_7ggby"]
 [ext_resource type="PackedScene" uid="uid://dis5xffdkf7e6" path="res://scenes/components/enemy_behaviour_component.tscn" id="2_b80u5"]
+[ext_resource type="PackedScene" uid="uid://dj6fmag6n8s5m" path="res://scenes/components/activate_damage_area.tscn" id="4_oun8b"]
+[ext_resource type="PackedScene" uid="uid://dyriga41qx3tc" path="res://scenes/health_bar.tscn" id="6_j1ijx"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7ggby"]
+size = Vector3(0.187012, 0.218994, 0.143066)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jbm7t"]
 size = Vector3(4.30247, 3.06596, 8.25373)
@@ -39,7 +44,7 @@ input_2/break_loop_at_end = false
 input_2/reset = true
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_oun8b"]
-graph_offset = Vector2(131.67, 81.69)
+graph_offset = Vector2(99.0007, 44.2649)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_vt3n5")
 nodes/Animation/position = Vector2(660, 140)
 "nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_jbm7t")
@@ -53,39 +58,59 @@ nodes/Transition/position = Vector2(960, 160)
 nodes/output/position = Vector2(1180, 140)
 node_connections = [&"TimeScale", 0, &"Animation 2", &"Transition", 0, &"Animation", &"Transition", 1, &"TimeScale", &"Transition", 2, &"Animation 3", &"output", 0, &"Transition"]
 
-[node name="DogSmall" type="CharacterBody3D" node_paths=PackedStringArray("animation_tree", "model")]
+[node name="DogSmall" type="CharacterBody3D" node_paths=PackedStringArray("animation_tree", "model") groups=["animals"]]
+collision_layer = 2
+collision_mask = 3
 script = ExtResource("1_vt3n5")
 animation_tree = NodePath("AnimationTree")
 model = NodePath("dogsmall")
 entity_stats = ExtResource("2_7ggby")
 
+[node name="HealthBar" parent="." instance=ExtResource("6_j1ijx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.23625, 0)
+
+[node name="EnemyBehaviourComponent" parent="." node_paths=PackedStringArray("agent", "model", "animation_tree", "detection_area", "hp_bar") instance=ExtResource("2_b80u5")]
+agent = NodePath("..")
+model = NodePath("../dogsmall")
+animation_tree = NodePath("../AnimationTree")
+detection_area = NodePath("../dogsmall/DetectionArea")
+distance_to_attack = 2.5
+antagonist_groups = Array[StringName]([&"player", &"knights"])
+hp_bar = NodePath("../HealthBar")
+
+[node name="ActivateDamageArea" parent="." node_paths=PackedStringArray("attaker", "damage_area", "animation_tree") instance=ExtResource("4_oun8b")]
+attaker = NodePath("..")
+damage_area = NodePath("../dogsmall/metarig/Skeleton3D/BoneAttachment3D/DamageArea")
+animation_tree = NodePath("../AnimationTree")
+attack_animation_name = &"attack"
+
 [node name="dogsmall" parent="." instance=ExtResource("1_jbm7t")]
 
 [node name="Skeleton3D" parent="dogsmall/metarig" index="0"]
-bones/1/position = Vector3(3.54891e-10, -0.4085, 0.788741)
+bones/1/position = Vector3(-1.45577e-09, -0.4085, 0.788741)
 bones/8/rotation = Quaternion(-0.080074, -7.07365e-17, -5.70402e-16, 0.996789)
 bones/9/rotation = Quaternion(-0.00108243, -2.43463e-17, -4.51151e-16, 0.999999)
 bones/10/rotation = Quaternion(-0.0788223, -1.202e-17, -1.50663e-16, 0.996889)
 bones/11/rotation = Quaternion(-0.000709891, -5.36413e-20, -7.55885e-17, 1)
 bones/12/rotation = Quaternion(-0.10782, 7.32661e-15, 4.09286e-15, 0.99417)
 bones/14/rotation = Quaternion(0.442226, 2.13839e-07, 1.05435e-07, 0.896904)
-bones/16/rotation = Quaternion(0.386562, -0.00799751, 0.180993, 0.904294)
+bones/16/rotation = Quaternion(0.386561, -0.00799755, 0.180993, 0.904294)
 bones/17/rotation = Quaternion(-0.175208, -0.0145779, 0.0297381, 0.983974)
 bones/18/rotation = Quaternion(-0.153577, 0.0247827, -0.0125224, 0.987746)
-bones/19/rotation = Quaternion(0.00944473, 0.918033, -0.396374, -0.00366305)
+bones/19/rotation = Quaternion(0.00944473, 0.918033, -0.396375, -0.00366305)
 bones/20/rotation = Quaternion(0.235813, 1.29968e-07, 9.24963e-07, 0.971799)
-bones/22/rotation = Quaternion(0.386562, 0.00799751, -0.180993, 0.904294)
+bones/22/rotation = Quaternion(0.386561, 0.00799755, -0.180993, 0.904294)
 bones/23/rotation = Quaternion(-0.175208, 0.0145779, -0.0297381, 0.983974)
 bones/24/rotation = Quaternion(-0.153577, -0.0247827, 0.0125224, 0.987746)
-bones/25/rotation = Quaternion(-0.00944473, 0.918033, -0.396374, 0.00366305)
+bones/25/rotation = Quaternion(-0.00944473, 0.918033, -0.396375, 0.00366305)
 bones/26/rotation = Quaternion(0.235813, -1.29968e-07, -9.24963e-07, 0.971799)
 bones/27/rotation = Quaternion(0.421399, 0.701399, -0.448317, -0.359826)
-bones/29/rotation = Quaternion(0.555344, 0.000144578, -0.000188855, 0.831621)
+bones/29/rotation = Quaternion(0.555344, 0.000144577, -0.000188853, 0.831621)
 bones/30/rotation = Quaternion(0.488085, -0.0104802, 0.0198436, 0.872507)
 bones/31/rotation = Quaternion(-0.503999, 0.0139761, -0.0141982, 0.863475)
 bones/32/rotation = Quaternion(0.00550668, 0.911277, -0.41175, -0.00251102)
 bones/33/rotation = Quaternion(0.207539, -8.86044e-08, 1.46648e-06, 0.978227)
-bones/34/rotation = Quaternion(0.555344, -0.000144573, 0.000188851, 0.831621)
+bones/34/rotation = Quaternion(0.555344, -0.000144571, 0.000188849, 0.831621)
 bones/35/rotation = Quaternion(0.488085, 0.0104802, -0.0198436, 0.872507)
 bones/36/rotation = Quaternion(-0.503999, -0.0139761, 0.0141982, 0.863475)
 bones/37/rotation = Quaternion(-0.00550661, 0.911277, -0.41175, 0.00251112)
@@ -104,6 +129,20 @@ bones/55/rotation = Quaternion(1, 1.20466e-11, 7.22806e-06, -1.63913e-06)
 bones/58/position = Vector3(-1.92668e-09, 0.163657, 2.44388e-14)
 bones/58/rotation = Quaternion(7.15256e-06, 6.93335e-31, 1, 9.69352e-26)
 bones/60/rotation = Quaternion(1, -1.20448e-11, -7.22806e-06, -1.63913e-06)
+
+[node name="BoneAttachment3D" type="BoneAttachment3D" parent="dogsmall/metarig/Skeleton3D" index="14"]
+transform = Transform3D(1, -4.27904e-14, 4.76837e-07, 4.42948e-07, -0.37026, -0.928928, 1.76554e-07, 0.928928, -0.37026, 1.45577e-09, 0.876696, 0.579511)
+bone_name = "mouthbottom"
+bone_idx = 14
+
+[node name="DamageArea" type="Area3D" parent="dogsmall/metarig/Skeleton3D/BoneAttachment3D"]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="dogsmall/metarig/Skeleton3D/BoneAttachment3D/DamageArea"]
+transform = Transform3D(1, 1.42109e-14, 2.75051e-11, 1.13687e-13, 1, 0, -1.42109e-14, 0, 1, 0.000732401, 0.137835, -0.0184798)
+shape = SubResource("BoxShape3D_7ggby")
 
 [node name="AnimationPlayer" parent="dogsmall" index="1"]
 root_motion_track = NodePath("metarig/Skeleton3D:root")
@@ -134,12 +173,5 @@ parameters/TimeScale/scale = 2.0
 parameters/Transition/current_state = "idle"
 parameters/Transition/transition_request = ""
 parameters/Transition/current_index = 0
-
-[node name="EnemyBehaviourComponent" parent="." node_paths=PackedStringArray("agent", "model", "animation_tree", "detection_area") instance=ExtResource("2_b80u5")]
-agent = NodePath("..")
-model = NodePath("../dogsmall")
-animation_tree = NodePath("../AnimationTree")
-detection_area = NodePath("../dogsmall/DetectionArea")
-distance_to_attack = 2.0
 
 [editable path="dogsmall"]

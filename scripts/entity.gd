@@ -40,8 +40,6 @@ func apply_orientation_to_model():
 	orientation = orientation.orthonormalized()
 	model.global_transform.basis = orientation.basis
 	
-func do_damage():
-	pass
 
 func take_damage_from_bullet(bullet, damage):
 	$EnemyBehaviourComponent.take_damage_from_bullet(bullet, damage)

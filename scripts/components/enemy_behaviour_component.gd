@@ -10,12 +10,16 @@ extends Node
 
 @export var distance_to_attack: float
 @export var antagonist_groups: Array[StringName]
+@export var hp_bar: HealthBar
 
 var target: Node3D
 var hp: float
 
 func _ready() -> void:
+	
 	hp = agent.entity_stats.max_hp
+	if hp_bar:
+		hp_bar.set_health(1)
 	detection_area.body_entered.connect(_on_detection_area_body_entered)
 	
 func _on_detection_area_body_entered(body: Node3D) -> void:
@@ -27,19 +31,33 @@ func _on_detection_area_body_entered(body: Node3D) -> void:
 			state_chart.send_event("go_to_target")
 			return
 
+func reduce_health(damage):
+	hp = clamp(hp - damage, 0, hp)
+	if hp_bar:
+		hp_bar.set_health(hp/agent.entity_stats.max_hp)
+		
+	if hp <= 0:
+		state_chart.send_event("die")
+		return true
+	
+	return false
+	
+		
 func take_damage_from_bullet(bullet, damage):
 	var body = bullet.shooter
+	if reduce_health(damage):
+		return
+		
 	for group in body.get_groups():
 		if antagonist_groups.find(group) > -1:
 			target = body
 			state_chart.send_event("go_to_target")
 			return
+			
 
 func take_melee_damage(attaker, damage):
 	var body = attaker
-	hp = clamp(hp - damage, hp, 0)
-	if hp <= 0:
-		state_chart.send_event("die")
+	if reduce_health(damage):
 		return
 		
 	for group in body.get_groups():
@@ -87,7 +105,9 @@ func _on_attack_state_entered() -> void:
 
 
 func _on_attack_state_physics_processing(delta: float) -> void:
-	agent.do_damage()
+	if target == null:
+		state_chart.send_event("deaggro")
+		return
 	agent.rotate_towards_target(delta, target)
 	agent.apply_root_motion_to_velocity(delta)
 	agent.velocity += gravity * delta
@@ -101,4 +121,4 @@ func _on_attack_state_exited() -> void:
 
 #DEAD
 func _on_dead_state_entered() -> void:
-	queue_free()
+	agent.queue_free()

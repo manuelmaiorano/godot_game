@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://dkk0f5wj0at7x"]
+[gd_scene load_steps=10 format=3 uid="uid://dkk0f5wj0at7x"]
 
 [ext_resource type="PackedScene" uid="uid://cjca6mx3264lj" path="res://scenes/player.tscn" id="1_ig7tw"]
 [ext_resource type="Texture2D" uid="uid://dujcu7jcy8evu" path="res://assets/textures/texture_01.png" id="2_0xm2m"]
 [ext_resource type="Texture2D" uid="uid://c5axvbviovpdm" path="res://assets/textures/icons/crosshair.png" id="3_h2yge"]
+[ext_resource type="PackedScene" uid="uid://bhw884mxsuvea" path="res://scenes/knight.tscn" id="5_lquwl"]
 [ext_resource type="PackedScene" uid="uid://dyugdxrsv73ma" path="res://scenes/dog_small.tscn" id="6_7mycd"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0xm2m"]
@@ -31,7 +32,7 @@ transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -
 shadow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("1_ig7tw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -135, -396, 1191)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -135.72, -396.964, 1188.87)
 
 [node name="World" type="Node3D" parent="."]
 
@@ -125,7 +126,12 @@ material_override = SubResource("StandardMaterial3D_h2yge")
 use_collision = true
 size = Vector3(10, 55.2651, 10)
 
-[node name="Control" type="CenterContainer" parent="." groups=["crosshair"]]
+[node name="DogSmall" parent="." instance=ExtResource("6_7mycd")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -148.891, -396.967, 1175.21)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="CenterContainer" parent="CanvasLayer" groups=["crosshair"]]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -133,15 +139,10 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="TextureRect" type="TextureRect" parent="Control"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control"]
 layout_mode = 2
 texture = ExtResource("3_h2yge")
 stretch_mode = 4
 
-[node name="DogSmall" parent="." instance=ExtResource("6_7mycd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -105, -396, 1140)
-
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -141, -396, 1170)
-use_collision = true
-collision_mask = 2
+[node name="Knight" parent="." instance=ExtResource("5_lquwl")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -148.489, -396.967, 1167.19)
