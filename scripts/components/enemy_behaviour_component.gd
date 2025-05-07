@@ -11,6 +11,8 @@ extends Node
 @export var distance_to_attack: float
 @export var antagonist_groups: Array[StringName]
 @export var hp_bar: HealthBar
+@export var ragdoll_on_death: bool = false
+@export var skeleton_modifier: PhysicalBoneSimulator3D
 
 var target: Node3D
 var hp: float
@@ -112,7 +114,10 @@ func _on_attack_state_exited() -> void:
 
 #DEAD
 func _on_dead_state_entered() -> void:
-	agent.queue_free()
+	if ragdoll_on_death:
+		skeleton_modifier.physical_bones_start_simulation()
+	else:
+		agent.queue_free()
 
 #HIT
 func _on_hit_state_entered() -> void:
