@@ -40,7 +40,6 @@ func reduce_health(damage):
 func take_damage(attaker, damage):
 	var body = attaker
 	
-	state_chart.send_event("hit")
 	
 	reduce_health(damage)
 	
@@ -48,6 +47,7 @@ func take_damage(attaker, damage):
 		state_chart.send_event("die")
 		return true
 	
+	state_chart.send_event("hit")
 		
 	for group in body.get_groups():
 		if antagonist_groups.find(group) > -1:
