@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://dkk0f5wj0at7x"]
+[gd_scene load_steps=12 format=3 uid="uid://dkk0f5wj0at7x"]
 
 [ext_resource type="PackedScene" uid="uid://cjca6mx3264lj" path="res://scenes/player.tscn" id="1_ig7tw"]
 [ext_resource type="Texture2D" uid="uid://dujcu7jcy8evu" path="res://assets/textures/texture_01.png" id="2_0xm2m"]
 [ext_resource type="Texture2D" uid="uid://c5axvbviovpdm" path="res://assets/textures/icons/crosshair.png" id="3_h2yge"]
+[ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="5_272bh"]
 [ext_resource type="PackedScene" uid="uid://bhw884mxsuvea" path="res://scenes/knight.tscn" id="5_lquwl"]
 [ext_resource type="PackedScene" uid="uid://dyugdxrsv73ma" path="res://scenes/dog_small.tscn" id="6_7mycd"]
 [ext_resource type="PackedScene" uid="uid://dx7gmxaut3ijv" path="res://scenes/trap.tscn" id="6_272bh"]
@@ -130,6 +131,34 @@ size = Vector3(10, 55.2651, 10)
 [node name="DogSmall" parent="." instance=ExtResource("6_7mycd")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -148.275, -396.967, 1175.21)
 
+[node name="Skeleton3D" parent="DogSmall/dogsmall/metarig" index="0"]
+bones/1/position = Vector3(1.54125e-09, -0.4085, 0.77517)
+bones/16/rotation = Quaternion(0.422775, 0.00075989, 0.178512, 0.888479)
+bones/17/rotation = Quaternion(-0.224863, -0.0137496, 0.0359805, 0.973629)
+bones/18/rotation = Quaternion(-0.197922, 0.025118, -0.0127198, 0.979813)
+bones/19/rotation = Quaternion(0.00966262, 0.938567, -0.344916, -0.00552911)
+bones/22/rotation = Quaternion(0.422775, -0.00075989, -0.178512, 0.888479)
+bones/23/rotation = Quaternion(-0.224863, 0.0137496, -0.0359805, 0.973629)
+bones/24/rotation = Quaternion(-0.197922, -0.025118, 0.0127198, 0.979813)
+bones/25/rotation = Quaternion(-0.00966262, 0.938567, -0.344916, 0.00552911)
+bones/29/rotation = Quaternion(0.547208, 0.000603331, -0.000788178, 0.836996)
+bones/30/rotation = Quaternion(0.517359, -0.0100659, 0.0213121, 0.855444)
+bones/31/rotation = Quaternion(-0.535768, 0.0138476, -0.0147776, 0.844122)
+bones/32/rotation = Quaternion(0.00542901, 0.916585, -0.399794, -0.00287505)
+bones/34/rotation = Quaternion(0.547208, -0.000603325, 0.000788174, 0.836996)
+bones/35/rotation = Quaternion(0.517359, 0.0100659, -0.0213121, 0.855444)
+bones/36/rotation = Quaternion(-0.535768, -0.0138476, 0.0147776, 0.844122)
+bones/37/rotation = Quaternion(-0.00542894, 0.916585, -0.399794, 0.00287515)
+
+[node name="BoneAttachment3D" parent="DogSmall/dogsmall/metarig/Skeleton3D" index="14"]
+transform = Transform3D(1, -4.27904e-14, 4.76837e-07, 4.42948e-07, -0.37026, -0.928928, 1.76554e-07, 0.928928, -0.37026, -1.54125e-09, 0.863126, 0.579511)
+
+[node name="Knight" parent="." instance=ExtResource("5_lquwl")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -148.489, -396.967, 1167.19)
+
+[node name="Trap" parent="." instance=ExtResource("6_272bh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -165.46, -396.967, 1188.16)
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Control" type="CenterContainer" parent="CanvasLayer" groups=["crosshair"]]
@@ -145,8 +174,14 @@ layout_mode = 2
 texture = ExtResource("3_h2yge")
 stretch_mode = 4
 
-[node name="Knight" parent="." instance=ExtResource("5_lquwl")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -148.489, -396.967, 1167.19)
+[node name="StateChartDebugger" parent="CanvasLayer" instance=ExtResource("5_272bh")]
+offset_left = 1644.0
+offset_top = 636.0
+initial_node_to_watch = NodePath("../../Knight/EnemyBehaviourComponent/StateChart")
 
-[node name="Trap" parent="." instance=ExtResource("6_272bh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -165.46, -396.967, 1188.16)
+[editable path="DogSmall"]
+[editable path="DogSmall/EnemyBehaviourComponent"]
+[editable path="DogSmall/dogsmall"]
+[editable path="Knight"]
+[editable path="Knight/EnemyBehaviourComponent"]
+[editable path="Knight/knight"]

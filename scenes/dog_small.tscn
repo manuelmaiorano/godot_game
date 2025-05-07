@@ -14,8 +14,8 @@ size = Vector3(0.187012, 0.218994, 0.143066)
 size = Vector3(4.30247, 3.06596, 8.25373)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_jbm7t"]
-radius = 0.197566
-height = 0.685709
+radius = 0.371651
+height = 1.0496
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jbm7t"]
 animation = &"walk"
@@ -51,7 +51,7 @@ input_3/break_loop_at_end = false
 input_3/reset = true
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_oun8b"]
-graph_offset = Vector2(-359.34, 85.2215)
+graph_offset = Vector2(-41.7799, 239.455)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_vt3n5")
 nodes/Animation/position = Vector2(660, 140)
 "nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_jbm7t")
@@ -168,7 +168,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0184729, 1.59675, 4.95649)
 shape = SubResource("BoxShape3D_jbm7t")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.363443, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.510548, 0)
 shape = SubResource("CapsuleShape3D_jbm7t")
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
@@ -182,5 +182,8 @@ parameters/TimeScale/scale = 2.0
 parameters/Transition/current_state = "hit"
 parameters/Transition/transition_request = ""
 parameters/Transition/current_index = 3
+
+[node name="RootMotionView" type="RootMotionView" parent="."]
+animation_path = NodePath("../dogsmall/AnimationPlayer")
 
 [editable path="dogsmall"]

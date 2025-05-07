@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b7g14wlxgbugy"]
+
+[ext_resource type="Script" uid="uid://bagrbubq87dsh" path="res://scripts/components/activate_weapon_damage_area.gd" id="1_gigta"]
+
+[node name="ActivateWeaponDamageArea" type="Node"]
+script = ExtResource("1_gigta")

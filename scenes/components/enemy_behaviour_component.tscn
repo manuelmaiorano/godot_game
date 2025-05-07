@@ -95,8 +95,8 @@ metadata/_custom_type_script = "uid://bitddddrhbl0d"
 
 [node name="ToAlive" type="Node" parent="StateChart/MovingLogic/Hit"]
 script = ExtResource("5_hkovr")
-to = NodePath("../../Alive/HistoryState")
-delay_in_seconds = "0.2"
+to = NodePath("../../Alive/Walk")
+delay_in_seconds = "0.7"
 metadata/_custom_type_script = "uid://knk6whqnftyj"
 
 [connection signal="state_entered" from="StateChart/MovingLogic/Alive/Idle" to="." method="_on_idle_state_entered"]
