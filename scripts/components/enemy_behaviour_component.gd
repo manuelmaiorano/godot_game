@@ -13,6 +13,7 @@ extends Node
 @export var hp_bar: HealthBar
 @export var ragdoll_on_death: bool = false
 @export var skeleton_modifier: PhysicalBoneSimulator3D
+@export var hip_bone: PhysicalBone3D
 
 var target: Node3D
 var hp: float
@@ -41,8 +42,6 @@ func reduce_health(damage):
 
 func take_damage(attaker, damage):
 	var body = attaker
-	
-	
 	reduce_health(damage)
 	
 	if hp <= 0:
@@ -56,6 +55,13 @@ func take_damage(attaker, damage):
 			target = body
 			state_chart.send_event("go_to_target")
 			return
+
+func take_explosion_damage(velocity):
+	reduce_health(hp)
+	state_chart.send_event("die")
+	if ragdoll_on_death:
+		hip_bone.apply_central_impulse(velocity)
+	
 	
 	
 
@@ -115,6 +121,8 @@ func _on_attack_state_exited() -> void:
 #DEAD
 func _on_dead_state_entered() -> void:
 	if ragdoll_on_death:
+		animation_tree.active = false
+		skeleton_modifier.active = true
 		skeleton_modifier.physical_bones_start_simulation()
 	else:
 		agent.queue_free()
