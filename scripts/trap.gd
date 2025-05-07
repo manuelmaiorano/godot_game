@@ -5,6 +5,7 @@ extends Node3D
 func activate():
 	for body in detect_area.get_overlapping_bodies():
 		if body.has_method("take_damage"):
+			#body.velocity = (body.global_position - global_position).normalized() * 100
 			body.take_damage(self, stats.damage)
 
 

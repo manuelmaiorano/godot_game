@@ -35,18 +35,19 @@ func reduce_health(damage):
 	hp = clamp(hp - damage, 0, hp)
 	if hp_bar:
 		hp_bar.set_health(hp/agent.entity_stats.max_hp)
-		
-	if hp <= 0:
-		state_chart.send_event("die")
-		return true
-	
-	return false
 	
 
 func take_damage(attaker, damage):
 	var body = attaker
-	if reduce_health(damage):
-		return
+	
+	state_chart.send_event("hit")
+	
+	reduce_health(damage)
+	
+	if hp <= 0:
+		state_chart.send_event("die")
+		return true
+	
 		
 	for group in body.get_groups():
 		if antagonist_groups.find(group) > -1:
@@ -112,3 +113,16 @@ func _on_attack_state_exited() -> void:
 #DEAD
 func _on_dead_state_entered() -> void:
 	agent.queue_free()
+
+#HIT
+func _on_hit_state_entered() -> void:
+	agent.animation_tree["parameters/Transition/transition_request"] = "hit"
+
+
+
+func _on_hit_state_physics_processing(delta: float) -> void:
+	agent.apply_root_motion_to_velocity(delta)
+	agent.velocity += gravity * delta
+	
+	agent.move_and_slide()
+	agent.apply_orientation_to_model()

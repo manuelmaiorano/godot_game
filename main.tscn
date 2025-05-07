@@ -130,12 +130,6 @@ size = Vector3(10, 55.2651, 10)
 [node name="DogSmall" parent="." instance=ExtResource("6_7mycd")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -148.275, -396.967, 1175.21)
 
-[node name="DogSmall2" parent="." instance=ExtResource("6_7mycd")]
-transform = Transform3D(-0.827806, 0, 0.561015, 0, 1, 0, -0.561015, 0, -0.827806, -153.82, -396.967, 1173.48)
-
-[node name="DogSmall3" parent="." instance=ExtResource("6_7mycd")]
-transform = Transform3D(0.105309, 0, 0.994439, 0, 1, 0, -0.994439, 0, 0.105309, -156.268, -396.967, 1167.73)
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Control" type="CenterContainer" parent="CanvasLayer" groups=["crosshair"]]

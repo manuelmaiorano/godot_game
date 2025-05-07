@@ -12,6 +12,8 @@ func _ready() -> void:
 	animation_tree.animation_started.connect(_on_animation_started)
 
 func _on_body_entered(body):
+	if not active:
+		return
 	if body.has_method("take_damage"):
 		body.take_damage(attaker, attaker.entity_stats.damage)
 
