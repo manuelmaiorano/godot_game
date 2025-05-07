@@ -10,7 +10,7 @@ func _physics_process(delta: float) -> void:
 	var collision = move_and_collide(velocity * delta)
 	if collision:
 		var collider = collision.get_collider()
-		if collider.has_method("take_damage_from_bullet"):
+		if collider.has_method("take_damage"):
 			var damage = Globals.bullet_damage
-			collider.take_damage_from_bullet(self, damage)
+			collider.take_damage(shooter, damage)
 		queue_free()

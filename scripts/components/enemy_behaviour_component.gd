@@ -42,20 +42,8 @@ func reduce_health(damage):
 	
 	return false
 	
-		
-func take_damage_from_bullet(bullet, damage):
-	var body = bullet.shooter
-	if reduce_health(damage):
-		return
-		
-	for group in body.get_groups():
-		if antagonist_groups.find(group) > -1:
-			target = body
-			state_chart.send_event("go_to_target")
-			return
-			
 
-func take_melee_damage(attaker, damage):
+func take_damage(attaker, damage):
 	var body = attaker
 	if reduce_health(damage):
 		return
@@ -85,7 +73,9 @@ func _on_walk_state_entered() -> void:
 	agent.animation_tree["parameters/Transition/transition_request"] = "walk"
 
 func _on_walk_state_physics_processing(delta: float) -> void:
-	
+	if target == null:
+		state_chart.send_event("deaggro")
+		return
 	if agent.global_position.distance_to(target.global_position) < distance_to_attack:
 		state_chart.send_event("attack")
 		return

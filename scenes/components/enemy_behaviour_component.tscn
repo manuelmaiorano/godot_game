@@ -53,7 +53,7 @@ metadata/_custom_type_script = "uid://knk6whqnftyj"
 [node name="Attack" type="Node" parent="StateChart/MovingLogic/Alive"]
 script = ExtResource("4_ch1o0")
 
-[node name="ToCooldown" type="Node" parent="StateChart/MovingLogic/Alive/Attack"]
+[node name="ToWalk" type="Node" parent="StateChart/MovingLogic/Alive/Attack"]
 script = ExtResource("5_hkovr")
 to = NodePath("../../Walk")
 delay_in_seconds = "1.5"

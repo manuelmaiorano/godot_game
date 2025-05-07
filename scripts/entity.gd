@@ -41,8 +41,6 @@ func apply_orientation_to_model():
 	model.global_transform.basis = orientation.basis
 	
 
-func take_damage_from_bullet(bullet, damage):
-	$EnemyBehaviourComponent.take_damage_from_bullet(bullet, damage)
 	
-func take_melee_damage(attaker, damage):
-	$EnemyBehaviourComponent.take_melee_damage(attaker, damage)
+func take_damage(attaker, damage):
+	$EnemyBehaviourComponent.take_damage(attaker, damage)

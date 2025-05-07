@@ -12,8 +12,8 @@ func _ready() -> void:
 	animation_tree.animation_started.connect(_on_animation_started)
 
 func _on_body_entered(body):
-	if body.has_method("take_melee_damage"):
-		body.take_melee_damage(attaker, attaker.entity_stats.damage)
+	if body.has_method("take_damage"):
+		body.take_damage(attaker, attaker.entity_stats.damage)
 
 func _on_animation_started(anim_name):
 	if anim_name == attack_animation_name:
