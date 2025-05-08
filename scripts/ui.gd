@@ -13,7 +13,16 @@ func _ready() -> void:
 	
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	SignalBus.InventoryItemSelected.emit(item_list[current_idx].item)
+	SignalBus.ItemsChanged.connect(on_items_changed)
 
+func on_items_changed(items: Dictionary[Item, int]):
+	for item in items.keys():
+		var amount = items[item]
+		for item_icon in item_list:
+			if item_icon.item.name == item.name:
+				item_icon.set_amount(amount)
+	
+	
 func _unhandled_input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("ui_cancel"):
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)

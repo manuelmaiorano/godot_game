@@ -25,11 +25,14 @@ var is_dead = false
 
 var active_item: Item = null
 
+@export var item_amounts: Dictionary[Item, int]
+
 func _ready():
 	# Pre-initialize orientation transform.
 	orientation = $chessinggame.global_transform
 	orientation.origin = Vector3()
 	SignalBus.InventoryItemSelected.connect(on_inventory_item_selected)
+	SignalBus.ItemsChanged.emit(item_amounts)
 
 func _input(event:InputEvent) -> void:
 	if not event is InputEventMouseMotion:
@@ -220,6 +223,15 @@ func get_target_position():
 func _on_aiming_state_unhandled_input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("shoot"):
 		
+		if active_item == null:
+			return
+			
+		if item_amounts[active_item] <= 0:
+			return
+			
+		item_amounts[active_item] -= 1
+		SignalBus.ItemsChanged.emit(item_amounts)
+			
 		if active_item.name == &"pew":
 			var instance = preload("res://scenes/bullet.tscn").instantiate()
 			var start_position = shoot_from.global_position

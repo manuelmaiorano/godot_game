@@ -1,37 +1,21 @@
-[gd_scene load_steps=12 format=3 uid="uid://cun5hi2ne8vti"]
+[gd_scene load_steps=10 format=3 uid="uid://cun5hi2ne8vti"]
 
 [ext_resource type="Texture2D" uid="uid://c5axvbviovpdm" path="res://assets/textures/icons/crosshair.png" id="1_nt7q6"]
 [ext_resource type="Script" uid="uid://cgv8y2u32y5hl" path="res://scripts/ui.gd" id="1_yev5y"]
 [ext_resource type="ButtonGroup" uid="uid://c6xtq0yaqb828" path="res://resources/buttons/inventory.tres" id="2_x4jx1"]
 [ext_resource type="Texture2D" uid="uid://dxse5qte08hjv" path="res://assets/textures/icons/branch.png" id="3_yev5y"]
 [ext_resource type="Script" uid="uid://cpm8rtjs0cpa8" path="res://scripts/ui/item_button.gd" id="5_wm3ai"]
-[ext_resource type="Script" uid="uid://dqlji11317nbq" path="res://scripts/resources/item.gd" id="6_8dubc"]
-[ext_resource type="Texture2D" uid="uid://flu4ct4q4apm" path="res://assets/textures/icons/trap.png" id="7_p7vwb"]
-[ext_resource type="Texture2D" uid="uid://daewnkk7bpsb1" path="res://assets/textures/icons/pew.png" id="8_ktti3"]
-
-[sub_resource type="Resource" id="Resource_p7vwb"]
-script = ExtResource("6_8dubc")
-name = &"branch"
-icon = ExtResource("3_yev5y")
-metadata/_custom_type_script = "uid://dqlji11317nbq"
-
-[sub_resource type="Resource" id="Resource_ktti3"]
-script = ExtResource("6_8dubc")
-name = &"trap"
-icon = ExtResource("7_p7vwb")
-metadata/_custom_type_script = "uid://dqlji11317nbq"
-
-[sub_resource type="Resource" id="Resource_8dubc"]
-script = ExtResource("6_8dubc")
-name = &"pew"
-icon = ExtResource("8_ktti3")
-metadata/_custom_type_script = "uid://dqlji11317nbq"
+[ext_resource type="Resource" uid="uid://dh66upo5w26a" path="res://resources/items/branch.tres" id="6_cgfq5"]
+[ext_resource type="Resource" uid="uid://dbi8ijwjyydfa" path="res://resources/items/trap.tres" id="7_ktti3"]
+[ext_resource type="Resource" uid="uid://t3iiak64ogdp" path="res://resources/items/pew.tres" id="8_cgfq5"]
+[ext_resource type="PackedScene" uid="uid://b5q3t8nftjc86" path="res://scenes/ui/shop_item.tscn" id="9_cgfq5"]
 
 [node name="UI" type="CanvasLayer"]
 script = ExtResource("1_yev5y")
 
 [node name="CrossHair" type="CenterContainer" parent="." groups=["crosshair"]]
 unique_name_in_owner = true
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -74,7 +58,7 @@ button_group = ExtResource("2_x4jx1")
 text = "0"
 icon = ExtResource("3_yev5y")
 script = ExtResource("5_wm3ai")
-item = SubResource("Resource_p7vwb")
+item = ExtResource("6_cgfq5")
 
 [node name="Item2" type="Button" parent="HUD/ItemList"]
 layout_mode = 2
@@ -82,7 +66,7 @@ toggle_mode = true
 button_group = ExtResource("2_x4jx1")
 icon = ExtResource("3_yev5y")
 script = ExtResource("5_wm3ai")
-item = SubResource("Resource_ktti3")
+item = ExtResource("7_ktti3")
 
 [node name="Item3" type="Button" parent="HUD/ItemList"]
 layout_mode = 2
@@ -90,4 +74,79 @@ toggle_mode = true
 button_group = ExtResource("2_x4jx1")
 icon = ExtResource("3_yev5y")
 script = ExtResource("5_wm3ai")
-item = SubResource("Resource_8dubc")
+item = ExtResource("8_cgfq5")
+
+[node name="ShopMenu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ShopMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -555.0
+offset_top = -332.0
+offset_right = 526.0
+offset_bottom = 296.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="ShopMenu/VBoxContainer"]
+layout_mode = 2
+text = "SHOP"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ShopMenu/VBoxContainer"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="ShopMenu/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Inventory" type="GridContainer" parent="ShopMenu/VBoxContainer/HBoxContainer/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+columns = 5
+
+[node name="ShopItem" parent="ShopMenu/VBoxContainer/HBoxContainer/PanelContainer/Inventory" instance=ExtResource("9_cgfq5")]
+layout_mode = 2
+
+[node name="PanelContainer2" type="PanelContainer" parent="ShopMenu/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ShopInventory" type="GridContainer" parent="ShopMenu/VBoxContainer/HBoxContainer/PanelContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+columns = 5
+
+[node name="Control" type="Control" parent="ShopMenu/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="ShopMenu/VBoxContainer"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="ShopMenu/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Buy" type="Button" parent="ShopMenu/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Buy"
+
+[node name="Sell" type="Button" parent="ShopMenu/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Sell
+"
+
+[node name="Control2" type="Control" parent="ShopMenu/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://dh66upo5w26a"]
+
+[ext_resource type="Texture2D" uid="uid://dxse5qte08hjv" path="res://assets/textures/icons/branch.png" id="1_tihys"]
+[ext_resource type="Script" uid="uid://dqlji11317nbq" path="res://scripts/resources/item.gd" id="2_jj4s7"]
+
+[resource]
+script = ExtResource("2_jj4s7")
+name = &"branch"
+icon = ExtResource("1_tihys")
+metadata/_custom_type_script = "uid://dqlji11317nbq"

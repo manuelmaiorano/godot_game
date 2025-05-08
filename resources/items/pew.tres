@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://t3iiak64ogdp"]
+
+[ext_resource type="Texture2D" uid="uid://daewnkk7bpsb1" path="res://assets/textures/icons/pew.png" id="1_kfl8c"]
+[ext_resource type="Script" uid="uid://dqlji11317nbq" path="res://scripts/resources/item.gd" id="2_asem4"]
+
+[resource]
+script = ExtResource("2_asem4")
+name = &"pew"
+icon = ExtResource("1_kfl8c")
+metadata/_custom_type_script = "uid://dqlji11317nbq"

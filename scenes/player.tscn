@@ -1,9 +1,13 @@
-[gd_scene load_steps=19 format=3 uid="uid://cjca6mx3264lj"]
+[gd_scene load_steps=23 format=3 uid="uid://cjca6mx3264lj"]
 
 [ext_resource type="PackedScene" uid="uid://bjrdo414yrqyh" path="res://assets/models/chessinggame.glb" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://dgkrnefdt5vfk" path="res://scripts/player.gd" id="1_tuyoq"]
+[ext_resource type="Script" uid="uid://dqlji11317nbq" path="res://scripts/resources/item.gd" id="2_y4r1p"]
+[ext_resource type="Resource" uid="uid://dh66upo5w26a" path="res://resources/items/branch.tres" id="3_d2wvv"]
 [ext_resource type="Script" uid="uid://dxg0yepbv63k0" path="res://addons/godot_state_charts/state_chart.gd" id="3_fjrip"]
+[ext_resource type="Resource" uid="uid://t3iiak64ogdp" path="res://resources/items/pew.tres" id="4_3v2ag"]
 [ext_resource type="Script" uid="uid://cwxxkh1jh6pp4" path="res://addons/godot_state_charts/compound_state.gd" id="4_smehm"]
+[ext_resource type="Resource" uid="uid://dbi8ijwjyydfa" path="res://resources/items/trap.tres" id="5_jej6c"]
 [ext_resource type="Script" uid="uid://bitddddrhbl0d" path="res://addons/godot_state_charts/atomic_state.gd" id="5_ur7pv"]
 [ext_resource type="Script" uid="uid://knk6whqnftyj" path="res://addons/godot_state_charts/transition.gd" id="6_y4r1p"]
 
@@ -136,6 +140,11 @@ collision_mask = 3
 script = ExtResource("1_tuyoq")
 clamp_pitch_rotation = 70.0
 antagonist_groups = Array[StringName]([&"animals", &"knights"])
+item_amounts = Dictionary[ExtResource("2_y4r1p"), int]({
+ExtResource("3_d2wvv"): 2,
+ExtResource("4_3v2ag"): 3,
+ExtResource("5_jej6c"): 4
+})
 
 [node name="Yaw" type="Node3D" parent="."]
 unique_name_in_owner = true

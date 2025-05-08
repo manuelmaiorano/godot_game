@@ -48,6 +48,10 @@ window/stretch/aspect="expand"
 
 enabled=PackedStringArray("res://addons/godot_state_charts/plugin.cfg", "res://addons/resources_spreadsheet_view/plugin.cfg")
 
+[gui]
+
+theme/custom="uid://ctc5r3f13sfw3"
+
 [input]
 
 forward={

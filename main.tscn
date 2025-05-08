@@ -25,6 +25,8 @@ albedo_texture = ExtResource("2_0xm2m")
 
 [node name="main" type="Node3D"]
 
+[node name="UI" parent="." instance=ExtResource("5_7mycd")]
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_1bvp3")
 
@@ -147,5 +149,3 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -54.9907, -396.967, 1080.61)
 
 [node name="Giant" parent="." instance=ExtResource("6_272bh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -72.0348, -396.924, 1040.5)
-
-[node name="UI" parent="." instance=ExtResource("5_7mycd")]
