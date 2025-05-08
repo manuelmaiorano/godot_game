@@ -173,10 +173,10 @@ bone = 15
 active = false
 
 [node name="Physical Bone hips" type="PhysicalBone3D" parent="knight/Armature_001/Skeleton3D/PhysicalBoneSimulator3D"]
-transform = Transform3D(1, 1.42109e-14, -1.42072e-14, -1.42072e-14, -2.14578e-21, -1, -1.42109e-14, 1, -2.14578e-21, -5.34456e-14, 2.05508, 1.40881e-26)
+transform = Transform3D(1, 2.84217e-14, -2.8418e-14, -2.8418e-14, -4.29156e-21, -1, -2.84217e-14, 1, -4.29156e-21, -5.03112e-14, 2.0919, 1.52069e-26)
 collision_layer = 4
 collision_mask = 5
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.5001e-14, 4.73279e-22, 0.220569)
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.5001e-14, 4.7328e-22, 0.220569)
 body_offset = Transform3D(1, 2.84217e-14, -2.8418e-14, -2.8418e-14, -4.29156e-21, -1, -2.84217e-14, 1, -2.14578e-21, -7.87329e-14, 0.220569, 1.52069e-26)
 bone_name = "ctrl.torso"
 
@@ -185,11 +185,11 @@ transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_mvyd6")
 
 [node name="Physical Bone leg1_L" type="PhysicalBone3D" parent="knight/Armature_001/Skeleton3D/PhysicalBoneSimulator3D"]
-transform = Transform3D(-1, -1.60082e-06, 1.57287e-06, 5.645e-07, 0.498897, 0.866661, -2.17206e-06, 0.866661, -0.498897, 0.185506, 1.3298, 0.247804)
+transform = Transform3D(-1, -1.75014e-06, 1.2688e-06, 5.59549e-07, 0.357377, 0.93396, -2.08801e-06, 0.93396, -0.357377, 0.185506, 1.33363, 0.172057)
 collision_layer = 4
 collision_mask = 5
 joint_type = 3
-joint_offset = Transform3D(0.999995, 0, 0, 0, 0.999956, 0, 0, 0, 0.999961, -2.81802e-07, 0.0174126, 0.526952)
+joint_offset = Transform3D(0.999995, 0, 0, 0, 0.999956, 0, 0, 0, 0.999961, -2.81806e-07, 0.0174131, 0.526952)
 body_offset = Transform3D(1, 1.72423e-06, -1.13404e-06, -5.21541e-07, -0.320531, -0.947238, -1.99676e-06, 0.947238, -0.320531, 8.49366e-07, 0.50473, 0.15241)
 bone_name = "leg1.L"
 joint_constraints/angular_limit_enabled = false
@@ -204,11 +204,11 @@ transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_14u3r")
 
 [node name="Physical Bone leg1_R" type="PhysicalBone3D" parent="knight/Armature_001/Skeleton3D/PhysicalBoneSimulator3D"]
-transform = Transform3D(-1, 1.72763e-06, -1.49945e-06, -5.4405e-07, 0.457053, 0.889439, 2.22195e-06, 0.889439, -0.457053, -0.185507, 1.33227, 0.223748)
+transform = Transform3D(-1, 1.86079e-06, -1.19224e-06, -5.51057e-07, 0.312489, 0.949921, 2.14017e-06, 0.949921, -0.312489, -0.185507, 1.33982, 0.148682)
 collision_layer = 4
 collision_mask = 5
 joint_type = 3
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.83663e-08, 0.0125653, 0.513997)
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.83666e-08, 0.0125656, 0.513997)
 body_offset = Transform3D(1, -1.85229e-06, 1.0667e-06, 5.16079e-07, -0.275052, -0.961429, 2.07425e-06, 0.961429, -0.275052, -5.06639e-07, 0.497628, 0.129295)
 bone_name = "leg1.R"
 joint_constraints/angular_limit_enabled = false

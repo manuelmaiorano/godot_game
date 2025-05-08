@@ -1,0 +1,132 @@
+[gd_scene load_steps=3 format=3 uid="uid://cuikv4q233osc"]
+
+[ext_resource type="Script" uid="uid://ddkt06jpjn8ty" path="res://scripts/ui/shop_inventory.gd" id="1_0lw7m"]
+[ext_resource type="PackedScene" uid="uid://b5q3t8nftjc86" path="res://scenes/ui/shop_item.tscn" id="1_75i0q"]
+
+[node name="ShopInventory" type="PanelContainer"]
+custom_minimum_size = Vector2(0, 500)
+offset_right = 404.0
+offset_bottom = 566.0
+size_flags_horizontal = 3
+script = ExtResource("1_0lw7m")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 13
+theme_override_constants/margin_top = 13
+theme_override_constants/margin_right = 13
+theme_override_constants/margin_bottom = 13
+
+[node name="Inventory" type="GridContainer" parent="MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+columns = 6
+
+[node name="ShopItem" parent="MarginContainer/Inventory" instance=ExtResource("1_75i0q")]
+layout_mode = 2
+
+[node name="ShopItem2" parent="MarginContainer/Inventory" instance=ExtResource("1_75i0q")]
+layout_mode = 2
+
+[node name="ShopItem3" parent="MarginContainer/Inventory" instance=ExtResource("1_75i0q")]
+layout_mode = 2
+
+[node name="ShopItem4" parent="MarginContainer/Inventory" instance=ExtResource("1_75i0q")]
+layout_mode = 2
+
+[node name="ShopItem5" parent="MarginContainer/Inventory" instance=ExtResource("1_75i0q")]
+layout_mode = 2
+
+[node name="ShopItem6" parent="MarginContainer/Inventory" instance=ExtResource("1_75i0q")]
+layout_mode = 2
+
+[node name="ShopItem7" parent="MarginContainer/Inventory" instance=ExtResource("1_75i0q")]
+layout_mode = 2
+
+[node name="ShopItem8" parent="MarginContainer/Inventory" instance=ExtResource("1_75i0q")]
+layout_mode = 2
+
+[node name="ShopItem9" parent="MarginContainer/Inventory" instance=ExtResource("1_75i0q")]
+layout_mode = 2
+
+[node name="ShopItem10" parent="MarginContainer/Inventory" instance=ExtResource("1_75i0q")]
+layout_mode = 2
+
+[node name="ShopItem11" parent="MarginContainer/Inventory" instance=ExtResource("1_75i0q")]
+layout_mode = 2
+
+[node name="ShopItem12" parent="MarginContainer/Inventory" instance=ExtResource("1_75i0q")]
+layout_mode = 2
+
+[node name="ShopItem13" parent="MarginContainer/Inventory" instance=ExtResource("1_75i0q")]
+layout_mode = 2
+
+[node name="ShopItem14" parent="MarginContainer/Inventory" instance=ExtResource("1_75i0q")]
+layout_mode = 2
+
+[node name="ShopItem15" parent="MarginContainer/Inventory" instance=ExtResource("1_75i0q")]
+layout_mode = 2
+
+[node name="ShopItem16" parent="MarginContainer/Inventory" instance=ExtResource("1_75i0q")]
+layout_mode = 2
+
+[node name="ShopItem17" parent="MarginContainer/Inventory" instance=ExtResource("1_75i0q")]
+layout_mode = 2
+
+[node name="ShopItem18" parent="MarginContainer/Inventory" instance=ExtResource("1_75i0q")]
+layout_mode = 2
+
+[node name="ShopItem19" parent="MarginContainer/Inventory" instance=ExtResource("1_75i0q")]
+layout_mode = 2
+
+[node name="ShopItem20" parent="MarginContainer/Inventory" instance=ExtResource("1_75i0q")]
+layout_mode = 2
+
+[node name="ShopItem21" parent="MarginContainer/Inventory" instance=ExtResource("1_75i0q")]
+layout_mode = 2
+
+[node name="ShopItem22" parent="MarginContainer/Inventory" instance=ExtResource("1_75i0q")]
+layout_mode = 2
+
+[node name="ShopItem23" parent="MarginContainer/Inventory" instance=ExtResource("1_75i0q")]
+layout_mode = 2
+
+[node name="ShopItem24" parent="MarginContainer/Inventory" instance=ExtResource("1_75i0q")]
+layout_mode = 2
+
+[node name="ShopItem25" parent="MarginContainer/Inventory" instance=ExtResource("1_75i0q")]
+layout_mode = 2
+
+[node name="ShopItem26" parent="MarginContainer/Inventory" instance=ExtResource("1_75i0q")]
+layout_mode = 2
+
+[node name="ShopItem27" parent="MarginContainer/Inventory" instance=ExtResource("1_75i0q")]
+layout_mode = 2
+
+[node name="ShopItem28" parent="MarginContainer/Inventory" instance=ExtResource("1_75i0q")]
+layout_mode = 2
+
+[node name="ShopItem29" parent="MarginContainer/Inventory" instance=ExtResource("1_75i0q")]
+layout_mode = 2
+
+[node name="ShopItem30" parent="MarginContainer/Inventory" instance=ExtResource("1_75i0q")]
+layout_mode = 2
+
+[node name="ShopItem31" parent="MarginContainer/Inventory" instance=ExtResource("1_75i0q")]
+layout_mode = 2
+
+[node name="ShopItem32" parent="MarginContainer/Inventory" instance=ExtResource("1_75i0q")]
+layout_mode = 2
+
+[node name="ShopItem33" parent="MarginContainer/Inventory" instance=ExtResource("1_75i0q")]
+layout_mode = 2
+
+[node name="ShopItem34" parent="MarginContainer/Inventory" instance=ExtResource("1_75i0q")]
+layout_mode = 2
+
+[node name="ShopItem35" parent="MarginContainer/Inventory" instance=ExtResource("1_75i0q")]
+layout_mode = 2
+
+[node name="ShopItem36" parent="MarginContainer/Inventory" instance=ExtResource("1_75i0q")]
+layout_mode = 2

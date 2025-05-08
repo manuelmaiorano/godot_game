@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://dy4sxktja70fm"]
+
+[ext_resource type="ButtonGroup" uid="uid://c6xtq0yaqb828" path="res://resources/buttons/inventory.tres" id="1_6miie"]
+[ext_resource type="Texture2D" uid="uid://dxse5qte08hjv" path="res://assets/textures/icons/branch.png" id="2_s5aup"]
+[ext_resource type="Script" uid="uid://cpm8rtjs0cpa8" path="res://scripts/ui/item_button.gd" id="3_7x4f6"]
+
+[node name="ItemInventory" type="PanelContainer"]
+offset_right = 72.0
+offset_bottom = 72.0
+theme_type_variation = &"PanelShopItem"
+script = ExtResource("3_7x4f6")
+
+[node name="Button" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+toggle_mode = true
+button_group = ExtResource("1_6miie")
+icon = ExtResource("2_s5aup")
+
+[node name="Label" type="Label" parent="Button"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -10.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "0"
