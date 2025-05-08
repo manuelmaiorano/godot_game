@@ -6,10 +6,12 @@ extends Node
 @export var attack_animation_name: StringName
 @export var target_component: Node
 
-
+@export var active: bool = true
 
 func _ready() -> void:
 	skeleton_modifier.active = false
+	if not active:
+		return
 	animation_tree.animation_started.connect(_on_animation_started)
 
 

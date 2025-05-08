@@ -48,3 +48,6 @@ func take_damage(attaker, damage):
 
 func take_explosion_damage(velocity):
 	$EnemyBehaviourComponent.take_explosion_damage(velocity)
+
+func set_antagonists(value):
+	$EnemyBehaviourComponent.set_antagonists(value)

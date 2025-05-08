@@ -51,20 +51,35 @@ func take_damage(attaker, damage):
 	
 	state_chart.send_event("hit")
 		
-	for group in body.get_groups():
-		if antagonist_groups.find(group) > -1:
-			target = body
-			state_chart.send_event("go_to_target")
-			return
+	if check_if_antagonist(body):
+		target = body
+		state_chart.send_event("go_to_target")
+		return
 
 func take_explosion_damage(velocity):
 	reduce_health(hp)
 	state_chart.send_event("die")
 	if ragdoll_on_death:
 		hip_bone.apply_central_impulse(velocity)
+
+func set_antagonists(value):
+	antagonist_groups = value
+	state_chart.send_event("deaggro")
+	call_deferred("check_aggression")
+
 	
+func check_aggression():
+	for body in detection_area.get_overlapping_bodies():
+		if check_if_antagonist(body):
+			target = body
+			state_chart.send_event("go_to_target")
+			return
 	
-	
+func check_if_antagonist(body):
+	for group in body.get_groups():
+		if antagonist_groups.find(group) > -1:
+			return true
+	return false
 
 #IDLE
 func _on_idle_state_entered() -> void:

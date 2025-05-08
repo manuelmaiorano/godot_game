@@ -137,7 +137,7 @@ transform = Transform3D(0.882357, 0, 0.470581, 0, 1, 0, -0.470581, 0, 0.882357, 
 transform = Transform3D(0.979628, 0, -0.200821, 0, 1, 0, 0.200821, 0, 0.979628, -155.949, -396.967, 1104.24)
 
 [node name="Knight" parent="." instance=ExtResource("5_lquwl")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -78.1761, -396.967, 1080.61)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -78.1761, -396.967, 1065.61)
 
 [node name="Knight3" parent="." instance=ExtResource("5_lquwl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -97.7932, -396.967, 1080.61)

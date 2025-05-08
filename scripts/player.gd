@@ -5,6 +5,7 @@ const ROTATION_INTERPOLATE_SPEED = 10
 @export var mouse_sensitivity:float = 500
 @export var clamp_pitch_rotation:float = 80
 @export var move_speed: float = 10
+@export var antagonist_groups: Array[StringName]
 
 
 @onready var camera_3d: Camera3D = %Camera3D
@@ -183,20 +184,35 @@ func _on_aiming_state_physics_processing(delta: float) -> void:
 	$chessinggame.global_transform.basis = orientation.basis
 	$chessinggame.rotate_y(deg_to_rad(180))
 
-func get_target_posiiton():
+func get_target_collider():
 	var crosshair = get_tree().get_first_node_in_group("crosshair")
 	
 	var ch_pos = crosshair.position + crosshair.size * 0.5
 	var ray_from = camera_3d.project_ray_origin(ch_pos)
 	var ray_dir = camera_3d.project_ray_normal(ch_pos)
-	var target_position
 		
 	var col = get_parent().get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(
 		ray_from, ray_from + ray_dir * 1000, collision_mask))
+	
+	if col.is_empty():
+		return null
+	return col.collider
+	
+func get_target_position():
+	
+	var target_position
+	var crosshair = get_tree().get_first_node_in_group("crosshair")
+	
+	var ch_pos = crosshair.position + crosshair.size * 0.5
+	var ray_from = camera_3d.project_ray_origin(ch_pos)
+	var ray_dir = camera_3d.project_ray_normal(ch_pos)
+		
+	var col = get_parent().get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(
+		ray_from, ray_from + ray_dir * 1000, collision_mask))
+		
 	if col.is_empty():
 		target_position = ray_from + ray_dir * 1000
 	else:
-		print(col.collider.name)
 		target_position = col.position
 	
 	return target_position
@@ -204,14 +220,31 @@ func get_target_posiiton():
 func _on_aiming_state_unhandled_input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("shoot"):
 		
-		var instance = preload("res://scenes/bullet.tscn").instantiate()
-		var start_position = shoot_from.global_position
-		var target_position = get_target_posiiton()
+		if active_item.name == &"pew":
+			var instance = preload("res://scenes/bullet.tscn").instantiate()
+			var start_position = shoot_from.global_position
+			var target_position = get_target_position()
+			
+			get_parent().add_child(instance)
+			instance.global_position = start_position
+			instance.shooter = self
+			instance.velocity = (target_position - start_position).normalized() * Globals.bullet_velocity
 		
-		get_parent().add_child(instance)
-		instance.global_position = start_position
-		instance.shooter = self
-		instance.velocity = (target_position - start_position).normalized() * Globals.bullet_velocity
+		if active_item.name == &"trap":
+			var instance = preload("res://scenes/trap.tscn").instantiate()
+			
+			get_parent().add_child(instance)
+			instance.global_position = get_target_position()
+		
+		if active_item.name == &"branch":
+			var collider: Node = get_target_collider()
+			if collider:
+				for group in collider.get_groups():
+					if antagonist_groups.find(group) > -1:
+						collider.set_antagonists(antagonist_groups)
+						return
+			
+			
 		
 		
 	if Input.is_action_just_pressed("aim"):
