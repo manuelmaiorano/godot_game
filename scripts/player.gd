@@ -20,12 +20,15 @@ const ROTATION_INTERPOLATE_SPEED = 10
 
 var orientation = Transform3D()
 var root_motion = Transform3D()
+var is_dead = false
 
+var active_item: Item = null
 
 func _ready():
 	# Pre-initialize orientation transform.
 	orientation = $chessinggame.global_transform
 	orientation.origin = Vector3()
+	SignalBus.InventoryItemSelected.connect(on_inventory_item_selected)
 
 func _input(event:InputEvent) -> void:
 	if not event is InputEventMouseMotion:
@@ -35,6 +38,9 @@ func _input(event:InputEvent) -> void:
 	
 	pitch.rotation_degrees.x = clamp(pitch.rotation_degrees.x - rad_to_deg(mouse_movement.y), -clamp_pitch_rotation, clamp_pitch_rotation )
 	yaw.rotate_y(-mouse_movement.x )
+
+func on_inventory_item_selected(item: Item):
+	active_item = item
 
 
 ### IDLE
@@ -190,6 +196,7 @@ func get_target_posiiton():
 	if col.is_empty():
 		target_position = ray_from + ray_dir * 1000
 	else:
+		print(col.collider.name)
 		target_position = col.position
 	
 	return target_position

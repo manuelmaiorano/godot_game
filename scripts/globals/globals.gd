@@ -1,4 +1,4 @@
 extends Node
 
-@export var bullet_damage = 1
+@export var bullet_damage = 0.01
 @export var bullet_velocity = 100

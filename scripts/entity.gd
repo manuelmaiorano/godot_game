@@ -8,6 +8,7 @@ extends CharacterBody3D
 
 var orientation = Transform3D()
 var root_motion = Transform3D()
+var is_dead: bool = false
 
 
 func _ready():

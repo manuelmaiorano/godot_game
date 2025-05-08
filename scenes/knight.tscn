@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bhw884mxsuvea"]
+[gd_scene load_steps=22 format=3 uid="uid://bhw884mxsuvea"]
 
 [ext_resource type="PackedScene" uid="uid://18wsrhgq604p" path="res://assets/models/knight.glb" id="1_dp28g"]
 [ext_resource type="Script" uid="uid://yvlgjjkmf4r4" path="res://scripts/entity.gd" id="1_qxgmm"]
@@ -9,14 +9,32 @@
 [ext_resource type="PackedScene" uid="uid://b7g14wlxgbugy" path="res://scenes/components/activate_weapon_damage_area.tscn" id="6_mvyd6"]
 [ext_resource type="PackedScene" uid="uid://dyriga41qx3tc" path="res://scenes/health_bar.tscn" id="6_swm0g"]
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qxgmm"]
-animation = &"walk"
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mvyd6"]
+radius = 0.217924
+height = 0.731865
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_14u3r"]
+radius = 0.092096
+height = 0.92096
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3cm67"]
+radius = 0.092096
+height = 0.92096
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mvyd6"]
+size = Vector3(13.7151, 6.22039, 20.6972)
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_mvyd6"]
+animation = &"run"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0dyjn"]
 animation = &"attack"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_swm0g"]
 animation = &"hit"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_14u3r"]
+animation = &"dodge"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5fsgc"]
 animation = &"idle"
@@ -39,35 +57,30 @@ input_3/name = "hit"
 input_3/auto_advance = false
 input_3/break_loop_at_end = false
 input_3/reset = true
+input_4/name = "dodge"
+input_4/auto_advance = false
+input_4/break_loop_at_end = false
+input_4/reset = true
 
-[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_k2txo"]
-graph_offset = Vector2(-282.149, 84.1051)
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_mvyd6"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_mvyd6"]
+graph_offset = Vector2(-745.28, -15.9599)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_5fsgc")
 nodes/Animation/position = Vector2(-220, 40)
-"nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_qxgmm")
-"nodes/Animation 2/position" = Vector2(-220, 220)
+"nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_mvyd6")
+"nodes/Animation 2/position" = Vector2(-400, 260)
 "nodes/Animation 3/node" = SubResource("AnimationNodeAnimation_0dyjn")
 "nodes/Animation 3/position" = Vector2(-220, 400)
 "nodes/Animation 4/node" = SubResource("AnimationNodeAnimation_swm0g")
 "nodes/Animation 4/position" = Vector2(-220, 580)
+"nodes/Animation 5/node" = SubResource("AnimationNodeAnimation_14u3r")
+"nodes/Animation 5/position" = Vector2(-200, 760)
 nodes/Transition/node = SubResource("AnimationNodeTransition_swm0g")
-nodes/Transition/position = Vector2(80, 120)
-node_connections = [&"Transition", 0, &"Animation", &"Transition", 1, &"Animation 2", &"Transition", 2, &"Animation 3", &"Transition", 3, &"Animation 4", &"output", 0, &"Transition"]
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mvyd6"]
-radius = 0.217924
-height = 0.731865
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_14u3r"]
-radius = 0.092096
-height = 0.92096
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3cm67"]
-radius = 0.092096
-height = 0.92096
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_mvyd6"]
-size = Vector3(13.7151, 6.22039, 15.0116)
+nodes/Transition/position = Vector2(80, 100)
+nodes/speed/node = SubResource("AnimationNodeTimeScale_mvyd6")
+nodes/speed/position = Vector2(-180, 220)
+node_connections = [&"Transition", 0, &"Animation", &"Transition", 1, &"speed", &"Transition", 2, &"Animation 3", &"Transition", 3, &"Animation 4", &"Transition", 4, &"Animation 5", &"output", 0, &"Transition", &"speed", 0, &"Animation 2"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3i0j8"]
 radius = 0.525481
@@ -95,6 +108,7 @@ hp_bar = NodePath("../HealthBar")
 ragdoll_on_death = true
 skeleton_modifier = NodePath("../knight/Armature_001/Skeleton3D/PhysicalBoneSimulator3D")
 hip_bone = NodePath("../knight/Armature_001/Skeleton3D/PhysicalBoneSimulator3D/Physical Bone hips")
+can_dodge = true
 
 [node name="LookAtTargetOnAttack" parent="." node_paths=PackedStringArray("skeleton_modifier", "target_node", "animation_tree", "target_component") instance=ExtResource("5_k2txo")]
 skeleton_modifier = NodePath("../knight/Armature_001/Skeleton3D/LookAtModifier3D")
@@ -108,23 +122,13 @@ weapon = NodePath("../knight/Armature_001/Skeleton3D/BoneAttachment3D/Sword")
 animation_tree = NodePath("../AnimationTree")
 attack_animation_name = &"attack"
 
-[node name="AnimationTree" type="AnimationTree" parent="."]
-root_node = NodePath("../knight")
-root_motion_track = NodePath("Armature_001/Skeleton3D:root")
-root_motion_local = false
-callback_mode_process = 0
-tree_root = SubResource("AnimationNodeBlendTree_k2txo")
-anim_player = NodePath("../knight/AnimationPlayer")
-parameters/Transition/current_state = "idle"
-parameters/Transition/transition_request = ""
-parameters/Transition/current_index = 0
-
 [node name="knight" parent="." instance=ExtResource("1_dp28g")]
 
 [node name="Skeleton3D" parent="knight/Armature_001" index="0"]
 bones/1/position = Vector3(0.185507, -0.113147, -2.80108e-08)
 bones/3/rotation = Quaternion(7.30694e-08, 0.983287, 0.182064, -7.42361e-08)
 bones/4/rotation = Quaternion(1, -3.34287e-14, -3.13916e-07, -8.9407e-08)
+bones/7/position = Vector3(-0.185507, 0.477611, -0.912245)
 bones/10/rotation = Quaternion(-7.30694e-08, 0.983287, 0.182064, 7.42361e-08)
 bones/11/rotation = Quaternion(1, 3.34287e-14, 3.13916e-07, -8.9407e-08)
 bones/12/position = Vector3(-0.185507, -0.113147, 2.80108e-08)
@@ -169,11 +173,11 @@ bone = 15
 active = false
 
 [node name="Physical Bone hips" type="PhysicalBone3D" parent="knight/Armature_001/Skeleton3D/PhysicalBoneSimulator3D"]
-transform = Transform3D(1, -1.42109e-14, 1.42145e-14, 1.42145e-14, 2.14578e-21, -1, 1.42109e-14, 1, 2.14578e-21, 2.45049e-14, 2.11013, 8.69066e-35)
+transform = Transform3D(1, 1.42109e-14, -1.42072e-14, -1.42072e-14, -2.14578e-21, -1, -1.42109e-14, 1, -2.14578e-21, -5.34456e-14, 2.07658, 1.40881e-26)
 collision_layer = 4
 collision_mask = 5
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.00189e-18, -5.91419e-22, 0.27562)
-body_offset = Transform3D(1, 0, 3.64732e-18, 3.64732e-18, 0, -1, 0, 1, 2.14578e-21, -3.38813e-21, 0.27562, 4.81482e-35)
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.5001e-14, 4.73279e-22, 0.220569)
+body_offset = Transform3D(1, 2.84217e-14, -2.8418e-14, -2.8418e-14, -4.29156e-21, -1, -2.84217e-14, 1, -2.14578e-21, -7.87329e-14, 0.220569, 1.52069e-26)
 bone_name = "ctrl.torso"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="knight/Armature_001/Skeleton3D/PhysicalBoneSimulator3D/Physical Bone hips"]
@@ -181,16 +185,16 @@ transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_mvyd6")
 
 [node name="Physical Bone leg1_L" type="PhysicalBone3D" parent="knight/Armature_001/Skeleton3D/PhysicalBoneSimulator3D"]
-transform = Transform3D(-1, -2.37356e-08, 4.55929e-07, 4.42573e-07, 0.194783, 0.980846, -1.12088e-07, 0.980846, -0.194783, 0.185507, 1.34352, 0.0896933)
+transform = Transform3D(-1, -1.66986e-06, 1.44657e-06, 5.63861e-07, 0.440175, 0.897912, -2.13613e-06, 0.897912, -0.440175, 0.185506, 1.33586, 0.216316)
 collision_layer = 4
 collision_mask = 5
 joint_type = 3
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.23039e-10, 1.14293e-07, 0.460479)
-body_offset = Transform3D(1, -1.34577e-11, -7.01528e-10, -7.0159e-10, -2.98023e-07, -1, 1.34577e-11, 1, -3.12924e-07, 0, 0.460479, 2.98023e-08)
+joint_offset = Transform3D(0.999995, 0, 0, 0, 0.999956, 0, 0, 0, 0.999961, -2.81802e-07, 0.0174126, 0.526952)
+body_offset = Transform3D(1, 1.72423e-06, -1.13404e-06, -5.21541e-07, -0.320531, -0.947238, -1.99676e-06, 0.947238, -0.320531, 8.49366e-07, 0.50473, 0.15241)
 bone_name = "leg1.L"
-joint_constraints/angular_limit_enabled = true
+joint_constraints/angular_limit_enabled = false
 joint_constraints/angular_limit_upper = 90.0
-joint_constraints/angular_limit_lower = 0.0
+joint_constraints/angular_limit_lower = -90.0
 joint_constraints/angular_limit_bias = 0.3
 joint_constraints/angular_limit_softness = 0.9
 joint_constraints/angular_limit_relaxation = 1.0
@@ -200,16 +204,16 @@ transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_14u3r")
 
 [node name="Physical Bone leg1_R" type="PhysicalBone3D" parent="knight/Armature_001/Skeleton3D/PhysicalBoneSimulator3D"]
-transform = Transform3D(-1, -8.38859e-10, -4.51048e-07, -4.42573e-07, 0.194783, 0.980846, 8.70336e-08, 0.980846, -0.194783, -0.185507, 1.34352, 0.0896933)
+transform = Transform3D(-1, 1.78987e-06, -1.37151e-06, -5.48438e-07, 0.39691, 0.917857, 2.18721e-06, 0.917857, -0.39691, -0.185507, 1.33992, 0.192477)
 collision_layer = 4
 collision_mask = 5
 joint_type = 3
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.45781e-08, 1.50957e-07, 0.460479)
-body_offset = Transform3D(1, 1.34577e-11, 7.01526e-10, 7.01625e-10, -3.12924e-07, -1, -1.34648e-11, 1, -3.27826e-07, -1.49012e-08, 0.460479, 0)
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.32675e-08, 0.0125653, 0.513997)
+body_offset = Transform3D(1, -1.85229e-06, 1.0667e-06, 5.16079e-07, -0.275052, -0.961429, 2.07425e-06, 0.961429, -0.275052, -4.91738e-07, 0.497628, 0.129295)
 bone_name = "leg1.R"
-joint_constraints/angular_limit_enabled = true
+joint_constraints/angular_limit_enabled = false
 joint_constraints/angular_limit_upper = 90.0
-joint_constraints/angular_limit_lower = 0.0
+joint_constraints/angular_limit_lower = -90.0
 joint_constraints/angular_limit_bias = 0.3
 joint_constraints/angular_limit_softness = 0.9
 joint_constraints/angular_limit_relaxation = 1.0
@@ -234,8 +238,20 @@ collision_mask = 2
 monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="knight/DetectionArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.23991, 3.17396, 8.33543)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.23991, 3.17396, 11.1782)
 shape = SubResource("BoxShape3D_mvyd6")
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+root_node = NodePath("../knight")
+root_motion_track = NodePath("Armature_001/Skeleton3D:root")
+root_motion_local = false
+callback_mode_process = 0
+tree_root = SubResource("AnimationNodeBlendTree_mvyd6")
+anim_player = NodePath("../knight/AnimationPlayer")
+parameters/Transition/current_state = "idle"
+parameters/Transition/transition_request = ""
+parameters/Transition/current_index = 0
+parameters/speed/scale = 2.5
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.62107, 0)

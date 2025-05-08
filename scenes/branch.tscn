@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://boh4tnfl2ndp2"]
+
+[ext_resource type="Script" uid="uid://k40eittdbn5q" path="res://scripts/branch.gd" id="1_1y37u"]
+[ext_resource type="PackedScene" uid="uid://dx40cix0vgmfe" path="res://assets/models/branch.glb" id="2_i083o"]
+
+[node name="Branch" type="Node3D"]
+script = ExtResource("1_1y37u")
+
+[node name="branch" parent="." instance=ExtResource("2_i083o")]

@@ -14,6 +14,7 @@ extends Node
 @export var ragdoll_on_death: bool = false
 @export var skeleton_modifier: PhysicalBoneSimulator3D
 @export var hip_bone: PhysicalBone3D
+@export var can_dodge: bool = false
 
 var target: Node3D
 var hp: float
@@ -82,9 +83,10 @@ func _on_walk_state_entered() -> void:
 	agent.animation_tree["parameters/Transition/transition_request"] = "walk"
 
 func _on_walk_state_physics_processing(delta: float) -> void:
-	if target == null:
-		state_chart.send_event("deaggro")
+	if target == null or target.is_dead:
+		state_chart.send_event("stop_moving")
 		return
+		
 	if agent.global_position.distance_to(target.global_position) < distance_to_attack:
 		state_chart.send_event("attack")
 		return
@@ -100,11 +102,17 @@ func _on_walk_state_physics_processing(delta: float) -> void:
 
 #ATTACK
 func _on_attack_state_entered() -> void:
-	agent.animation_tree["parameters/Transition/transition_request"] = "attack"
+	var should_dodge = false
+	if can_dodge:
+		should_dodge = randf() > 0.5
+	if should_dodge:
+		agent.animation_tree["parameters/Transition/transition_request"] = "dodge"
+	else:
+		agent.animation_tree["parameters/Transition/transition_request"] = "attack"
 
 
 func _on_attack_state_physics_processing(delta: float) -> void:
-	if target == null:
+	if target == null  or target.is_dead:
 		state_chart.send_event("deaggro")
 		return
 	agent.rotate_towards_target(delta, target)
@@ -120,6 +128,7 @@ func _on_attack_state_exited() -> void:
 
 #DEAD
 func _on_dead_state_entered() -> void:
+	agent.is_dead = true
 	if ragdoll_on_death:
 		animation_tree.active = false
 		skeleton_modifier.active = true

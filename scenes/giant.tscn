@@ -10,6 +10,9 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_2xoio"]
 size = Vector3(1, 1.81049, 1)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_5x4qu"]
+size = Vector3(21.8606, 16.7523, 25.4759)
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5x4qu"]
 animation = &"walk"
 
@@ -50,9 +53,6 @@ node_connections = [&"Transition", 0, &"Animation", &"Transition", 1, &"Animatio
 radius = 3.11056
 height = 16.8316
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_5x4qu"]
-size = Vector3(21.8606, 16.7523, 25.4759)
-
 [node name="Giant" type="CharacterBody3D" node_paths=PackedStringArray("animation_tree", "model") groups=["knights"]]
 collision_layer = 2
 collision_mask = 3
@@ -67,7 +67,7 @@ entity_stats = ExtResource("2_ukwaf")
 agent = NodePath("..")
 model = NodePath("../giant")
 animation_tree = NodePath("../AnimationTree")
-detection_area = NodePath("../DetectionArea")
+detection_area = NodePath("../giant/DetectionArea")
 distance_to_attack = 15.0
 antagonist_groups = Array[StringName]([&"player", &"animals"])
 hp_bar = NodePath("../HealthBar")
@@ -85,7 +85,7 @@ bones/3/rotation = Quaternion(0.707107, 3.09086e-08, -3.06266e-07, 0.707107)
 bones/4/rotation = Quaternion(-1.05796e-21, -5.25952e-23, 0, 1)
 bones/9/rotation = Quaternion(0.707107, -3.09086e-08, 3.06266e-07, 0.707107)
 bones/10/rotation = Quaternion(-1.05796e-21, 5.25952e-23, 0, 1)
-bones/13/position = Vector3(0, 0, 5.52791)
+bones/13/position = Vector3(0, 0, 5.3909)
 bones/13/rotation = Quaternion(-5.33851e-08, 0.707107, 0.707107, -5.33851e-08)
 bones/15/position = Vector3(5.18955, 1.29303, 2.52968)
 bones/15/rotation = Quaternion(0.613299, -0.34618, -0.678324, 0.209525)
@@ -96,14 +96,14 @@ bones/24/rotation = Quaternion(0.0147627, 0.179625, 0.12518, 0.975627)
 bones/26/rotation = Quaternion(0.289403, -0.341641, 0.470607, 0.7603)
 bones/27/rotation = Quaternion(0.418291, -4.7255e-09, -4.1033e-07, 0.908313)
 bones/28/rotation = Quaternion(0.0147627, -0.179625, -0.12518, 0.975627)
-bones/29/rotation = Quaternion(-1.39689e-07, 0.0521711, 0.998638, 3.41417e-08)
-bones/30/rotation = Quaternion(-0.109488, 1.1865e-07, 4.32666e-08, 0.993988)
-bones/31/rotation = Quaternion(0.459765, -9.26061e-08, 1.40247e-08, 0.888041)
+bones/29/rotation = Quaternion(-1.39093e-07, 0.105936, 0.994373, 6.93262e-08)
+bones/30/rotation = Quaternion(-0.221371, 1.16406e-07, 8.74796e-08, 0.97519)
+bones/31/rotation = Quaternion(0.511856, -1.13472e-07, 3.72414e-08, 0.859071)
 bones/32/rotation = Quaternion(0.357118, -8.72167e-08, -3.33466e-08, 0.934059)
 bones/32/scale = Vector3(1, 0.999987, 1.00001)
-bones/33/rotation = Quaternion(-7.93383e-08, 0.0521711, 0.998638, -3.45205e-08)
-bones/34/rotation = Quaternion(-0.109488, -1.18335e-07, -6.811e-08, 0.993988)
-bones/35/rotation = Quaternion(0.459765, 9.26061e-08, -1.40247e-08, 0.888041)
+bones/33/rotation = Quaternion(-7.89996e-08, 0.105936, 0.994373, -7.00954e-08)
+bones/34/rotation = Quaternion(-0.221371, -1.16097e-07, -1.3771e-07, 0.97519)
+bones/35/rotation = Quaternion(0.511856, 1.00421e-07, -1.00329e-08, 0.859071)
 bones/36/rotation = Quaternion(0.357118, 8.72167e-08, 3.33466e-08, 0.934059)
 bones/36/scale = Vector3(1, 0.999987, 1.00001)
 bones/37/position = Vector3(-5.18955, 1.29303, 2.52968)
@@ -111,7 +111,7 @@ bones/37/rotation = Quaternion(0.613299, 0.34618, 0.678324, 0.209525)
 bones/38/position = Vector3(-8.07977, 8.27539, -2.70886)
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="giant/Armature_002/Skeleton3D" index="9"]
-transform = Transform3D(-0.159928, 0.140372, 0.977097, 0.708874, -0.672518, 0.212641, 0.686964, 0.726646, 0.00804839, -5.18955, 6.82095, 2.52968)
+transform = Transform3D(-0.159928, 0.140372, 0.977097, 0.708874, -0.672518, 0.212641, 0.686964, 0.726646, 0.00804839, -5.18955, 6.68393, 2.52968)
 bone_name = "ikhand.R"
 bone_idx = 37
 
@@ -129,6 +129,15 @@ root_motion_track = NodePath("Armature_002/Skeleton3D:root")
 root_motion_local = false
 callback_mode_process = 0
 
+[node name="DetectionArea" type="Area3D" parent="giant"]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="giant/DetectionArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.824051, 8.22229, 18.4533)
+shape = SubResource("BoxShape3D_5x4qu")
+
 [node name="AnimationTree" type="AnimationTree" parent="."]
 root_node = NodePath("../giant")
 root_motion_track = NodePath("Armature_002/Skeleton3D:root")
@@ -143,14 +152,5 @@ parameters/Transition/current_index = 0
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.39852, 0)
 shape = SubResource("CapsuleShape3D_5x4qu")
-
-[node name="DetectionArea" type="Area3D" parent="."]
-collision_layer = 0
-collision_mask = 2
-monitorable = false
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.824051, 8.22229, 18.4533)
-shape = SubResource("BoxShape3D_5x4qu")
 
 [editable path="giant"]

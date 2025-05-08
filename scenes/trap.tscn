@@ -9,7 +9,7 @@ damage = 1000.0
 metadata/_custom_type_script = "uid://oi5jsly8i4v3"
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ykdm6"]
-radius = 6.81612
+radius = 21.1576
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_62q8x"]
 size = Vector3(0.674194, 0.155151, 0.591248)
