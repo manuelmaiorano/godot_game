@@ -17,8 +17,10 @@ func _ready():
 	orientation.origin = Vector3()
 	
 func rotate_towards_target(delta, target):
-	var direction = global_position - target.global_position
+	var direction: Vector3 = global_position - target.global_position
 	direction.y = 0
+	if direction.is_zero_approx():
+		return
 	
 	var q_from = orientation.basis.get_rotation_quaternion()
 	var q_to = Transform3D().looking_at(-direction.normalized(), Vector3.UP, true).basis.get_rotation_quaternion()

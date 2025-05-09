@@ -283,6 +283,7 @@ func _on_aiming_state_unhandled_input(event: InputEvent) -> void:
 				for group in collider.get_groups():
 					if antagonist_groups.find(group) > -1:
 						collider.set_antagonists(antagonist_groups)
+						collider.add_to_group("player")
 						return
 			
 			

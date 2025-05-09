@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cun5hi2ne8vti"]
+[gd_scene load_steps=10 format=3 uid="uid://cun5hi2ne8vti"]
 
 [ext_resource type="Texture2D" uid="uid://c5axvbviovpdm" path="res://assets/textures/icons/crosshair.png" id="1_nt7q6"]
 [ext_resource type="Script" uid="uid://cgv8y2u32y5hl" path="res://scripts/ui.gd" id="1_yev5y"]
@@ -7,11 +7,8 @@
 [ext_resource type="Resource" uid="uid://dbi8ijwjyydfa" path="res://resources/items/trap.tres" id="7_ktti3"]
 [ext_resource type="Texture2D" uid="uid://o37chmp80ga7" path="res://assets/textures/icons/close.png" id="8_7dvkv"]
 [ext_resource type="Resource" uid="uid://t3iiak64ogdp" path="res://resources/items/pew.tres" id="8_cgfq5"]
+[ext_resource type="ButtonGroup" uid="uid://1cyvgty3ta5o" path="res://resources/buttons/shop_group.tres" id="9_7dvkv"]
 [ext_resource type="PackedScene" uid="uid://cuikv4q233osc" path="res://scenes/ui/shop_inventory.tscn" id="9_cgfq5"]
-
-[sub_resource type="ButtonGroup" id="ButtonGroup_ktti3"]
-
-[sub_resource type="ButtonGroup" id="ButtonGroup_cgfq5"]
 
 [node name="UI" type="CanvasLayer"]
 process_mode = 3
@@ -163,7 +160,7 @@ layout_mode = 2
 [node name="Inventory" parent="ShopMenu/VBoxContainer/HBoxContainer" instance=ExtResource("9_cgfq5")]
 unique_name_in_owner = true
 layout_mode = 2
-button_group = SubResource("ButtonGroup_ktti3")
+button_group = ExtResource("9_7dvkv")
 is_shop = false
 
 [node name="Control" type="Control" parent="ShopMenu/VBoxContainer/HBoxContainer"]
@@ -173,7 +170,7 @@ layout_mode = 2
 [node name="ShopInventory" parent="ShopMenu/VBoxContainer/HBoxContainer" instance=ExtResource("9_cgfq5")]
 unique_name_in_owner = true
 layout_mode = 2
-button_group = SubResource("ButtonGroup_cgfq5")
+button_group = ExtResource("9_7dvkv")
 
 [node name="Control" type="Control" parent="ShopMenu/VBoxContainer"]
 layout_mode = 2
