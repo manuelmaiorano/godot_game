@@ -3,3 +3,4 @@ class_name EntityStats
 
 @export var max_hp: float
 @export var damage: float
+@export var points: int = 100

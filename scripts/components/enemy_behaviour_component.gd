@@ -144,6 +144,7 @@ func _on_attack_state_exited() -> void:
 #DEAD
 func _on_dead_state_entered() -> void:
 	agent.is_dead = true
+	SignalBus.EnemyKilled.emit(agent.entity_stats.points)
 	if ragdoll_on_death:
 		animation_tree.active = false
 		skeleton_modifier.active = true

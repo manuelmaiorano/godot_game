@@ -37,6 +37,7 @@ func _ready():
 	SignalBus.TrySell.connect(on_try_sell)
 	SignalBus.ItemBought.connect(on_item_bought)
 	SignalBus.MoneyChanged.emit(money)
+	SignalBus.EnemyKilled.connect(func (x): money += x; SignalBus.MoneyChanged.emit(money))
 	
 func on_item_bought(item):
 	

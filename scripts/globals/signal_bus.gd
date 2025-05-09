@@ -18,3 +18,6 @@ signal TrySell(item: Item)
 signal ItemSold(item: Item)
 
 signal MoneyChanged(value: int)
+
+
+signal EnemyKilled(points: int)
