@@ -12,3 +12,4 @@ func set_amount(value):
 
 func press():
 	button.button_pressed = true
+	

@@ -1,11 +1,17 @@
-[gd_scene load_steps=11 format=3 uid="uid://dkk0f5wj0at7x"]
+[gd_scene load_steps=17 format=3 uid="uid://dkk0f5wj0at7x"]
 
+[ext_resource type="Script" uid="uid://ca12wqpejflj" path="res://main.gd" id="1_efxa6"]
 [ext_resource type="PackedScene" uid="uid://cjca6mx3264lj" path="res://scenes/player.tscn" id="1_ig7tw"]
 [ext_resource type="Texture2D" uid="uid://dujcu7jcy8evu" path="res://assets/textures/texture_01.png" id="2_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://cun5hi2ne8vti" path="res://scenes/ui.tscn" id="5_7mycd"]
 [ext_resource type="PackedScene" uid="uid://bhw884mxsuvea" path="res://scenes/knight.tscn" id="5_lquwl"]
 [ext_resource type="PackedScene" uid="uid://dyugdxrsv73ma" path="res://scenes/dog_small.tscn" id="6_7mycd"]
 [ext_resource type="PackedScene" uid="uid://0xnk1iydrnbm" path="res://scenes/giant.tscn" id="6_272bh"]
+[ext_resource type="PackedScene" uid="uid://ddc1cmh0bkned" path="res://scenes/shop.tscn" id="7_272bh"]
+[ext_resource type="Script" uid="uid://dxg0yepbv63k0" path="res://addons/godot_state_charts/state_chart.gd" id="9_dg77c"]
+[ext_resource type="Script" uid="uid://cwxxkh1jh6pp4" path="res://addons/godot_state_charts/compound_state.gd" id="10_ycdy4"]
+[ext_resource type="Script" uid="uid://bitddddrhbl0d" path="res://addons/godot_state_charts/atomic_state.gd" id="11_w48qg"]
+[ext_resource type="Script" uid="uid://knk6whqnftyj" path="res://addons/godot_state_charts/transition.gd" id="12_dg77c"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0xm2m"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -24,6 +30,7 @@ glow_enabled = true
 albedo_texture = ExtResource("2_0xm2m")
 
 [node name="main" type="Node3D"]
+script = ExtResource("1_efxa6")
 
 [node name="UI" parent="." instance=ExtResource("5_7mycd")]
 
@@ -35,7 +42,7 @@ transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -
 shadow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("1_ig7tw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -135.72, -396.964, 1134.23)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -120.221, -396.964, 1128.69)
 
 [node name="World" type="Node3D" parent="."]
 
@@ -149,3 +156,41 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -54.9907, -396.967, 1080.61)
 
 [node name="Giant" parent="." instance=ExtResource("6_272bh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -72.0348, -396.924, 1040.5)
+
+[node name="Shop" parent="." instance=ExtResource("7_272bh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -116.888, -396.967, 1127.01)
+
+[node name="StateChart" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("9_dg77c")
+metadata/_custom_type_script = "uid://dxg0yepbv63k0"
+
+[node name="CompoundState" type="Node" parent="StateChart"]
+script = ExtResource("10_ycdy4")
+initial_state = NodePath("Playing")
+metadata/_custom_type_script = "uid://cwxxkh1jh6pp4"
+
+[node name="Playing" type="Node" parent="StateChart/CompoundState"]
+script = ExtResource("11_w48qg")
+metadata/_custom_type_script = "uid://bitddddrhbl0d"
+
+[node name="ToMenuMode" type="Node" parent="StateChart/CompoundState/Playing"]
+script = ExtResource("12_dg77c")
+to = NodePath("../../MenuMode")
+event = &"to_menu"
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://knk6whqnftyj"
+
+[node name="MenuMode" type="Node" parent="StateChart/CompoundState"]
+script = ExtResource("11_w48qg")
+metadata/_custom_type_script = "uid://bitddddrhbl0d"
+
+[node name="ToPlaying" type="Node" parent="StateChart/CompoundState/MenuMode"]
+script = ExtResource("12_dg77c")
+to = NodePath("../../Playing")
+event = &"to_playing"
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://knk6whqnftyj"
+
+[connection signal="state_entered" from="StateChart/CompoundState/Playing" to="." method="_on_playing_state_entered"]
+[connection signal="state_entered" from="StateChart/CompoundState/MenuMode" to="." method="_on_menu_mode_state_entered"]

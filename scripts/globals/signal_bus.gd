@@ -3,7 +3,18 @@ extends Node
 
 signal InventoryItemSelected(item: Item)
 signal ItemsChanged(itemList: Dictionary[Item, int])
-signal ShopEntered
-signal ShopExit
-signal ItemPurchased
-signal ItemSold
+
+signal CloseToShop
+signal FarFromShop
+signal ShopEntered(shop_item_amounts: Dictionary[Item, int])
+signal ShopExited
+
+signal ShopItemSelected(item: Item, inventory: Node)
+signal ShopItemChanged(shop_item_amounts: Dictionary[Item, int])
+
+signal TryBuy(item: Item)
+signal ItemBought(item: Item)
+signal TrySell(item: Item)
+signal ItemSold(item: Item)
+
+signal MoneyChanged(value: int)

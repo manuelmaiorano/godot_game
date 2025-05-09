@@ -15,6 +15,7 @@ layout_mode = 2
 unique_name_in_owner = true
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
+toggle_mode = true
 
 [node name="TextureRect" type="TextureRect" parent="VBoxContainer/ItemButton"]
 unique_name_in_owner = true
@@ -40,3 +41,5 @@ grow_vertical = 0
 unique_name_in_owner = true
 layout_mode = 2
 horizontal_alignment = 2
+
+[connection signal="pressed" from="VBoxContainer/ItemButton" to="." method="_on_item_button_pressed"]

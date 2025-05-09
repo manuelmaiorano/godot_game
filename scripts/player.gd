@@ -26,12 +26,41 @@ var is_dead = false
 var active_item: Item = null
 
 @export var item_amounts: Dictionary[Item, int]
+@export var money: int = 1000
 
 func _ready():
 	# Pre-initialize orientation transform.
 	orientation = $chessinggame.global_transform
 	orientation.origin = Vector3()
 	SignalBus.InventoryItemSelected.connect(on_inventory_item_selected)
+	SignalBus.ItemsChanged.emit(item_amounts)
+	SignalBus.TrySell.connect(on_try_sell)
+	SignalBus.ItemBought.connect(on_item_bought)
+	SignalBus.MoneyChanged.emit(money)
+	
+func on_item_bought(item):
+	
+	money -= item.price
+	SignalBus.MoneyChanged.emit(money)
+	if item_amounts.has(item):
+		item_amounts[item] += 1
+	else:
+		item_amounts[item] = 1
+	SignalBus.ItemsChanged.emit(item_amounts)
+	
+func on_try_sell(item: Item):
+	
+	if item_amounts.has(item):
+		if item_amounts[item] == 0:
+			return
+		item_amounts[item] -= 1
+	else:
+		return
+		
+	money += item.price
+	SignalBus.MoneyChanged.emit(money)
+	
+	SignalBus.ItemSold.emit(item)
 	SignalBus.ItemsChanged.emit(item_amounts)
 
 func _input(event:InputEvent) -> void:

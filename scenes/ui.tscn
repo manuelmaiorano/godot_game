@@ -1,14 +1,20 @@
-[gd_scene load_steps=8 format=3 uid="uid://cun5hi2ne8vti"]
+[gd_scene load_steps=11 format=3 uid="uid://cun5hi2ne8vti"]
 
 [ext_resource type="Texture2D" uid="uid://c5axvbviovpdm" path="res://assets/textures/icons/crosshair.png" id="1_nt7q6"]
 [ext_resource type="Script" uid="uid://cgv8y2u32y5hl" path="res://scripts/ui.gd" id="1_yev5y"]
 [ext_resource type="PackedScene" uid="uid://dy4sxktja70fm" path="res://scenes/ui/item_inventory.tscn" id="3_8dubc"]
 [ext_resource type="Resource" uid="uid://dh66upo5w26a" path="res://resources/items/branch.tres" id="6_cgfq5"]
 [ext_resource type="Resource" uid="uid://dbi8ijwjyydfa" path="res://resources/items/trap.tres" id="7_ktti3"]
+[ext_resource type="Texture2D" uid="uid://o37chmp80ga7" path="res://assets/textures/icons/close.png" id="8_7dvkv"]
 [ext_resource type="Resource" uid="uid://t3iiak64ogdp" path="res://resources/items/pew.tres" id="8_cgfq5"]
 [ext_resource type="PackedScene" uid="uid://cuikv4q233osc" path="res://scenes/ui/shop_inventory.tscn" id="9_cgfq5"]
 
+[sub_resource type="ButtonGroup" id="ButtonGroup_ktti3"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_cgfq5"]
+
 [node name="UI" type="CanvasLayer"]
+process_mode = 3
 script = ExtResource("1_yev5y")
 
 [node name="CrossHair" type="CenterContainer" parent="." groups=["crosshair"]]
@@ -61,8 +67,44 @@ item = ExtResource("8_cgfq5")
 layout_mode = 2
 item = ExtResource("7_ktti3")
 
+[node name="InfoLabel" type="Label" parent="HUD"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -68.0
+offset_top = -143.0
+offset_right = 68.0
+offset_bottom = -120.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "[E] to access shop"
+
+[node name="PanelContainer" type="PanelContainer" parent="HUD"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -206.0
+offset_top = -68.0
+offset_right = -20.0
+offset_bottom = -28.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="Money" type="Label" parent="HUD/PanelContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
+
 [node name="ShopMenu" type="Control" parent="."]
-visible = false
+unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -84,11 +126,19 @@ offset_bottom = 314.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="ShopMenu/VBoxContainer"]
+[node name="HBoxContainer4" type="HBoxContainer" parent="ShopMenu/VBoxContainer"]
 layout_mode = 2
+
+[node name="Label" type="Label" parent="ShopMenu/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3
 theme_type_variation = &"HeaderLarge"
 text = "SHOP"
 horizontal_alignment = 1
+
+[node name="Close" type="Button" parent="ShopMenu/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+icon = ExtResource("8_7dvkv")
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="ShopMenu/VBoxContainer"]
 layout_mode = 2
@@ -113,6 +163,8 @@ layout_mode = 2
 [node name="Inventory" parent="ShopMenu/VBoxContainer/HBoxContainer" instance=ExtResource("9_cgfq5")]
 unique_name_in_owner = true
 layout_mode = 2
+button_group = SubResource("ButtonGroup_ktti3")
+is_shop = false
 
 [node name="Control" type="Control" parent="ShopMenu/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(20, 0)
@@ -121,6 +173,7 @@ layout_mode = 2
 [node name="ShopInventory" parent="ShopMenu/VBoxContainer/HBoxContainer" instance=ExtResource("9_cgfq5")]
 unique_name_in_owner = true
 layout_mode = 2
+button_group = SubResource("ButtonGroup_cgfq5")
 
 [node name="Control" type="Control" parent="ShopMenu/VBoxContainer"]
 layout_mode = 2
@@ -147,3 +200,7 @@ text = "Sell
 [node name="Control2" type="Control" parent="ShopMenu/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[connection signal="button_up" from="ShopMenu/VBoxContainer/HBoxContainer4/Close" to="." method="_on_close_button_up"]
+[connection signal="button_up" from="ShopMenu/VBoxContainer/HBoxContainer2/Buy" to="." method="_on_buy_button_up"]
+[connection signal="button_up" from="ShopMenu/VBoxContainer/HBoxContainer2/Sell" to="." method="_on_sell_button_up"]

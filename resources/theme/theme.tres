@@ -3,5 +3,7 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bqu5r"]
 
 [resource]
+LabelRed/base_type = &"Label"
+LabelRed/colors/font_color = Color(0.847059, 0, 0, 1)
 PanelShopItem/base_type = &"PanelContainer"
 PanelShopItem/styles/panel = SubResource("StyleBoxEmpty_bqu5r")
