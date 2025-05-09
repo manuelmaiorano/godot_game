@@ -111,6 +111,7 @@ text = "SHOP"
 layout_mode = 2
 
 [node name="Inventory" parent="ShopMenu/VBoxContainer/HBoxContainer" instance=ExtResource("9_cgfq5")]
+unique_name_in_owner = true
 layout_mode = 2
 
 [node name="Control" type="Control" parent="ShopMenu/VBoxContainer/HBoxContainer"]
@@ -118,6 +119,7 @@ custom_minimum_size = Vector2(20, 0)
 layout_mode = 2
 
 [node name="ShopInventory" parent="ShopMenu/VBoxContainer/HBoxContainer" instance=ExtResource("9_cgfq5")]
+unique_name_in_owner = true
 layout_mode = 2
 
 [node name="Control" type="Control" parent="ShopMenu/VBoxContainer"]

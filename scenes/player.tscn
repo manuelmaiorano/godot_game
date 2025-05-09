@@ -166,18 +166,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.569077, 1.56689, -1.51667)
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
 [node name="Skeleton3D" parent="chessinggame/Armature_001" index="0"]
-bones/7/position = Vector3(0, 0, 1.07979)
+bones/7/position = Vector3(0, 0, 1.08659)
 bones/7/rotation = Quaternion(3.09086e-08, 0.707107, 0.707107, 3.09086e-08)
 bones/13/rotation = Quaternion(0.0220125, 0.434717, -0.06845, 0.897692)
 bones/14/rotation = Quaternion(0.411066, 1.72524e-08, 1.52854e-07, 0.911606)
 bones/17/rotation = Quaternion(0.0320414, -0.463594, 0.107068, 0.878971)
 bones/18/rotation = Quaternion(0.331471, 1.58489e-08, -1.02186e-07, 0.943466)
-bones/20/rotation = Quaternion(-5.19675e-08, 0.0759519, 0.997111, 2.04404e-07)
-bones/21/rotation = Quaternion(-0.141717, -6.6543e-09, 3.16651e-07, 0.989907)
-bones/22/rotation = Quaternion(0.512405, -3.10885e-07, -1.65085e-07, 0.858744)
-bones/24/rotation = Quaternion(6.78266e-08, 0.0759519, 0.997111, -2.05598e-07)
-bones/25/rotation = Quaternion(-0.141717, 6.65429e-09, -3.16651e-07, 0.989907)
-bones/26/rotation = Quaternion(0.512405, 3.25505e-07, 1.5882e-07, 0.858744)
+bones/20/rotation = Quaternion(-5.29351e-08, 0.0416947, 0.99913, 1.26267e-07)
+bones/21/rotation = Quaternion(-0.0779524, -6.70165e-09, 1.74176e-07, 0.996957)
+bones/22/rotation = Quaternion(0.486551, -2.81192e-07, -9.84032e-08, 0.873652)
+bones/24/rotation = Quaternion(6.88263e-08, 0.0416947, 0.99913, -1.2693e-07)
+bones/25/rotation = Quaternion(-0.0779524, 6.70164e-09, -1.74176e-07, 0.996957)
+bones/26/rotation = Quaternion(0.486551, 2.95613e-07, 9.16936e-08, 0.873652)
 bones/27/rotation = Quaternion(0.308471, 4.15797e-08, 1.33607e-07, 0.951234)
 bones/28/position = Vector3(0.961641, -0.184145, 0.267276)
 bones/30/position = Vector3(-0.976214, -0.246263, 0.171608)
@@ -286,7 +286,7 @@ tree_root = SubResource("AnimationNodeBlendTree_tuyoq")
 anim_player = NodePath("../chessinggame/AnimationPlayer")
 parameters/TimeScale/scale = 2.0
 parameters/Transition/current_state = "idle"
-parameters/Transition/transition_request = 0.666667
+parameters/Transition/transition_request = ""
 parameters/Transition/current_index = 0.18332
 
 [node name="CameraAnimation" type="AnimationPlayer" parent="."]
