@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://bv37dfiqpjay6"]
+
+[ext_resource type="PackedScene" uid="uid://b5mbdphneptve" path="res://assets/models/spaceship.glb" id="1_yqmju"]
+[ext_resource type="PackedScene" uid="uid://ddc1cmh0bkned" path="res://scenes/shop.tscn" id="2_ae4p7"]
+
+[node name="Spaceship" type="Node3D"]
+
+[node name="spaceship" parent="." instance=ExtResource("1_yqmju")]
+
+[node name="Shop" parent="." instance=ExtResource("2_ae4p7")]

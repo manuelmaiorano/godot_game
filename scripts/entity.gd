@@ -48,8 +48,8 @@ func apply_orientation_to_model():
 func take_damage(attaker, damage):
 	$EnemyBehaviourComponent.take_damage(attaker, damage)
 
-func take_explosion_damage(velocity):
-	$EnemyBehaviourComponent.take_explosion_damage(velocity)
+func take_explosion_damage(velocity, damage):
+	$EnemyBehaviourComponent.take_explosion_damage(velocity, damage)
 
 func set_antagonists(value):
 	$EnemyBehaviourComponent.set_antagonists(value)

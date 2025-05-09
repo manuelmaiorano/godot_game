@@ -1,12 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://dx7gmxaut3ijv"]
+[gd_scene load_steps=6 format=3 uid="uid://dx7gmxaut3ijv"]
 
 [ext_resource type="Script" uid="uid://dcejpxwgjboa6" path="res://scripts/trap.gd" id="1_npg1n"]
-[ext_resource type="Script" uid="uid://oi5jsly8i4v3" path="res://scripts/resources/weapon_stats.gd" id="2_62q8x"]
-
-[sub_resource type="Resource" id="Resource_aucmg"]
-script = ExtResource("2_62q8x")
-damage = 1000.0
-metadata/_custom_type_script = "uid://oi5jsly8i4v3"
+[ext_resource type="Resource" uid="uid://c52toyb75lqsa" path="res://resources/weapons/trap.tres" id="2_62q8x"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ykdm6"]
 radius = 21.1576
@@ -19,7 +14,7 @@ size = Vector3(0.674194, 0.155151, 0.591248)
 
 [node name="Trap" type="Node3D"]
 script = ExtResource("1_npg1n")
-stats = SubResource("Resource_aucmg")
+stats = ExtResource("2_62q8x")
 
 [node name="DetectArea" type="Area3D" parent="."]
 unique_name_in_owner = true

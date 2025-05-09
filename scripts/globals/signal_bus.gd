@@ -21,3 +21,4 @@ signal MoneyChanged(value: int)
 signal PlayerHealthChanged(value: int)
 
 signal EnemyKilled(points: int)
+signal PlayerDead

@@ -94,10 +94,11 @@ func reduce_health(damage):
 	SignalBus.PlayerHealthChanged.emit(hp/stats.max_hp)
 
 
-func take_explosion_damage(velocity):
-	reduce_health(hp)
-	state_chart.send_event("die")
-	hip_bone.apply_central_impulse(velocity)
+func take_explosion_damage(velocity, damage):
+	reduce_health(damage)
+	if hp <= 0:
+		state_chart.send_event("die")
+		hip_bone.apply_central_impulse(velocity)
 
 ### IDLE
 

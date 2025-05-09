@@ -56,11 +56,12 @@ func take_damage(attaker, damage):
 		state_chart.send_event("go_to_target")
 		return
 
-func take_explosion_damage(velocity):
-	reduce_health(hp)
-	state_chart.send_event("die")
-	if ragdoll_on_death:
-		hip_bone.apply_central_impulse(velocity)
+func take_explosion_damage(velocity, damage):
+	reduce_health(damage)
+	if hp <= 0:
+		state_chart.send_event("die")
+		if ragdoll_on_death:
+			hip_bone.apply_central_impulse(velocity)
 
 func set_antagonists(value):
 	antagonist_groups = value

@@ -5,6 +5,7 @@ extends Node3D
 func _ready() -> void:
 	SignalBus.ShopEntered.connect(func (x): state_chart.send_event("to_menu"))
 	SignalBus.ShopExited.connect(func (): state_chart.send_event("to_playing"))
+	SignalBus.PlayerDead.connect(func (): state_chart.send_event("player_dead"))
 
 
 func _on_playing_state_entered() -> void:
