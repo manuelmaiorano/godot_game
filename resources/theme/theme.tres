@@ -1,8 +1,13 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://ctc5r3f13sfw3"]
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://ctc5r3f13sfw3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bqu5r"]
+bg_color = Color(1, 0, 0, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bqu5r"]
 
 [resource]
+HealthBar/base_type = &"ProgressBar"
+HealthBar/styles/fill = SubResource("StyleBoxFlat_bqu5r")
 LabelRed/base_type = &"Label"
 LabelRed/colors/font_color = Color(0.847059, 0, 0, 1)
 PanelShopItem/base_type = &"PanelContainer"

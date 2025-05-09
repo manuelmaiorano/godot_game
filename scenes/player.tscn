@@ -1,7 +1,8 @@
-[gd_scene load_steps=23 format=3 uid="uid://cjca6mx3264lj"]
+[gd_scene load_steps=27 format=3 uid="uid://cjca6mx3264lj"]
 
 [ext_resource type="PackedScene" uid="uid://bjrdo414yrqyh" path="res://assets/models/chessinggame.glb" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://dgkrnefdt5vfk" path="res://scripts/player.gd" id="1_tuyoq"]
+[ext_resource type="Resource" uid="uid://ci82udr0fiuxp" path="res://resources/enemies/player.tres" id="2_d2wvv"]
 [ext_resource type="Script" uid="uid://dqlji11317nbq" path="res://scripts/resources/item.gd" id="2_y4r1p"]
 [ext_resource type="Resource" uid="uid://dh66upo5w26a" path="res://resources/items/branch.tres" id="3_d2wvv"]
 [ext_resource type="Script" uid="uid://dxg0yepbv63k0" path="res://addons/godot_state_charts/state_chart.gd" id="3_fjrip"]
@@ -10,6 +11,18 @@
 [ext_resource type="Resource" uid="uid://dbi8ijwjyydfa" path="res://resources/items/trap.tres" id="5_jej6c"]
 [ext_resource type="Script" uid="uid://bitddddrhbl0d" path="res://addons/godot_state_charts/atomic_state.gd" id="5_ur7pv"]
 [ext_resource type="Script" uid="uid://knk6whqnftyj" path="res://addons/godot_state_charts/transition.gd" id="6_y4r1p"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_d2wvv"]
+radius = 0.237208
+height = 0.633038
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3v2ag"]
+radius = 0.0446811
+height = 0.446811
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_jej6c"]
+radius = 0.0446811
+height = 0.446811
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g2els"]
 height = 2.38132
@@ -134,12 +147,15 @@ _data = {
 &"zoom_in": SubResource("Animation_tuyoq")
 }
 
-[node name="Player" type="CharacterBody3D" groups=["player"]]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("hip_bone", "skeleton_modifier") groups=["player"]]
 collision_layer = 2
 collision_mask = 3
 script = ExtResource("1_tuyoq")
 clamp_pitch_rotation = 70.0
 antagonist_groups = Array[StringName]([&"animals", &"knights"])
+stats = ExtResource("2_d2wvv")
+hip_bone = NodePath("chessinggame/Armature_001/Skeleton3D/PhysicalBoneSimulator3D/Physical Bone hips")
+skeleton_modifier = NodePath("chessinggame/Armature_001/Skeleton3D/PhysicalBoneSimulator3D")
 item_amounts = Dictionary[ExtResource("2_y4r1p"), int]({
 ExtResource("3_d2wvv"): 2,
 ExtResource("4_3v2ag"): 3,
@@ -166,22 +182,81 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.569077, 1.56689, -1.51667)
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
 [node name="Skeleton3D" parent="chessinggame/Armature_001" index="0"]
-bones/7/position = Vector3(0, 0, 1.08744)
+bones/7/position = Vector3(0, 0, 1.07948)
 bones/7/rotation = Quaternion(3.09086e-08, 0.707107, 0.707107, 3.09086e-08)
 bones/13/rotation = Quaternion(0.0220125, 0.434717, -0.06845, 0.897692)
 bones/14/rotation = Quaternion(0.411066, 1.72524e-08, 1.52854e-07, 0.911606)
 bones/17/rotation = Quaternion(0.0320414, -0.463594, 0.107068, 0.878971)
 bones/18/rotation = Quaternion(0.331471, 1.58489e-08, -1.02186e-07, 0.943466)
-bones/20/rotation = Quaternion(-5.31533e-08, 0.0343019, 0.999412, 1.09377e-07)
-bones/21/rotation = Quaternion(-0.0641478, -6.70826e-09, 1.43331e-07, 0.99794)
-bones/22/rotation = Quaternion(0.480914, -2.74783e-07, -8.40147e-08, 0.876768)
-bones/24/rotation = Quaternion(6.9049e-08, 0.0343019, 0.999412, -1.09923e-07)
-bones/25/rotation = Quaternion(-0.0641478, 6.70826e-09, -1.43331e-07, 0.99794)
-bones/26/rotation = Quaternion(0.480914, 2.8916e-07, 7.72124e-08, 0.876768)
+bones/20/rotation = Quaternion(-5.19339e-08, 0.0771443, 0.99702, 2.07347e-07)
+bones/21/rotation = Quaternion(-0.143928, -6.65216e-09, 3.21593e-07, 0.989588)
+bones/22/rotation = Quaternion(0.513297, -3.11817e-07, -1.67192e-07, 0.858211)
+bones/24/rotation = Quaternion(6.77916e-08, 0.0771443, 0.99702, -2.08574e-07)
+bones/25/rotation = Quaternion(-0.143928, 6.65215e-09, -3.21593e-07, 0.989588)
+bones/26/rotation = Quaternion(0.513297, 3.26438e-07, 1.60931e-07, 0.858211)
 bones/27/rotation = Quaternion(0.308471, 4.15797e-08, 1.33607e-07, 0.951234)
 bones/28/position = Vector3(0.961641, -0.184145, 0.267276)
 bones/30/position = Vector3(-0.976214, -0.246263, 0.171608)
 bones/31/position = Vector3(-0.957383, 0.731472, -0.309752)
+
+[node name="PhysicalBoneSimulator3D" type="PhysicalBoneSimulator3D" parent="chessinggame/Armature_001/Skeleton3D" index="9"]
+
+[node name="Physical Bone hips" type="PhysicalBone3D" parent="chessinggame/Armature_001/Skeleton3D/PhysicalBoneSimulator3D"]
+transform = Transform3D(1, -7.10543e-15, 0, 0, 0, -1, 7.10543e-15, 1, 0, 0, 1.30272, 0)
+collision_layer = 4
+collision_mask = 5
+joint_type = 3
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.223239)
+body_offset = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0.223239, 0)
+bone_name = "hips"
+joint_constraints/angular_limit_enabled = false
+joint_constraints/angular_limit_upper = 90.0
+joint_constraints/angular_limit_lower = -90.0
+joint_constraints/angular_limit_bias = 0.3
+joint_constraints/angular_limit_softness = 0.9
+joint_constraints/angular_limit_relaxation = 1.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="chessinggame/Armature_001/Skeleton3D/PhysicalBoneSimulator3D/Physical Bone hips"]
+transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, -0.0155545)
+shape = SubResource("CapsuleShape3D_d2wvv")
+
+[node name="Physical Bone leg1_L" type="PhysicalBone3D" parent="chessinggame/Armature_001/Skeleton3D/PhysicalBoneSimulator3D"]
+transform = Transform3D(-1, -7.15498e-08, 4.13701e-07, 3.97769e-07, 0.153837, 0.988096, -1.34341e-07, 0.988096, -0.153837, 0.202764, 0.855031, 0.0342245)
+collision_layer = 4
+collision_mask = 5
+joint_type = 3
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000161694, 6.69188e-05, 0.222902)
+body_offset = Transform3D(1, -1.35429e-11, 7.76987e-09, 7.76994e-09, -8.73208e-06, -1, 1.35962e-11, 1, -8.74698e-06, 0.000161693, 0.222902, -6.49691e-05)
+bone_name = "leg1.L"
+joint_constraints/angular_limit_enabled = false
+joint_constraints/angular_limit_upper = 90.0
+joint_constraints/angular_limit_lower = -90.0
+joint_constraints/angular_limit_bias = 0.3
+joint_constraints/angular_limit_softness = 0.9
+joint_constraints/angular_limit_relaxation = 1.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="chessinggame/Armature_001/Skeleton3D/PhysicalBoneSimulator3D/Physical Bone leg1_L"]
+transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_3v2ag")
+
+[node name="Physical Bone leg1_R" type="PhysicalBone3D" parent="chessinggame/Armature_001/Skeleton3D/PhysicalBoneSimulator3D"]
+transform = Transform3D(-1, 1.02926e-07, -4.18622e-07, -3.97805e-07, 0.153837, 0.988096, 1.661e-07, 0.988096, -0.153837, -0.202874, 0.854781, 0.0344264)
+collision_layer = 4
+collision_mask = 5
+joint_type = 3
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.22601e-05, -9.41157e-05, 0.22318)
+body_offset = Transform3D(1, 6.93205e-11, -7.7422e-09, -7.74222e-09, -8.73208e-06, -1, -6.93774e-11, 1, -8.74698e-06, -5.22584e-05, 0.22318, 9.60678e-05)
+bone_name = "leg1.R"
+joint_constraints/angular_limit_enabled = false
+joint_constraints/angular_limit_upper = 90.0
+joint_constraints/angular_limit_lower = -90.0
+joint_constraints/angular_limit_bias = 0.3
+joint_constraints/angular_limit_softness = 0.9
+joint_constraints/angular_limit_relaxation = 1.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="chessinggame/Armature_001/Skeleton3D/PhysicalBoneSimulator3D/Physical Bone leg1_R"]
+transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_jej6c")
 
 [node name="AnimationPlayer" parent="chessinggame" index="1"]
 root_motion_track = NodePath("Armature_001/Skeleton3D:root")
@@ -215,6 +290,13 @@ script = ExtResource("6_y4r1p")
 to = NodePath("../../Falling")
 event = &"falling"
 delay_in_seconds = "0.0"
+
+[node name="ToDead" type="Node" parent="StateChart/CompoundState/Onground"]
+script = ExtResource("6_y4r1p")
+to = NodePath("../../Dead")
+event = &"die"
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://knk6whqnftyj"
 
 [node name="Idle" type="Node" parent="StateChart/CompoundState/Onground"]
 script = ExtResource("5_ur7pv")
@@ -276,6 +358,10 @@ to = NodePath("../../Onground")
 event = &"landed"
 delay_in_seconds = "0.0"
 
+[node name="Dead" type="Node" parent="StateChart/CompoundState"]
+script = ExtResource("5_ur7pv")
+metadata/_custom_type_script = "uid://bitddddrhbl0d"
+
 [node name="AnimationTree" type="AnimationTree" parent="."]
 unique_name_in_owner = true
 root_node = NodePath("%AnimationTree/../chessinggame")
@@ -308,5 +394,6 @@ libraries = {
 [connection signal="state_unhandled_input" from="StateChart/CompoundState/Onground/Aiming" to="." method="_on_aiming_state_unhandled_input"]
 [connection signal="state_entered" from="StateChart/CompoundState/Falling" to="." method="_on_falling_state_entered"]
 [connection signal="state_physics_processing" from="StateChart/CompoundState/Falling" to="." method="_on_falling_state_physics_processing"]
+[connection signal="state_entered" from="StateChart/CompoundState/Dead" to="." method="_on_dead_state_entered"]
 
 [editable path="chessinggame"]

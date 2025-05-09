@@ -114,3 +114,4 @@ interact={
 [physics]
 
 3d/physics_engine="Jolt Physics"
+3d/default_gravity=20.0

@@ -98,6 +98,10 @@ func _on_walk_state_entered() -> void:
 	agent.animation_tree["parameters/Transition/transition_request"] = "walk"
 
 func _on_walk_state_physics_processing(delta: float) -> void:
+	if not agent.is_on_floor():
+		state_chart.send_event("falling")
+		return
+		
 	if target == null or target.is_dead:
 		state_chart.send_event("stop_moving")
 		return
@@ -127,9 +131,14 @@ func _on_attack_state_entered() -> void:
 
 
 func _on_attack_state_physics_processing(delta: float) -> void:
+	if not agent.is_on_floor():
+		state_chart.send_event("falling")
+		return
+		
 	if target == null  or target.is_dead:
 		state_chart.send_event("deaggro")
 		return
+		
 	agent.rotate_towards_target(delta, target)
 	agent.apply_root_motion_to_velocity(delta)
 	agent.velocity += gravity * delta
@@ -143,6 +152,7 @@ func _on_attack_state_exited() -> void:
 
 #DEAD
 func _on_dead_state_entered() -> void:
+	reduce_health(hp)
 	agent.is_dead = true
 	SignalBus.EnemyKilled.emit(agent.entity_stats.points)
 	if ragdoll_on_death:
@@ -164,3 +174,23 @@ func _on_hit_state_physics_processing(delta: float) -> void:
 	
 	agent.move_and_slide()
 	agent.apply_orientation_to_model()
+
+#FALLING
+
+var max_velocity = 0
+func _on_falling_state_entered() -> void:
+	max_velocity = 0
+	
+func _on_falling_state_physics_processing(delta: float) -> void:
+	if agent.is_on_floor():
+		if max_velocity <= 15:
+			state_chart.send_event("landed")
+		else:
+			state_chart.send_event("die")
+		return
+	
+	if abs(agent.velocity.y) > max_velocity:
+		max_velocity = abs(agent.velocity.y)
+	
+	agent.velocity += gravity * delta
+	agent.move_and_slide()

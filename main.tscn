@@ -42,7 +42,7 @@ transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -
 shadow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("1_ig7tw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -120.221, -396.964, 1128.69)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -135.947, -356.264, 1155.83)
 
 [node name="World" type="Node3D" parent="."]
 
@@ -149,7 +149,7 @@ transform = Transform3D(0.979628, 0, -0.200821, 0, 1, 0, 0.200821, 0, 0.979628, 
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -78.1761, -396.967, 1065.61)
 
 [node name="Knight3" parent="." instance=ExtResource("5_lquwl")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -97.7932, -396.967, 1080.61)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -139.128, -356.342, 1132.53)
 
 [node name="Knight2" parent="." instance=ExtResource("5_lquwl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -54.9907, -396.967, 1080.61)
@@ -158,7 +158,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -54.9907, -396.967, 1080.61)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -72.0348, -396.924, 1040.5)
 
 [node name="Shop" parent="." instance=ExtResource("7_272bh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -116.888, -396.967, 1127.01)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94.63, -396.967, 1157.62)
 
 [node name="StateChart" type="Node" parent="."]
 unique_name_in_owner = true
@@ -191,6 +191,11 @@ to = NodePath("../../Playing")
 event = &"to_playing"
 delay_in_seconds = "0.0"
 metadata/_custom_type_script = "uid://knk6whqnftyj"
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -134.855, -376.654, 1145.36)
+use_collision = true
+size = Vector3(25.3096, 40.6255, 42.5664)
 
 [connection signal="state_entered" from="StateChart/CompoundState/Playing" to="." method="_on_playing_state_entered"]
 [connection signal="state_entered" from="StateChart/CompoundState/MenuMode" to="." method="_on_menu_mode_state_entered"]

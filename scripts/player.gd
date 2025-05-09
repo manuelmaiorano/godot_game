@@ -6,6 +6,9 @@ const ROTATION_INTERPOLATE_SPEED = 10
 @export var clamp_pitch_rotation:float = 80
 @export var move_speed: float = 10
 @export var antagonist_groups: Array[StringName]
+@export var stats: EntityStats
+@export var hip_bone: PhysicalBone3D
+@export var skeleton_modifier: SkeletonModifier3D
 
 
 @onready var camera_3d: Camera3D = %Camera3D
@@ -28,7 +31,10 @@ var active_item: Item = null
 @export var item_amounts: Dictionary[Item, int]
 @export var money: int = 1000
 
+var hp: float = 0
+
 func _ready():
+	hp = stats.max_hp
 	# Pre-initialize orientation transform.
 	orientation = $chessinggame.global_transform
 	orientation.origin = Vector3()
@@ -38,6 +44,7 @@ func _ready():
 	SignalBus.ItemBought.connect(on_item_bought)
 	SignalBus.MoneyChanged.emit(money)
 	SignalBus.EnemyKilled.connect(func (x): money += x; SignalBus.MoneyChanged.emit(money))
+	SignalBus.PlayerHealthChanged.emit(1)
 	
 func on_item_bought(item):
 	
@@ -76,6 +83,21 @@ func _input(event:InputEvent) -> void:
 func on_inventory_item_selected(item: Item):
 	active_item = item
 
+func take_damage(attaker, damage):
+	reduce_health(damage)
+	if hp <= 0:
+		state_chart.send_event("die")
+		return true
+
+func reduce_health(damage):
+	hp = clamp(hp - damage, 0, hp)
+	SignalBus.PlayerHealthChanged.emit(hp/stats.max_hp)
+
+
+func take_explosion_damage(velocity):
+	reduce_health(hp)
+	state_chart.send_event("die")
+	hip_bone.apply_central_impulse(velocity)
 
 ### IDLE
 
@@ -301,3 +323,12 @@ func _on_aiming_state_entered() -> void:
 
 func _on_aiming_state_exited() -> void:
 	get_tree().get_first_node_in_group("crosshair").hide()
+
+### DEAD
+
+func _on_dead_state_entered() -> void:
+	reduce_health(hp)
+	is_dead = true
+	animation_tree.active = false
+	skeleton_modifier.active = true
+	skeleton_modifier.physical_bones_start_simulation()

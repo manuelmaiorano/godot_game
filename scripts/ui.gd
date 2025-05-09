@@ -9,7 +9,7 @@ var current_idx = 0
 @onready var shop_menu: Control = %ShopMenu
 @onready var info_label: Label = %InfoLabel
 @onready var money: Label = %Money
-
+@onready var playerhealth: ProgressBar = %Playerhealth
 @onready var cross_hair: CenterContainer = %CrossHair
 
 
@@ -31,6 +31,8 @@ func _ready() -> void:
 	SignalBus.FarFromShop.connect(func(): info_label.hide())
 	SignalBus.ShopItemSelected.connect(on_shop_item_selected)
 	SignalBus.MoneyChanged.connect(func(x): money.text = str(x))
+	SignalBus.PlayerHealthChanged.connect(func(x): playerhealth.value = x * 100)
+	
 	
 
 func on_shop_item_selected(item, inventory):
