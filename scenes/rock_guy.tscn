@@ -56,6 +56,8 @@ nodes/output/position = Vector2(1020, 220)
 node_connections = [&"TimeScale", 0, &"Animation 2", &"Transition", 0, &"Animation", &"Transition", 1, &"TimeScale", &"Transition", 2, &"Animation 3", &"output", 0, &"Transition"]
 
 [node name="RockGuy" type="CharacterBody3D" node_paths=PackedStringArray("animation_tree", "model") groups=["knights"]]
+collision_layer = 2
+collision_mask = 3
 script = ExtResource("1_h26si")
 animation_tree = NodePath("AnimationTree")
 model = NodePath("rockguy")
@@ -84,7 +86,7 @@ targeting_component = NodePath("../EnemyBehaviourComponent")
 [node name="rockguy" parent="." instance=ExtResource("1_rnoex")]
 
 [node name="Skeleton3D" parent="rockguy/metarig" index="0"]
-bones/1/position = Vector3(2.86941e-10, -0.0552, 0.637755)
+bones/1/position = Vector3(2.87043e-10, -0.0552, 0.637757)
 bones/1/rotation = Quaternion(-4.28462e-08, 0.823363, 0.567515, -6.21622e-08)
 bones/9/rotation = Quaternion(0.434417, 0.485878, -0.500966, 0.569418)
 bones/10/rotation = Quaternion(0.00247957, -0.0533742, -0.00040776, 0.998571)
@@ -92,13 +94,13 @@ bones/11/rotation = Quaternion(-0.110869, 0.0840147, 0.187538, 0.972358)
 bones/13/rotation = Quaternion(0.434417, -0.485878, 0.500966, 0.569418)
 bones/14/rotation = Quaternion(0.00247955, 0.0533742, 0.00040776, 0.998571)
 bones/15/rotation = Quaternion(-0.110869, -0.0840148, -0.187538, 0.972358)
-bones/16/rotation = Quaternion(0.936117, 1.43361e-08, 1.37914e-08, 0.351688)
-bones/17/rotation = Quaternion(0.384931, -1.07084e-07, 2.5785e-08, 0.922945)
-bones/18/rotation = Quaternion(-0.689527, 4.95145e-07, -2.57466e-07, 0.72426)
+bones/16/rotation = Quaternion(0.936118, 1.43356e-08, 1.37915e-08, 0.351685)
+bones/17/rotation = Quaternion(0.384924, -1.07084e-07, 2.57845e-08, 0.922948)
+bones/18/rotation = Quaternion(-0.689524, 4.95146e-07, -2.57464e-07, 0.724263)
 bones/19/rotation = Quaternion(-1.48793e-08, 0.970804, -0.239875, 3.85951e-07)
-bones/20/rotation = Quaternion(0.936117, -8.51899e-08, 1.15404e-07, 0.351688)
-bones/21/rotation = Quaternion(0.384931, 1.05584e-07, -6.29122e-08, 0.922945)
-bones/22/rotation = Quaternion(-0.689527, -4.89772e-07, 2.79819e-07, 0.72426)
+bones/20/rotation = Quaternion(0.936118, -8.51885e-08, 1.15404e-07, 0.351685)
+bones/21/rotation = Quaternion(0.384924, 1.05585e-07, -6.29111e-08, 0.922948)
+bones/22/rotation = Quaternion(-0.689524, -4.89773e-07, 2.79817e-07, 0.724263)
 bones/23/rotation = Quaternion(9.07327e-08, 0.970804, -0.239875, -3.67208e-07)
 bones/25/position = Vector3(0.44194, -0.423362, 0.167628)
 bones/25/rotation = Quaternion(0.488416, -0.0972926, -0.793176, 0.350508)
