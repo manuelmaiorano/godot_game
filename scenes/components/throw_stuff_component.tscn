@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c1lk6txvhrx56"]
+
+[ext_resource type="Script" uid="uid://cd828qfu4x4hb" path="res://scripts/components/throw_stuff_component.gd" id="1_p224u"]
+
+[node name="ThrowStuffComponent" type="Node"]
+script = ExtResource("1_p224u")

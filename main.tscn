@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dkk0f5wj0at7x"]
+[gd_scene load_steps=18 format=3 uid="uid://dkk0f5wj0at7x"]
 
 [ext_resource type="Script" uid="uid://ca12wqpejflj" path="res://main.gd" id="1_efxa6"]
 [ext_resource type="PackedScene" uid="uid://cjca6mx3264lj" path="res://scenes/player.tscn" id="1_ig7tw"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://bitddddrhbl0d" path="res://addons/godot_state_charts/atomic_state.gd" id="11_w48qg"]
 [ext_resource type="Script" uid="uid://knk6whqnftyj" path="res://addons/godot_state_charts/transition.gd" id="12_dg77c"]
 [ext_resource type="PackedScene" uid="uid://bv37dfiqpjay6" path="res://scenes/spaceship.tscn" id="12_ycdy4"]
+[ext_resource type="PackedScene" uid="uid://et8e2bm1xmp0" path="res://scenes/rock_guy.tscn" id="13_ycdy4"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0xm2m"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -42,7 +43,7 @@ transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -
 shadow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("1_ig7tw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -135.947, -356.264, 1155.83)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -93.7701, -396.964, 1106.84)
 
 [node name="World" type="Node3D" parent="."]
 
@@ -237,6 +238,9 @@ metadata/_custom_type_script = "uid://bitddddrhbl0d"
 script = ExtResource("12_dg77c")
 to = NodePath("../../Playing")
 delay_in_seconds = "0.0"
+
+[node name="RockGuy" parent="." instance=ExtResource("13_ycdy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -91.8114, -396.964, 1093.38)
 
 [connection signal="state_entered" from="StateChart/CompoundState/Playing" to="." method="_on_playing_state_entered"]
 [connection signal="state_entered" from="StateChart/CompoundState/MenuMode" to="." method="_on_menu_mode_state_entered"]

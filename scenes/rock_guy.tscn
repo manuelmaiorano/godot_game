@@ -1,0 +1,150 @@
+[gd_scene load_steps=16 format=3 uid="uid://et8e2bm1xmp0"]
+
+[ext_resource type="Script" uid="uid://yvlgjjkmf4r4" path="res://scripts/entity.gd" id="1_h26si"]
+[ext_resource type="PackedScene" uid="uid://b7waqubcb7n78" path="res://assets/models/rockguy.glb" id="1_rnoex"]
+[ext_resource type="PackedScene" uid="uid://dyriga41qx3tc" path="res://scenes/health_bar.tscn" id="1_ut6rd"]
+[ext_resource type="PackedScene" uid="uid://dis5xffdkf7e6" path="res://scenes/components/enemy_behaviour_component.tscn" id="1_vgy5b"]
+[ext_resource type="Resource" uid="uid://b4r30ackgoyfn" path="res://resources/enemies/rockguy.tres" id="2_aeadu"]
+[ext_resource type="PackedScene" uid="uid://c1lk6txvhrx56" path="res://scenes/components/throw_stuff_component.tscn" id="5_aeadu"]
+[ext_resource type="PackedScene" uid="uid://bhyt1i03ujdvu" path="res://scenes/rock.tscn" id="6_l7lrj"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hubsc"]
+size = Vector3(4.30247, 3.06596, 10.0253)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rnoex"]
+radius = 0.180933
+height = 1.47242
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rnoex"]
+animation = &"run"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ut6rd"]
+animation = &"attack"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vgy5b"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_h26si"]
+
+[sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_rnoex"]
+input_0/name = "idle"
+input_0/auto_advance = false
+input_0/break_loop_at_end = false
+input_0/reset = true
+input_1/name = "walk"
+input_1/auto_advance = false
+input_1/break_loop_at_end = false
+input_1/reset = true
+input_2/name = "attack"
+input_2/auto_advance = false
+input_2/break_loop_at_end = false
+input_2/reset = true
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_ut6rd"]
+graph_offset = Vector2(-286.367, 137.358)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_vgy5b")
+nodes/Animation/position = Vector2(520, 140)
+"nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_rnoex")
+"nodes/Animation 2/position" = Vector2(380, 340)
+"nodes/Animation 3/node" = SubResource("AnimationNodeAnimation_ut6rd")
+"nodes/Animation 3/position" = Vector2(440, 540)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_h26si")
+nodes/TimeScale/position = Vector2(580, 340)
+nodes/Transition/node = SubResource("AnimationNodeTransition_rnoex")
+nodes/Transition/position = Vector2(775, 189)
+nodes/output/position = Vector2(1020, 220)
+node_connections = [&"TimeScale", 0, &"Animation 2", &"Transition", 0, &"Animation", &"Transition", 1, &"TimeScale", &"Transition", 2, &"Animation 3", &"output", 0, &"Transition"]
+
+[node name="RockGuy" type="CharacterBody3D" node_paths=PackedStringArray("animation_tree", "model") groups=["knights"]]
+script = ExtResource("1_h26si")
+animation_tree = NodePath("AnimationTree")
+model = NodePath("rockguy")
+entity_stats = ExtResource("2_aeadu")
+
+[node name="HealthBar" parent="." instance=ExtResource("1_ut6rd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.64071, 0)
+
+[node name="EnemyBehaviourComponent" parent="." node_paths=PackedStringArray("agent", "model", "animation_tree", "detection_area", "hp_bar") instance=ExtResource("1_vgy5b")]
+agent = NodePath("..")
+model = NodePath("../rockguy")
+animation_tree = NodePath("../AnimationTree")
+detection_area = NodePath("../rockguy/DetectionArea")
+distance_to_attack = 40.0
+antagonist_groups = Array[StringName]([&"player", &"animals"])
+hp_bar = NodePath("../HealthBar")
+
+[node name="ThrowStuffComponent" parent="." node_paths=PackedStringArray("agent", "starting_point", "animation_tree", "targeting_component") instance=ExtResource("5_aeadu")]
+agent = NodePath("..")
+projectile_scene = ExtResource("6_l7lrj")
+starting_point = NodePath("../rockguy/Marker3D")
+animation_tree = NodePath("../AnimationTree")
+attack_animation_name = &"attack"
+targeting_component = NodePath("../EnemyBehaviourComponent")
+
+[node name="rockguy" parent="." instance=ExtResource("1_rnoex")]
+
+[node name="Skeleton3D" parent="rockguy/metarig" index="0"]
+bones/1/position = Vector3(2.86941e-10, -0.0552, 0.637755)
+bones/1/rotation = Quaternion(-4.28462e-08, 0.823363, 0.567515, -6.21622e-08)
+bones/9/rotation = Quaternion(0.434417, 0.485878, -0.500966, 0.569418)
+bones/10/rotation = Quaternion(0.00247957, -0.0533742, -0.00040776, 0.998571)
+bones/11/rotation = Quaternion(-0.110869, 0.0840147, 0.187538, 0.972358)
+bones/13/rotation = Quaternion(0.434417, -0.485878, 0.500966, 0.569418)
+bones/14/rotation = Quaternion(0.00247955, 0.0533742, 0.00040776, 0.998571)
+bones/15/rotation = Quaternion(-0.110869, -0.0840148, -0.187538, 0.972358)
+bones/16/rotation = Quaternion(0.936117, 1.43361e-08, 1.37914e-08, 0.351688)
+bones/17/rotation = Quaternion(0.384931, -1.07084e-07, 2.5785e-08, 0.922945)
+bones/18/rotation = Quaternion(-0.689527, 4.95145e-07, -2.57466e-07, 0.72426)
+bones/19/rotation = Quaternion(-1.48793e-08, 0.970804, -0.239875, 3.85951e-07)
+bones/20/rotation = Quaternion(0.936117, -8.51899e-08, 1.15404e-07, 0.351688)
+bones/21/rotation = Quaternion(0.384931, 1.05584e-07, -6.29122e-08, 0.922945)
+bones/22/rotation = Quaternion(-0.689527, -4.89772e-07, 2.79819e-07, 0.72426)
+bones/23/rotation = Quaternion(9.07327e-08, 0.970804, -0.239875, -3.67208e-07)
+bones/25/position = Vector3(0.44194, -0.423362, 0.167628)
+bones/25/rotation = Quaternion(0.488416, -0.0972926, -0.793176, 0.350508)
+bones/26/position = Vector3(0.778671, 0.212874, -0.276561)
+bones/27/position = Vector3(-0.44194, -0.423362, 0.167628)
+bones/27/rotation = Quaternion(0.488416, 0.0972927, 0.793176, 0.350508)
+bones/28/position = Vector3(-0.77867, 0.212873, -0.276562)
+bones/29/position = Vector3(-0.098, -0.0500049, -8.28975e-16)
+bones/31/rotation = Quaternion(-1.04847e-08, 0.970804, 0.239874, 4.24352e-08)
+bones/32/rotation = Quaternion(-4.76835e-07, -7.30862e-22, 1, -3.70652e-14)
+bones/35/position = Vector3(0.098, -0.0500049, -8.28975e-16)
+bones/37/rotation = Quaternion(1.04847e-08, 0.970804, 0.239874, -4.24352e-08)
+
+[node name="AnimationPlayer" parent="rockguy" index="1"]
+active = false
+root_motion_track = NodePath("metarig/Skeleton3D:root")
+root_motion_local = false
+callback_mode_process = 0
+
+[node name="DetectionArea" type="Area3D" parent="rockguy"]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="rockguy/DetectionArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0184729, 1.59675, 5.84227)
+shape = SubResource("BoxShape3D_hubsc")
+
+[node name="Marker3D" type="Marker3D" parent="rockguy"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 1.93907, 1.36366)
+gizmo_extents = 4.05
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.736212, 0)
+shape = SubResource("CapsuleShape3D_rnoex")
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+root_node = NodePath("../rockguy")
+root_motion_track = NodePath("metarig/Skeleton3D:root")
+root_motion_local = false
+callback_mode_process = 0
+tree_root = SubResource("AnimationNodeBlendTree_ut6rd")
+anim_player = NodePath("../rockguy/AnimationPlayer")
+parameters/TimeScale/scale = 2.0
+parameters/Transition/current_state = "idle"
+parameters/Transition/transition_request = ""
+parameters/Transition/current_index = 0
+
+[editable path="rockguy"]
