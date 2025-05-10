@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://dn4h2dcu33r3x" path="res://assets/models/item.glb" id="1_4gq7n"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4gq7n"]
+size = Vector3(3.77045, 1, 4.15796)
 
 [node name="Item" type="Node3D"]
 
@@ -11,5 +12,5 @@
 [node name="Area3D" type="Area3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.415594, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0921936, 0.415594, -0.188843)
 shape = SubResource("BoxShape3D_4gq7n")

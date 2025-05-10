@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://5c8us0rcha00"]
+
+[ext_resource type="PackedScene" uid="uid://um614lrxa31s" path="res://scenes/blockout/ramp50.tscn" id="1_h57pf"]
+
+[node name="Ramp100" type="Node3D"]
+
+[node name="Ramp50" parent="." instance=ExtResource("1_h57pf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 50, 0)
+
+[node name="Ramp51" parent="." instance=ExtResource("1_h57pf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 100, 0, 0)
