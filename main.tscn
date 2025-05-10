@@ -157,6 +157,29 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -54.9907, -396.967, 1080.61)
 [node name="Giant" parent="." instance=ExtResource("6_272bh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -72.0348, -396.924, 1040.5)
 
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -134.855, -376.654, 1145.36)
+use_collision = true
+size = Vector3(25.3096, 40.6255, 42.5664)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -81.7105, -403.329, 1145.36)
+use_collision = true
+size = Vector3(25.3096, 40.6255, 42.5664)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(0.612493, -0.790476, 0, 0.790476, 0.612493, 0, 0, 0, 1, -115.817, -387.097, 1161.88)
+use_collision = true
+size = Vector3(41.9825, 47.4768, 1.68872)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="."]
+transform = Transform3D(0, 0, 1, 0.790476, 0.612493, 7.71341e-09, -0.612493, 0.790476, 5.96046e-08, -81.3228, -414.649, 1119.87)
+use_collision = true
+size = Vector3(41.9825, 47.4768, 1.68872)
+
+[node name="Spaceship" parent="." instance=ExtResource("12_ycdy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60.7388, -396.967, 1127.57)
+
 [node name="StateChart" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("9_dg77c")
@@ -214,29 +237,6 @@ metadata/_custom_type_script = "uid://bitddddrhbl0d"
 script = ExtResource("12_dg77c")
 to = NodePath("../../Playing")
 delay_in_seconds = "0.0"
-
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -134.855, -376.654, 1145.36)
-use_collision = true
-size = Vector3(25.3096, 40.6255, 42.5664)
-
-[node name="CSGBox3D3" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -81.7105, -403.329, 1145.36)
-use_collision = true
-size = Vector3(25.3096, 40.6255, 42.5664)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="."]
-transform = Transform3D(0.612493, -0.790476, 0, 0.790476, 0.612493, 0, 0, 0, 1, -115.817, -387.097, 1161.88)
-use_collision = true
-size = Vector3(41.9825, 47.4768, 1.68872)
-
-[node name="CSGBox3D4" type="CSGBox3D" parent="."]
-transform = Transform3D(0, 0, 1, 0.790476, 0.612493, 7.71341e-09, -0.612493, 0.790476, 5.96046e-08, -81.3228, -414.649, 1119.87)
-use_collision = true
-size = Vector3(41.9825, 47.4768, 1.68872)
-
-[node name="Spaceship" parent="." instance=ExtResource("12_ycdy4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60.7388, -396.967, 1127.57)
 
 [connection signal="state_entered" from="StateChart/CompoundState/Playing" to="." method="_on_playing_state_entered"]
 [connection signal="state_entered" from="StateChart/CompoundState/MenuMode" to="." method="_on_menu_mode_state_entered"]
