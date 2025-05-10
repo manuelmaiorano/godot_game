@@ -63,7 +63,7 @@ offset_right = 68.0
 offset_bottom = -120.0
 grow_horizontal = 2
 grow_vertical = 0
-text = "[E] to access shop"
+text = "[E] to interact"
 
 [node name="PanelContainer" type="PanelContainer" parent="HUD"]
 layout_mode = 1
@@ -111,8 +111,42 @@ offset_bottom = 41.0
 theme_type_variation = &"HealthBar"
 show_percentage = false
 
+[node name="EndScreen" type="VBoxContainer" parent="HUD"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -76.0
+offset_top = -37.0
+offset_right = 76.0
+offset_bottom = 37.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="EndScreenLabel" type="Label" parent="HUD/EndScreen"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"HeaderLarge"
+text = "Game Over"
+
+[node name="Restart" type="Button" parent="HUD/EndScreen"]
+layout_mode = 2
+text = "Restart"
+
+[node name="Mission_status" type="Label" parent="HUD"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_top = 66.0
+offset_right = 40.0
+offset_bottom = 89.0
+metadata/_edit_use_anchors_ = true
+
 [node name="ShopMenu" type="Control" parent="."]
 unique_name_in_owner = true
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -209,6 +243,7 @@ text = "Sell
 layout_mode = 2
 size_flags_horizontal = 3
 
+[connection signal="button_up" from="HUD/EndScreen/Restart" to="." method="_on_restart_button_up"]
 [connection signal="button_up" from="ShopMenu/VBoxContainer/HBoxContainer4/Close" to="." method="_on_close_button_up"]
 [connection signal="button_up" from="ShopMenu/VBoxContainer/HBoxContainer2/Buy" to="." method="_on_buy_button_up"]
 [connection signal="button_up" from="ShopMenu/VBoxContainer/HBoxContainer2/Sell" to="." method="_on_sell_button_up"]

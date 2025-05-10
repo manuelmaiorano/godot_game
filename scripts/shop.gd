@@ -32,14 +32,14 @@ func on_item_sold(item):
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	if not body.is_in_group("player"):
 		return
-	SignalBus.CloseToShop.emit()
+	SignalBus.CloseToInteractable.emit()
 	is_close = true
 
 
 func _on_area_3d_body_exited(body: Node3D) -> void:
 	if not body.is_in_group("player"):
 		return
-	SignalBus.FarFromShop.emit()
+	SignalBus.FarFromInteractable.emit()
 	is_close = false
 
 func _unhandled_input(event: InputEvent) -> void:

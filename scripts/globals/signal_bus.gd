@@ -4,8 +4,8 @@ extends Node
 signal InventoryItemSelected(item: Item)
 signal ItemsChanged(itemList: Dictionary[Item, int])
 
-signal CloseToShop
-signal FarFromShop
+signal CloseToInteractable
+signal FarFromInteractable
 signal ShopEntered(shop_item_amounts: Dictionary[Item, int])
 signal ShopExited
 
@@ -21,4 +21,10 @@ signal MoneyChanged(value: int)
 signal PlayerHealthChanged(value: int)
 
 signal EnemyKilled(points: int)
+
 signal PlayerDead
+signal ItemRetrieved
+signal CloseToShip
+signal MissionStatusChanged(status_info: String)
+signal MissionCompleted
+signal RestartGame
