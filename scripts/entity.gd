@@ -5,6 +5,7 @@ extends CharacterBody3D
 @export var model: Node3D
 @export var entity_stats: EntityStats
 
+@export var trigger_areas: Array[Area3D]
 
 var orientation = Transform3D()
 var root_motion = Transform3D()

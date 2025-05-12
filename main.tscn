@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://dkk0f5wj0at7x"]
+[gd_scene load_steps=22 format=3 uid="uid://dkk0f5wj0at7x"]
 
 [ext_resource type="Script" uid="uid://ca12wqpejflj" path="res://main.gd" id="1_efxa6"]
 [ext_resource type="PackedScene" uid="uid://cjca6mx3264lj" path="res://scenes/player.tscn" id="1_ig7tw"]
@@ -33,6 +33,9 @@ glow_enabled = true
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h2yge"]
 albedo_texture = ExtResource("2_0xm2m")
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_2cqfq"]
+size = Vector3(19.3413, 16.5152, 67.9267)
+
 [node name="main" type="Node3D"]
 script = ExtResource("1_efxa6")
 
@@ -42,7 +45,7 @@ script = ExtResource("1_efxa6")
 environment = SubResource("Environment_1bvp3")
 
 [node name="Player" parent="." instance=ExtResource("1_ig7tw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 696.359, 50.0028, 495.08)
 metadata/_edit_group_ = true
 
 [node name="World" type="Node3D" parent="."]
@@ -292,26 +295,33 @@ transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, 
 [node name="Knight6" parent="enemies" instance=ExtResource("5_lquwl")]
 transform = Transform3D(-0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819, 875, 100, 25)
 
-[node name="RockGuy" parent="enemies" instance=ExtResource("13_ycdy4")]
+[node name="RockGuy" parent="enemies" node_paths=PackedStringArray("trigger_areas") instance=ExtResource("13_ycdy4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 750, 75, 450)
+trigger_areas = [NodePath("../../TriggerAreas/Area3D")]
 
-[node name="RockGuy2" parent="enemies" instance=ExtResource("13_ycdy4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 775, 75, 450)
+[node name="RockGuy2" parent="enemies" node_paths=PackedStringArray("trigger_areas") instance=ExtResource("13_ycdy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 775, 75, 459.808)
+trigger_areas = [NodePath("../../TriggerAreas/Area3D")]
 
-[node name="RockGuy5" parent="enemies" instance=ExtResource("13_ycdy4")]
+[node name="RockGuy5" parent="enemies" node_paths=PackedStringArray("trigger_areas") instance=ExtResource("13_ycdy4")]
 transform = Transform3D(-0.258819, 0, 0.965926, 0, 1, 0, -0.965926, 0, -0.258819, 950, 125, 350)
+trigger_areas = [NodePath("../../TriggerAreas/Area3D")]
 
-[node name="RockGuy6" parent="enemies" instance=ExtResource("13_ycdy4")]
+[node name="RockGuy6" parent="enemies" node_paths=PackedStringArray("trigger_areas") instance=ExtResource("13_ycdy4")]
 transform = Transform3D(-0.258819, 0, 0.965926, 0, 1, 0, -0.965926, 0, -0.258819, 950, 125, 375)
+trigger_areas = [NodePath("../../TriggerAreas/Area3D")]
 
-[node name="RockGuy7" parent="enemies" instance=ExtResource("13_ycdy4")]
+[node name="RockGuy7" parent="enemies" node_paths=PackedStringArray("trigger_areas") instance=ExtResource("13_ycdy4")]
 transform = Transform3D(-0.258819, 0, 0.965926, 0, 1, 0, -0.965926, 0, -0.258819, 950, 125, 425)
+trigger_areas = [NodePath("../../TriggerAreas/Area3D")]
 
-[node name="RockGuy3" parent="enemies" instance=ExtResource("13_ycdy4")]
+[node name="RockGuy3" parent="enemies" node_paths=PackedStringArray("trigger_areas") instance=ExtResource("13_ycdy4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 800, 75, 450)
+trigger_areas = [NodePath("../../TriggerAreas/Area3D")]
 
-[node name="RockGuy4" parent="enemies" instance=ExtResource("13_ycdy4")]
+[node name="RockGuy4" parent="enemies" node_paths=PackedStringArray("trigger_areas") instance=ExtResource("13_ycdy4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 825, 75, 450)
+trigger_areas = [NodePath("../../TriggerAreas/Area3D")]
 
 [node name="StateChart" type="Node" parent="."]
 unique_name_in_owner = true
@@ -396,7 +406,19 @@ metadata/_custom_type_script = "uid://knk6whqnftyj"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 0)
 
 [node name="Item" parent="." instance=ExtResource("16_2cqfq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, 25)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 2.5, 25)
+
+[node name="TriggerAreas" type="Node3D" parent="."]
+
+[node name="Area3D" type="Area3D" parent="TriggerAreas"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 754.678, 50, 497.884)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TriggerAreas/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.3075, 7.7576, 13.895)
+shape = SubResource("BoxShape3D_2cqfq")
 
 [connection signal="state_entered" from="StateChart/CompoundState/Playing" to="." method="_on_playing_state_entered"]
 [connection signal="state_entered" from="StateChart/CompoundState/MenuMode" to="." method="_on_menu_mode_state_entered"]

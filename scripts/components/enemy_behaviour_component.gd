@@ -16,6 +16,7 @@ extends Node
 @export var hip_bone: PhysicalBone3D
 @export var can_dodge: bool = false
 
+
 var target: Node3D
 var hp: float
 
@@ -25,6 +26,8 @@ func _ready() -> void:
 	if hp_bar:
 		hp_bar.set_health(1)
 	detection_area.body_entered.connect(_on_detection_area_body_entered)
+	for area in agent.trigger_areas:
+		area.body_entered.connect(_on_detection_area_body_entered)
 	
 func _on_detection_area_body_entered(body: Node3D) -> void:
 	if body == self:
