@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://csufe0hdsj2qy"]
+[gd_scene load_steps=5 format=3 uid="uid://csufe0hdsj2qy"]
 
 [ext_resource type="Script" uid="uid://dtugyxy6r3j51" path="res://scripts/ballista.gd" id="1_6l01q"]
 [ext_resource type="PackedScene" uid="uid://dslxq55qvqca6" path="res://assets/models/ballista.glb" id="1_j1g3o"]
 [ext_resource type="PackedScene" uid="uid://cw6ky57uhkxbd" path="res://scenes/dart.tscn" id="2_6l01q"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dex74"]
+size = Vector3(3.58362, 1.43903, 2.69769)
 
 [node name="Ballista" type="Node3D"]
 script = ExtResource("1_6l01q")
@@ -10,8 +13,24 @@ dart_scene = ExtResource("2_6l01q")
 
 [node name="ballista" parent="." instance=ExtResource("1_j1g3o")]
 
-[node name="DartAttachment" type="Marker3D" parent="ballista/Cube_001" index="0"]
+[node name="Camera3D" type="Camera3D" parent="ballista/Yaw/Pitch" index="0"]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.205621, -0.450603)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.320901, 0)
+
+[node name="DartAttachment" type="Marker3D" parent="ballista/Yaw/Pitch" index="1"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.213201, -0.750207)
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.151062, 0.722015, -0.0745544)
+shape = SubResource("BoxShape3D_dex74")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]
 
 [editable path="ballista"]

@@ -28,3 +28,6 @@ signal CloseToShip
 signal MissionStatusChanged(status_info: String)
 signal MissionCompleted
 signal RestartGame
+
+signal BallistaModeEnter(which: Node3D)
+signal BallistaModeExit

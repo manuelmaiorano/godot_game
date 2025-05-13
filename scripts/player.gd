@@ -32,7 +32,7 @@ var active_item: Item = null
 @export var money: int = 1000
 
 var hp: float = 0
-
+var current_ballista = null
 func _ready():
 	hp = stats.max_hp
 	# Pre-initialize orientation transform.
@@ -45,6 +45,9 @@ func _ready():
 	SignalBus.MoneyChanged.emit(money)
 	SignalBus.EnemyKilled.connect(func (x): money += x; SignalBus.MoneyChanged.emit(money))
 	SignalBus.PlayerHealthChanged.emit(1)
+	
+	SignalBus.BallistaModeEnter.connect(func(x): current_ballista = x; state_chart.send_event("ballista"))
+	SignalBus.BallistaModeExit.connect(func(): current_ballista = null; state_chart.send_event("ballista_exit"))
 	
 func on_item_bought(item):
 	
@@ -71,14 +74,6 @@ func on_try_sell(item: Item):
 	SignalBus.ItemSold.emit(item)
 	SignalBus.ItemsChanged.emit(item_amounts)
 
-func _input(event:InputEvent) -> void:
-	if not event is InputEventMouseMotion:
-		return
-		
-	var mouse_movement:Vector2 = event.relative / mouse_sensitivity * PI
-	
-	pitch.rotation_degrees.x = clamp(pitch.rotation_degrees.x - rad_to_deg(mouse_movement.y), -clamp_pitch_rotation, clamp_pitch_rotation )
-	yaw.rotate_y(-mouse_movement.x )
 
 func on_inventory_item_selected(item: Item):
 	active_item = item
@@ -99,6 +94,17 @@ func take_explosion_damage(velocity, damage):
 	if hp <= 0:
 		state_chart.send_event("die")
 		hip_bone.apply_central_impulse(velocity)
+
+### free cam
+
+func _on_free_camera_state_unhandled_input(event: InputEvent) -> void:
+	if not event is InputEventMouseMotion:
+		return
+		
+	var mouse_movement:Vector2 = event.relative / mouse_sensitivity * PI
+	
+	pitch.rotation_degrees.x = clamp(pitch.rotation_degrees.x - rad_to_deg(mouse_movement.y), -clamp_pitch_rotation, clamp_pitch_rotation )
+	yaw.rotate_y(-mouse_movement.x )
 
 ### IDLE
 
@@ -333,3 +339,31 @@ func _on_dead_state_entered() -> void:
 	animation_tree.active = false
 	skeleton_modifier.active = true
 	skeleton_modifier.physical_bones_start_simulation()
+	
+### Ballista
+
+
+func _on_operating_ballista_state_unhandled_input(event: InputEvent) -> void:
+	if Input.is_action_just_pressed("shoot"):
+		current_ballista.fire()
+		return
+		
+	if not event is InputEventMouseMotion:
+		return
+		
+	var mouse_movement:Vector2 = event.relative / mouse_sensitivity * PI
+	
+	current_ballista.pitch.rotation_degrees.x = clamp(current_ballista.pitch.rotation_degrees.x - rad_to_deg(mouse_movement.y), -clamp_pitch_rotation, clamp_pitch_rotation )
+	current_ballista.yaw.rotate_y(-mouse_movement.x )
+
+
+func _on_operating_ballista_state_entered() -> void:
+	current_ballista.make_camera_current()
+	current_ballista.shooter = self
+	get_tree().get_first_node_in_group("ballista_crosshair").show()
+
+
+func _on_operating_ballista_state_exited() -> void:
+	camera_3d.make_current()
+	current_ballista.shooter = null
+	get_tree().get_first_node_in_group("ballista_crosshair").hide()
