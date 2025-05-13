@@ -1,18 +1,14 @@
-[gd_scene load_steps=23 format=3 uid="uid://dkk0f5wj0at7x"]
+[gd_scene load_steps=19 format=3 uid="uid://dkk0f5wj0at7x"]
 
-[ext_resource type="Script" uid="uid://ca12wqpejflj" path="res://main.gd" id="1_efxa6"]
 [ext_resource type="PackedScene" uid="uid://cjca6mx3264lj" path="res://scenes/player.tscn" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://dpswfe7dkn232" path="res://scenes/gameloop.tscn" id="1_ycdy4"]
 [ext_resource type="Texture2D" uid="uid://dujcu7jcy8evu" path="res://assets/textures/texture_01.png" id="2_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://cun5hi2ne8vti" path="res://scenes/ui.tscn" id="5_7mycd"]
 [ext_resource type="PackedScene" uid="uid://um614lrxa31s" path="res://scenes/blockout/ramp50.tscn" id="5_efxa6"]
 [ext_resource type="PackedScene" uid="uid://bhw884mxsuvea" path="res://scenes/knight.tscn" id="5_lquwl"]
 [ext_resource type="PackedScene" uid="uid://dyugdxrsv73ma" path="res://scenes/dog_small.tscn" id="6_7mycd"]
 [ext_resource type="PackedScene" uid="uid://0xnk1iydrnbm" path="res://scenes/giant.tscn" id="6_272bh"]
-[ext_resource type="Script" uid="uid://dxg0yepbv63k0" path="res://addons/godot_state_charts/state_chart.gd" id="9_dg77c"]
 [ext_resource type="PackedScene" uid="uid://5c8us0rcha00" path="res://scenes/blockout/ramp_100.tscn" id="10_4c57u"]
-[ext_resource type="Script" uid="uid://cwxxkh1jh6pp4" path="res://addons/godot_state_charts/compound_state.gd" id="10_ycdy4"]
-[ext_resource type="Script" uid="uid://bitddddrhbl0d" path="res://addons/godot_state_charts/atomic_state.gd" id="11_w48qg"]
-[ext_resource type="Script" uid="uid://knk6whqnftyj" path="res://addons/godot_state_charts/transition.gd" id="12_dg77c"]
 [ext_resource type="PackedScene" uid="uid://bv37dfiqpjay6" path="res://scenes/spaceship.tscn" id="12_ycdy4"]
 [ext_resource type="PackedScene" uid="uid://et8e2bm1xmp0" path="res://scenes/rock_guy.tscn" id="13_ycdy4"]
 [ext_resource type="PackedScene" uid="uid://dypxun2hmd5ba" path="res://scenes/item.tscn" id="16_2cqfq"]
@@ -38,7 +34,8 @@ albedo_texture = ExtResource("2_0xm2m")
 size = Vector3(19.3413, 16.5152, 67.9267)
 
 [node name="main" type="Node3D"]
-script = ExtResource("1_efxa6")
+
+[node name="Gameloop" parent="." instance=ExtResource("1_ycdy4")]
 
 [node name="UI" parent="." instance=ExtResource("5_7mycd")]
 
@@ -324,85 +321,6 @@ trigger_areas = [NodePath("../../TriggerAreas/Area3D")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 825, 75, 450)
 trigger_areas = [NodePath("../../TriggerAreas/Area3D")]
 
-[node name="StateChart" type="Node" parent="."]
-unique_name_in_owner = true
-script = ExtResource("9_dg77c")
-metadata/_custom_type_script = "uid://dxg0yepbv63k0"
-
-[node name="CompoundState" type="Node" parent="StateChart"]
-script = ExtResource("10_ycdy4")
-initial_state = NodePath("Playing")
-metadata/_custom_type_script = "uid://cwxxkh1jh6pp4"
-
-[node name="Playing" type="Node" parent="StateChart/CompoundState"]
-script = ExtResource("11_w48qg")
-metadata/_custom_type_script = "uid://bitddddrhbl0d"
-
-[node name="ToMenuMode" type="Node" parent="StateChart/CompoundState/Playing"]
-script = ExtResource("12_dg77c")
-to = NodePath("../../MenuMode")
-event = &"to_menu"
-delay_in_seconds = "0.0"
-metadata/_custom_type_script = "uid://knk6whqnftyj"
-
-[node name="ToGameOver" type="Node" parent="StateChart/CompoundState/Playing"]
-script = ExtResource("12_dg77c")
-to = NodePath("../../GameOver")
-event = &"player_dead"
-delay_in_seconds = "0.0"
-metadata/_custom_type_script = "uid://knk6whqnftyj"
-
-[node name="ToItemRetrieved" type="Node" parent="StateChart/CompoundState/Playing"]
-script = ExtResource("12_dg77c")
-to = NodePath("../../ItemRetrieved")
-event = &"item_retrieved"
-delay_in_seconds = "0.0"
-metadata/_custom_type_script = "uid://knk6whqnftyj"
-
-[node name="MenuMode" type="Node" parent="StateChart/CompoundState"]
-script = ExtResource("11_w48qg")
-metadata/_custom_type_script = "uid://bitddddrhbl0d"
-
-[node name="ToPlaying" type="Node" parent="StateChart/CompoundState/MenuMode"]
-script = ExtResource("12_dg77c")
-to = NodePath("../../Playing")
-event = &"to_playing"
-delay_in_seconds = "0.0"
-metadata/_custom_type_script = "uid://knk6whqnftyj"
-
-[node name="GameOver" type="Node" parent="StateChart/CompoundState"]
-script = ExtResource("11_w48qg")
-metadata/_custom_type_script = "uid://bitddddrhbl0d"
-
-[node name="ToPlaying" type="Node" parent="StateChart/CompoundState/GameOver"]
-script = ExtResource("12_dg77c")
-to = NodePath("../../Playing")
-event = &"play_again"
-delay_in_seconds = "0.0"
-metadata/_custom_type_script = "uid://knk6whqnftyj"
-
-[node name="ItemRetrieved" type="Node" parent="StateChart/CompoundState"]
-script = ExtResource("11_w48qg")
-metadata/_custom_type_script = "uid://bitddddrhbl0d"
-
-[node name="ToReturnedToShip" type="Node" parent="StateChart/CompoundState/ItemRetrieved"]
-script = ExtResource("12_dg77c")
-to = NodePath("../../ReturnedToShip")
-event = &"back_to_ship"
-delay_in_seconds = "0.0"
-metadata/_custom_type_script = "uid://knk6whqnftyj"
-
-[node name="ReturnedToShip" type="Node" parent="StateChart/CompoundState"]
-script = ExtResource("11_w48qg")
-metadata/_custom_type_script = "uid://bitddddrhbl0d"
-
-[node name="ToPlaying" type="Node" parent="StateChart/CompoundState/ReturnedToShip"]
-script = ExtResource("12_dg77c")
-to = NodePath("../../Playing")
-event = &"play_again"
-delay_in_seconds = "0.0"
-metadata/_custom_type_script = "uid://knk6whqnftyj"
-
 [node name="Spaceship" parent="." instance=ExtResource("12_ycdy4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 0)
 
@@ -423,8 +341,3 @@ shape = SubResource("BoxShape3D_2cqfq")
 
 [node name="Ballista" parent="." instance=ExtResource("17_yaehf")]
 transform = Transform3D(0.277331, 0, -0.960774, 0, 1, 0, 0.960774, 0, 0.277331, 702.972, 50, 498.824)
-
-[connection signal="state_entered" from="StateChart/CompoundState/Playing" to="." method="_on_playing_state_entered"]
-[connection signal="state_entered" from="StateChart/CompoundState/MenuMode" to="." method="_on_menu_mode_state_entered"]
-[connection signal="state_entered" from="StateChart/CompoundState/GameOver" to="." method="_on_game_over_state_entered"]
-[connection signal="state_entered" from="StateChart/CompoundState/ReturnedToShip" to="." method="_on_returned_to_ship_state_entered"]

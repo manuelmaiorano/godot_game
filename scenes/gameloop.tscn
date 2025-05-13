@@ -1,0 +1,94 @@
+[gd_scene load_steps=6 format=3 uid="uid://dpswfe7dkn232"]
+
+[ext_resource type="Script" uid="uid://ca12wqpejflj" path="res://main.gd" id="1_iblqc"]
+[ext_resource type="Script" uid="uid://dxg0yepbv63k0" path="res://addons/godot_state_charts/state_chart.gd" id="2_ukq5c"]
+[ext_resource type="Script" uid="uid://cwxxkh1jh6pp4" path="res://addons/godot_state_charts/compound_state.gd" id="3_na86l"]
+[ext_resource type="Script" uid="uid://bitddddrhbl0d" path="res://addons/godot_state_charts/atomic_state.gd" id="4_7f6x0"]
+[ext_resource type="Script" uid="uid://knk6whqnftyj" path="res://addons/godot_state_charts/transition.gd" id="5_a6wvu"]
+
+[node name="Gameloop" type="Node3D"]
+script = ExtResource("1_iblqc")
+
+[node name="StateChart" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2_ukq5c")
+metadata/_custom_type_script = "uid://dxg0yepbv63k0"
+
+[node name="CompoundState" type="Node" parent="StateChart"]
+script = ExtResource("3_na86l")
+initial_state = NodePath("Playing")
+metadata/_custom_type_script = "uid://cwxxkh1jh6pp4"
+
+[node name="Playing" type="Node" parent="StateChart/CompoundState"]
+script = ExtResource("4_7f6x0")
+metadata/_custom_type_script = "uid://bitddddrhbl0d"
+
+[node name="ToMenuMode" type="Node" parent="StateChart/CompoundState/Playing"]
+script = ExtResource("5_a6wvu")
+to = NodePath("../../MenuMode")
+event = &"to_menu"
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://knk6whqnftyj"
+
+[node name="ToGameOver" type="Node" parent="StateChart/CompoundState/Playing"]
+script = ExtResource("5_a6wvu")
+to = NodePath("../../GameOver")
+event = &"player_dead"
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://knk6whqnftyj"
+
+[node name="ToItemRetrieved" type="Node" parent="StateChart/CompoundState/Playing"]
+script = ExtResource("5_a6wvu")
+to = NodePath("../../ItemRetrieved")
+event = &"item_retrieved"
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://knk6whqnftyj"
+
+[node name="MenuMode" type="Node" parent="StateChart/CompoundState"]
+script = ExtResource("4_7f6x0")
+metadata/_custom_type_script = "uid://bitddddrhbl0d"
+
+[node name="ToPlaying" type="Node" parent="StateChart/CompoundState/MenuMode"]
+script = ExtResource("5_a6wvu")
+to = NodePath("../../Playing")
+event = &"to_playing"
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://knk6whqnftyj"
+
+[node name="GameOver" type="Node" parent="StateChart/CompoundState"]
+script = ExtResource("4_7f6x0")
+metadata/_custom_type_script = "uid://bitddddrhbl0d"
+
+[node name="ToPlaying" type="Node" parent="StateChart/CompoundState/GameOver"]
+script = ExtResource("5_a6wvu")
+to = NodePath("../../Playing")
+event = &"play_again"
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://knk6whqnftyj"
+
+[node name="ItemRetrieved" type="Node" parent="StateChart/CompoundState"]
+script = ExtResource("4_7f6x0")
+metadata/_custom_type_script = "uid://bitddddrhbl0d"
+
+[node name="ToReturnedToShip" type="Node" parent="StateChart/CompoundState/ItemRetrieved"]
+script = ExtResource("5_a6wvu")
+to = NodePath("../../ReturnedToShip")
+event = &"back_to_ship"
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://knk6whqnftyj"
+
+[node name="ReturnedToShip" type="Node" parent="StateChart/CompoundState"]
+script = ExtResource("4_7f6x0")
+metadata/_custom_type_script = "uid://bitddddrhbl0d"
+
+[node name="ToPlaying" type="Node" parent="StateChart/CompoundState/ReturnedToShip"]
+script = ExtResource("5_a6wvu")
+to = NodePath("../../Playing")
+event = &"play_again"
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://knk6whqnftyj"
+
+[connection signal="state_entered" from="StateChart/CompoundState/Playing" to="." method="_on_playing_state_entered"]
+[connection signal="state_entered" from="StateChart/CompoundState/MenuMode" to="." method="_on_menu_mode_state_entered"]
+[connection signal="state_entered" from="StateChart/CompoundState/GameOver" to="." method="_on_game_over_state_entered"]
+[connection signal="state_entered" from="StateChart/CompoundState/ReturnedToShip" to="." method="_on_returned_to_ship_state_entered"]

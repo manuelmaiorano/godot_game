@@ -1,0 +1,43 @@
+[gd_scene load_steps=8 format=3 uid="uid://3680c3mrpyes"]
+
+[ext_resource type="PackedScene" uid="uid://dpswfe7dkn232" path="res://scenes/gameloop.tscn" id="1_co56h"]
+[ext_resource type="PackedScene" uid="uid://cun5hi2ne8vti" path="res://scenes/ui.tscn" id="2_p3tkv"]
+[ext_resource type="PackedScene" uid="uid://cjca6mx3264lj" path="res://scenes/player.tscn" id="3_1n4ve"]
+[ext_resource type="PackedScene" uid="uid://bhw884mxsuvea" path="res://scenes/knight.tscn" id="4_kgyma"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_co56h"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_p3tkv"]
+sky_material = SubResource("ProceduralSkyMaterial_co56h")
+
+[sub_resource type="Environment" id="Environment_1n4ve"]
+background_mode = 2
+sky = SubResource("Sky_p3tkv")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="TestKnight" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1n4ve")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Gameloop" parent="." instance=ExtResource("1_co56h")]
+
+[node name="UI" parent="." instance=ExtResource("2_p3tkv")]
+
+[node name="Player" parent="." instance=ExtResource("3_1n4ve")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.93902, 0.502828, -2.57446)
+
+[node name="Knight" parent="." instance=ExtResource("4_kgyma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.820565, 0.500004, -14.6908)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.19734, 0, 7.2664)
+use_collision = true
+size = Vector3(78.1741, 1, 99.6389)
