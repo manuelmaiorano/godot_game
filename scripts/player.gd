@@ -352,6 +352,7 @@ func _on_dead_state_entered() -> void:
 	animation_tree.active = false
 	skeleton_modifier.active = true
 	skeleton_modifier.physical_bones_start_simulation()
+	SignalBus.PlayerDead.emit()
 	
 ### Operating Ballista
 func _on_operating_ballista_state_unhandled_input(event: InputEvent) -> void:

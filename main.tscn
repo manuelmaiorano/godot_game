@@ -43,7 +43,7 @@ size = Vector3(19.3413, 16.5152, 67.9267)
 environment = SubResource("Environment_1bvp3")
 
 [node name="Player" parent="." instance=ExtResource("1_ig7tw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 762.725, 100.003, -0.0348969)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 690.47, 50.0028, 496.543)
 metadata/_edit_group_ = true
 
 [node name="World" type="Node3D" parent="."]
@@ -325,7 +325,7 @@ trigger_areas = [NodePath("../../TriggerAreas/Area3D")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 0)
 
 [node name="Item" parent="." instance=ExtResource("16_2cqfq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 2.5, 25)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1444.68, 351.875, -4.43117)
 
 [node name="TriggerAreas" type="Node3D" parent="."]
 

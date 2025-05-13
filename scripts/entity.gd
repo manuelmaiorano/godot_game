@@ -30,7 +30,7 @@ func rotate_towards_target(delta, target):
 	# Interpolate current rotation with desired one.
 	orientation.basis = Basis(q_from.slerp(q_to, delta * rotation_interpolate_spped))
 
-func apply_root_motion_to_velocity(delta):
+func apply_root_motion_to_velocity(delta, use_y = false):
 	root_motion = Transform3D(animation_tree.get_root_motion_rotation(), animation_tree.get_root_motion_position())
 
 	orientation *= root_motion
@@ -38,6 +38,8 @@ func apply_root_motion_to_velocity(delta):
 	var h_velocity = orientation.origin / delta
 	velocity.x = h_velocity.x
 	velocity.z = h_velocity.z
+	if use_y:
+		velocity.y = h_velocity.y
 	orientation.origin = Vector3()
 
 func apply_orientation_to_model():

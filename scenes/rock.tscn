@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bhyt1i03ujdvu"]
+[gd_scene load_steps=6 format=3 uid="uid://bhyt1i03ujdvu"]
 
 [ext_resource type="Script" uid="uid://dt31cpxf241en" path="res://scripts/rock.gd" id="1_1di36"]
 [ext_resource type="Resource" uid="uid://bvhw8vm000m7t" path="res://resources/weapons/rock.tres" id="2_mek2u"]
@@ -6,6 +6,10 @@
 [sub_resource type="SphereShape3D" id="SphereShape3D_mek2u"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_1di36"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ik6fu"]
+resource_local_to_scene = true
+radius = 5.57
 
 [node name="Rock" type="Node3D"]
 script = ExtResource("1_1di36")
@@ -24,5 +28,14 @@ shape = SubResource("SphereShape3D_mek2u")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
 mesh = SubResource("SphereMesh_1di36")
 skeleton = NodePath("../..")
+
+[node name="DetectArea" type="Area3D" parent="RigidBody3D"]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D/DetectArea"]
+shape = SubResource("SphereShape3D_ik6fu")
 
 [connection signal="body_entered" from="RigidBody3D" to="." method="_on_rigid_body_3d_body_entered"]

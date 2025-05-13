@@ -128,7 +128,7 @@ func _on_attack_state_entered() -> void:
 	var should_dodge = false
 	if can_dodge:
 		should_dodge = randf() > 0.5
-	should_dodge = false
+	#should_dodge = false
 	if should_dodge:
 		agent.animation_tree["parameters/Transition/transition_request"] = "dodge"
 	else:
@@ -136,17 +136,17 @@ func _on_attack_state_entered() -> void:
 
 
 func _on_attack_state_physics_processing(delta: float) -> void:
-	if not agent.is_on_floor():
-		state_chart.send_event("falling")
-		return
+	#if not agent.is_on_floor():
+		#state_chart.send_event("falling")
+		#return
 		
 	if target == null  or target.is_dead:
 		state_chart.send_event("deaggro")
 		return
 		
 	agent.rotate_towards_target(delta, target)
-	agent.apply_root_motion_to_velocity(delta)
-	agent.velocity += gravity * delta
+	agent.apply_root_motion_to_velocity(delta, true)
+	#agent.velocity += gravity * delta
 	
 	agent.move_and_slide()
 	agent.apply_orientation_to_model()
