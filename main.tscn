@@ -46,7 +46,7 @@ script = ExtResource("1_efxa6")
 environment = SubResource("Environment_1bvp3")
 
 [node name="Player" parent="." instance=ExtResource("1_ig7tw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 696.359, 50.0028, 495.08)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 762.725, 100.003, -0.0348969)
 metadata/_edit_group_ = true
 
 [node name="World" type="Node3D" parent="."]
