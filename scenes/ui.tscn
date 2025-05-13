@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://cun5hi2ne8vti"]
+[gd_scene load_steps=11 format=3 uid="uid://cun5hi2ne8vti"]
 
 [ext_resource type="Texture2D" uid="uid://c5axvbviovpdm" path="res://assets/textures/icons/crosshair.png" id="1_nt7q6"]
 [ext_resource type="Script" uid="uid://cgv8y2u32y5hl" path="res://scripts/ui.gd" id="1_yev5y"]
 [ext_resource type="PackedScene" uid="uid://dy4sxktja70fm" path="res://scenes/ui/item_inventory.tscn" id="3_8dubc"]
 [ext_resource type="Resource" uid="uid://dh66upo5w26a" path="res://resources/items/branch.tres" id="6_cgfq5"]
+[ext_resource type="Texture2D" uid="uid://d3vlgdo81hywy" path="res://assets/textures/icons/crosshair1.png" id="7_7dvkv"]
 [ext_resource type="Resource" uid="uid://dbi8ijwjyydfa" path="res://resources/items/trap.tres" id="7_ktti3"]
 [ext_resource type="Texture2D" uid="uid://o37chmp80ga7" path="res://assets/textures/icons/close.png" id="8_7dvkv"]
 [ext_resource type="Resource" uid="uid://t3iiak64ogdp" path="res://resources/items/pew.tres" id="8_cgfq5"]
@@ -99,6 +100,22 @@ mouse_filter = 2
 [node name="TextureRect" type="TextureRect" parent="HUD/CrossHair"]
 layout_mode = 2
 texture = ExtResource("1_nt7q6")
+stretch_mode = 4
+
+[node name="CrossHairBallista" type="CenterContainer" parent="HUD" groups=["crosshair"]]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="HUD/CrossHairBallista"]
+layout_mode = 2
+texture = ExtResource("7_7dvkv")
 stretch_mode = 4
 
 [node name="Playerhealth" type="ProgressBar" parent="HUD"]

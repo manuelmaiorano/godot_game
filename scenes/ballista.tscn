@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://csufe0hdsj2qy"]
+
+[ext_resource type="Script" uid="uid://dtugyxy6r3j51" path="res://scripts/ballista.gd" id="1_6l01q"]
+[ext_resource type="PackedScene" uid="uid://dslxq55qvqca6" path="res://assets/models/ballista.glb" id="1_j1g3o"]
+[ext_resource type="PackedScene" uid="uid://cw6ky57uhkxbd" path="res://scenes/dart.tscn" id="2_6l01q"]
+
+[node name="Ballista" type="Node3D"]
+script = ExtResource("1_6l01q")
+dart_scene = ExtResource("2_6l01q")
+
+[node name="ballista" parent="." instance=ExtResource("1_j1g3o")]
+
+[node name="DartAttachment" type="Marker3D" parent="ballista/Cube_001" index="0"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.205621, -0.450603)
+
+[editable path="ballista"]
