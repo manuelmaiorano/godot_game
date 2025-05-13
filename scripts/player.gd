@@ -47,7 +47,7 @@ func _ready():
 	SignalBus.PlayerHealthChanged.emit(1)
 	
 	SignalBus.BallistaModeEnter.connect(func(x): current_ballista = x; state_chart.send_event("ballista"))
-	SignalBus.BallistaModeExit.connect(func(): current_ballista = null; state_chart.send_event("ballista_exit"))
+	SignalBus.BallistaModeExit.connect(func(): state_chart.send_event("ballista_exit"))
 	
 func on_item_bought(item):
 	
@@ -105,6 +105,19 @@ func _on_free_camera_state_unhandled_input(event: InputEvent) -> void:
 	
 	pitch.rotation_degrees.x = clamp(pitch.rotation_degrees.x - rad_to_deg(mouse_movement.y), -clamp_pitch_rotation, clamp_pitch_rotation )
 	yaw.rotate_y(-mouse_movement.x )
+
+### ballista cam
+
+func _on_ballista_camera_state_unhandled_input(event: InputEvent) -> void:
+	if not event is InputEventMouseMotion:
+		return
+		
+	var mouse_movement:Vector2 = event.relative / mouse_sensitivity * PI
+	
+	current_ballista.pitch.rotation_degrees.x = clamp(current_ballista.pitch.rotation_degrees.x - rad_to_deg(mouse_movement.y), -clamp_pitch_rotation, clamp_pitch_rotation )
+	current_ballista.yaw.rotate_y(-mouse_movement.x )
+
+	
 
 ### IDLE
 
@@ -340,22 +353,11 @@ func _on_dead_state_entered() -> void:
 	skeleton_modifier.active = true
 	skeleton_modifier.physical_bones_start_simulation()
 	
-### Ballista
-
-
+### Operating Ballista
 func _on_operating_ballista_state_unhandled_input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("shoot"):
 		current_ballista.fire()
 		return
-		
-	if not event is InputEventMouseMotion:
-		return
-		
-	var mouse_movement:Vector2 = event.relative / mouse_sensitivity * PI
-	
-	current_ballista.pitch.rotation_degrees.x = clamp(current_ballista.pitch.rotation_degrees.x - rad_to_deg(mouse_movement.y), -clamp_pitch_rotation, clamp_pitch_rotation )
-	current_ballista.yaw.rotate_y(-mouse_movement.x )
-
 
 func _on_operating_ballista_state_entered() -> void:
 	current_ballista.make_camera_current()
