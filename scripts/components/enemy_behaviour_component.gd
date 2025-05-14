@@ -128,7 +128,7 @@ func _on_attack_state_entered() -> void:
 	var should_dodge = false
 	if can_dodge:
 		should_dodge = randf() > 0.5
-	#should_dodge = false
+	should_dodge = false
 	if should_dodge:
 		agent.animation_tree["parameters/Transition/transition_request"] = "dodge"
 	else:
