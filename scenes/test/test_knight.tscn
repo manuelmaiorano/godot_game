@@ -1,10 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://3680c3mrpyes"]
+[gd_scene load_steps=14 format=3 uid="uid://3680c3mrpyes"]
 
 [ext_resource type="PackedScene" uid="uid://dpswfe7dkn232" path="res://scenes/gameloop.tscn" id="1_co56h"]
 [ext_resource type="PackedScene" uid="uid://cun5hi2ne8vti" path="res://scenes/ui.tscn" id="2_p3tkv"]
 [ext_resource type="PackedScene" uid="uid://cjca6mx3264lj" path="res://scenes/player.tscn" id="3_1n4ve"]
+[ext_resource type="Texture2D" uid="uid://dujcu7jcy8evu" path="res://assets/textures/texture_01.png" id="4_is4ce"]
 [ext_resource type="PackedScene" uid="uid://bhw884mxsuvea" path="res://scenes/knight.tscn" id="4_kgyma"]
 [ext_resource type="PackedScene" uid="uid://dyugdxrsv73ma" path="res://scenes/dog_small.tscn" id="5_p3tkv"]
+[ext_resource type="PackedScene" uid="uid://dypxun2hmd5ba" path="res://scenes/item.tscn" id="7_klx48"]
+[ext_resource type="PackedScene" uid="uid://bv37dfiqpjay6" path="res://scenes/spaceship.tscn" id="8_is4ce"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_co56h"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -18,6 +21,12 @@ background_mode = 2
 sky = SubResource("Sky_p3tkv")
 tonemap_mode = 2
 glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nxq7d"]
+albedo_texture = ExtResource("4_is4ce")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_is4ce"]
+size = Vector3(84.5635, 4.51807, 1)
 
 [node name="TestKnight" type="Node3D"]
 
@@ -36,11 +45,69 @@ shadow_enabled = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.5997, 0.502828, 50.0219)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.19734, 0, 7.2664)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.19734, 0, -22.9201)
 use_collision = true
-size = Vector3(78.1741, 1, 99.6389)
+size = Vector3(78.1741, 1, 160.012)
+material = SubResource("StandardMaterial3D_nxq7d")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.9906, 4.97391, -61.1243)
+use_collision = true
+size = Vector3(0.593452, 10.9478, 27.5695)
+material = SubResource("StandardMaterial3D_nxq7d")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5672, 4.97391, -61.1243)
+use_collision = true
+size = Vector3(0.593452, 10.9478, 27.5695)
+material = SubResource("StandardMaterial3D_nxq7d")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.07177, 4.97391, -71.8271)
+use_collision = true
+size = Vector3(0.593452, 10.9478, 27.5695)
+material = SubResource("StandardMaterial3D_nxq7d")
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.07177, 4.97391, -49.6522)
+use_collision = true
+size = Vector3(0.593452, 10.9478, 27.5695)
+material = SubResource("StandardMaterial3D_nxq7d")
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="CSGBox3D5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.406063, -2.0367, 0.653332)
+operation = 2
+use_collision = true
+size = Vector3(3.48961, 6.87442, 8.46653)
+material = SubResource("StandardMaterial3D_nxq7d")
 
 [node name="DogSmall" parent="." instance=ExtResource("5_p3tkv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.54096, 0.5, 28.118)
+metadata/_edit_group_ = true
 
-[node name="Knight" parent="." instance=ExtResource("4_kgyma")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.226168, 0.5, 6.92903)
+[node name="DogSmall2" parent="." instance=ExtResource("5_p3tkv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.9537, 0.500001, 27.4281)
+metadata/_edit_group_ = true
+
+[node name="Knight" parent="." node_paths=PackedStringArray("trigger_areas") instance=ExtResource("4_kgyma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.7431, 0.5, -25.6728)
+trigger_areas = [NodePath("../Area3D")]
+
+[node name="Knight2" parent="." node_paths=PackedStringArray("trigger_areas") instance=ExtResource("4_kgyma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.253, 0.5, -25.6728)
+trigger_areas = [NodePath("../Area3D")]
+
+[node name="Item" parent="." instance=ExtResource("7_klx48")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.46022, 0.510948, -62.5839)
+
+[node name="Spaceship" parent="." instance=ExtResource("8_is4ce")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.91714, 0.5, 51.7372)
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.00407, 1.75903, 0)
+shape = SubResource("BoxShape3D_is4ce")
