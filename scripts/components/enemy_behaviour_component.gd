@@ -50,7 +50,6 @@ func setup_hsm():
 		.call_on_update(_on_hit_state_physics_processing)
 	
 	operating_ballista.call_on_enter(_on_ballista_state_entered)\
-		.call_on_update(_on_ballista_state_physics_processing)\
 		.call_on_exit(_on_ballista_state_exited)
 		
 	
@@ -187,14 +186,22 @@ func _on_falling_state_physics_processing(delta: float) -> void:
 
 
 #Ballista
+func fire_ballista():
+	if ballista == null:
+		return
+	
+	ballista.fire()
 
+
+func aim_target(delta):
+	var angle_diff = ballista.aim_at(target, delta)
+	operating_ballista.blackboard.set_var(&"angle_to_target_deg", rad_to_deg(angle_diff))
+	agent.global_transform = ballista.operator_position.global_transform
+	
 func _on_ballista_state_entered() -> void:
 	agent.animation_tree["parameters/Transition/transition_request"] = "idle"
-	ballista.shooter = self
+	ballista.shooter = agent
 	
-func _on_ballista_state_physics_processing(delta: float) -> void:
-	var angle_diff = ballista.aim_at(target, delta)
-	agent.global_transform = ballista.operator_position.global_transform
 	
 func _on_ballista_state_exited() -> void:
 	ballista.shooter = null
