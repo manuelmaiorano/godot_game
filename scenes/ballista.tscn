@@ -10,6 +10,7 @@ size = Vector3(3.58362, 1.43903, 2.69769)
 [node name="Ballista" type="Node3D"]
 script = ExtResource("1_6l01q")
 dart_scene = ExtResource("2_6l01q")
+rotation_interpolate_speed = 10.0
 
 [node name="ballista" parent="." instance=ExtResource("1_j1g3o")]
 
@@ -20,6 +21,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.320901, 0)
 [node name="DartAttachment" type="Marker3D" parent="ballista/Yaw/Pitch" index="1"]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.213201, -0.750207)
+
+[node name="OperatorPosition" type="Marker3D" parent="ballista/Yaw" index="1"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.66345)
 
 [node name="Area3D" type="Area3D" parent="."]
 collision_layer = 0

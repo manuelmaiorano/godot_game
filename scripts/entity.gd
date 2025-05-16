@@ -80,3 +80,6 @@ func take_explosion_damage(velocity, damage):
 
 func set_antagonists(value):
 	$EnemyBehaviourComponent.set_antagonists(value)
+	
+func close_to_ballista(which):
+	$EnemyBehaviourComponent.close_to_ballista(which)

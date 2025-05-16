@@ -15,15 +15,18 @@ extends Node
 @export var can_dodge: bool = false
 @export var alive: LimboHSM
 @export var has_hit_anim: bool = true
+@export var can_ballista: bool = false
 
 @onready var limbo_hsm: LimboHSM = %LimboHSM
 @onready var falling: LimboState = %Falling
 @onready var dead: LimboState = %Dead
 @onready var hit: LimboState = %Hit
+@onready var operating_ballista: LimboState = %OperatingBallista
 
 
 var target: Node3D
 var hp: float
+var ballista: Node3D
 
 func _ready() -> void:
 	setup_hsm()
@@ -45,16 +48,22 @@ func setup_hsm():
 	
 	hit.call_on_enter(_on_hit_state_entered)\
 		.call_on_update(_on_hit_state_physics_processing)
+	
+	operating_ballista.call_on_enter(_on_ballista_state_entered)\
+		.call_on_update(_on_ballista_state_physics_processing)\
+		.call_on_exit(_on_ballista_state_exited)
 		
 	
 	limbo_hsm.add_transition(alive, dead, &"die")
 	limbo_hsm.add_transition(alive, hit, &"hit")
 	limbo_hsm.add_transition(alive, falling, &"falling")
+	limbo_hsm.add_transition(alive, operating_ballista, &"ballista", func (): return target != null)
 	
 	limbo_hsm.add_transition(falling, alive, &"landed")
 	limbo_hsm.add_transition(falling, dead, &"die")
 	
 	limbo_hsm.add_transition(hit, alive, hit.EVENT_FINISHED)
+	
 	
 	limbo_hsm.initialize(agent)
 	limbo_hsm.set_active(true)
@@ -100,6 +109,14 @@ func take_explosion_damage(velocity, damage):
 		limbo_hsm.dispatch(&"die")
 		if ragdoll_on_death:
 			hip_bone.apply_central_impulse(velocity)
+
+func close_to_ballista(which):
+	if not can_ballista:
+		return
+		
+	ballista = which
+	limbo_hsm.dispatch(&"ballista")
+	
 
 func set_antagonists(value):
 	antagonist_groups = value
@@ -167,3 +184,17 @@ func _on_falling_state_physics_processing(delta: float) -> void:
 	
 	agent.velocity += gravity * delta
 	agent.move_and_slide()
+
+
+#Ballista
+
+func _on_ballista_state_entered() -> void:
+	agent.animation_tree["parameters/Transition/transition_request"] = "idle"
+	ballista.shooter = self
+	
+func _on_ballista_state_physics_processing(delta: float) -> void:
+	var angle_diff = ballista.aim_at(target, delta)
+	agent.global_transform = ballista.operator_position.global_transform
+	
+func _on_ballista_state_exited() -> void:
+	ballista.shooter = null

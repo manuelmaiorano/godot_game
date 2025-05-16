@@ -19,3 +19,4 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 
 [node name="OperatingBallista" type="LimboState" parent="LimboHSM"]
+unique_name_in_owner = true

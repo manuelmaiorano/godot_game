@@ -1,0 +1,47 @@
+[gd_scene load_steps=9 format=3 uid="uid://rljwykqs5en2"]
+
+[ext_resource type="PackedScene" uid="uid://dpswfe7dkn232" path="res://scenes/gameloop.tscn" id="1_7t5cv"]
+[ext_resource type="PackedScene" uid="uid://cun5hi2ne8vti" path="res://scenes/ui.tscn" id="2_er88l"]
+[ext_resource type="PackedScene" uid="uid://cjca6mx3264lj" path="res://scenes/player.tscn" id="3_k62f0"]
+[ext_resource type="PackedScene" uid="uid://csufe0hdsj2qy" path="res://scenes/ballista.tscn" id="5_bb2ry"]
+[ext_resource type="PackedScene" uid="uid://bhw884mxsuvea" path="res://scenes/knight.tscn" id="5_vpl4u"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_co56h"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_p3tkv"]
+sky_material = SubResource("ProceduralSkyMaterial_co56h")
+
+[sub_resource type="Environment" id="Environment_1n4ve"]
+background_mode = 2
+sky = SubResource("Sky_p3tkv")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="TestKnight" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1n4ve")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Gameloop" parent="." instance=ExtResource("1_7t5cv")]
+
+[node name="UI" parent="." instance=ExtResource("2_er88l")]
+
+[node name="Player" parent="." instance=ExtResource("3_k62f0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.33894, 0.502828, 6.1265)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.84167, 0, -7.69952)
+use_collision = true
+size = Vector3(39.9192, 1, 93.9965)
+
+[node name="Knight" parent="." instance=ExtResource("5_vpl4u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5663, 0.500004, -28.1561)
+
+[node name="Ballista" parent="." instance=ExtResource("5_bb2ry")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.08184, 0.5, -22.4711)
