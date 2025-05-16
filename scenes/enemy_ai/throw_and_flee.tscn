@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://cleo5kknksb7n"]
+
+[ext_resource type="Script" uid="uid://cqqwa6ejkbp7o" path="res://scenes/enemy_ai/throw_and_flee.gd" id="1_r73le"]
+
+[node name="ThrowAndFlee" type="LimboHSM"]
+script = ExtResource("1_r73le")
+
+[node name="Idle" type="LimboState" parent="."]
+unique_name_in_owner = true
+
+[node name="Reposition" type="LimboState" parent="."]
+unique_name_in_owner = true
+
+[node name="Attack" type="LimboState" parent="."]
+unique_name_in_owner = true
+
+[node name="CoolDown" type="LimboState" parent="."]
+unique_name_in_owner = true

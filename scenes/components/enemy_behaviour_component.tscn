@@ -1,138 +1,21 @@
-[gd_scene load_steps=7 format=3 uid="uid://dis5xffdkf7e6"]
+[gd_scene load_steps=2 format=3 uid="uid://dis5xffdkf7e6"]
 
 [ext_resource type="Script" uid="uid://dptm6vhbkiitu" path="res://scripts/components/enemy_behaviour_component.gd" id="1_51ut1"]
-[ext_resource type="Script" uid="uid://dxg0yepbv63k0" path="res://addons/godot_state_charts/state_chart.gd" id="2_ej6yh"]
-[ext_resource type="Script" uid="uid://cwxxkh1jh6pp4" path="res://addons/godot_state_charts/compound_state.gd" id="3_v3goe"]
-[ext_resource type="Script" uid="uid://bitddddrhbl0d" path="res://addons/godot_state_charts/atomic_state.gd" id="4_ch1o0"]
-[ext_resource type="Script" uid="uid://knk6whqnftyj" path="res://addons/godot_state_charts/transition.gd" id="5_hkovr"]
-[ext_resource type="Script" uid="uid://cgjyb2ep3lm12" path="res://addons/godot_state_charts/history_state.gd" id="6_ej6yh"]
 
 [node name="EnemyBehaviourComponent" type="Node"]
 script = ExtResource("1_51ut1")
 antagonist_groups = Array[StringName]([&"player"])
 
-[node name="StateChart" type="Node" parent="."]
+[node name="LimboHSM" type="LimboHSM" parent="."]
 unique_name_in_owner = true
-script = ExtResource("2_ej6yh")
-metadata/_custom_type_script = "uid://dxg0yepbv63k0"
 
-[node name="MovingLogic" type="Node" parent="StateChart"]
-script = ExtResource("3_v3goe")
-initial_state = NodePath("Alive")
-metadata/_custom_type_script = "uid://cwxxkh1jh6pp4"
+[node name="Falling" type="LimboState" parent="LimboHSM"]
+unique_name_in_owner = true
 
-[node name="Alive" type="Node" parent="StateChart/MovingLogic"]
-script = ExtResource("3_v3goe")
-initial_state = NodePath("Idle")
-metadata/_custom_type_script = "uid://cwxxkh1jh6pp4"
+[node name="Dead" type="LimboState" parent="LimboHSM"]
+unique_name_in_owner = true
 
-[node name="Idle" type="Node" parent="StateChart/MovingLogic/Alive"]
-script = ExtResource("4_ch1o0")
+[node name="Hit" type="LimboState" parent="LimboHSM"]
+unique_name_in_owner = true
 
-[node name="ToWalk" type="Node" parent="StateChart/MovingLogic/Alive/Idle"]
-script = ExtResource("5_hkovr")
-to = NodePath("../../Walk")
-event = &"go_to_target"
-delay_in_seconds = "0.0"
-
-[node name="Walk" type="Node" parent="StateChart/MovingLogic/Alive"]
-script = ExtResource("4_ch1o0")
-
-[node name="ToAttack" type="Node" parent="StateChart/MovingLogic/Alive/Walk"]
-script = ExtResource("5_hkovr")
-to = NodePath("../../Attack")
-event = &"attack"
-delay_in_seconds = "0.5"
-
-[node name="ToIdle" type="Node" parent="StateChart/MovingLogic/Alive/Walk"]
-script = ExtResource("5_hkovr")
-to = NodePath("../../Idle")
-event = &"stop_moving"
-delay_in_seconds = "0.0"
-metadata/_custom_type_script = "uid://knk6whqnftyj"
-
-[node name="Attack" type="Node" parent="StateChart/MovingLogic/Alive"]
-script = ExtResource("4_ch1o0")
-
-[node name="ToWalk" type="Node" parent="StateChart/MovingLogic/Alive/Attack"]
-script = ExtResource("5_hkovr")
-to = NodePath("../../Walk")
-delay_in_seconds = "1.5"
-
-[node name="ToIdle" type="Node" parent="StateChart/MovingLogic/Alive/Attack"]
-script = ExtResource("5_hkovr")
-to = NodePath("../../Idle")
-event = &"deaggro"
-delay_in_seconds = "0.0"
-metadata/_custom_type_script = "uid://knk6whqnftyj"
-
-[node name="ToDead" type="Node" parent="StateChart/MovingLogic/Alive"]
-script = ExtResource("5_hkovr")
-to = NodePath("../../Dead")
-event = &"die"
-delay_in_seconds = "0.0"
-metadata/_custom_type_script = "uid://knk6whqnftyj"
-
-[node name="ToHit" type="Node" parent="StateChart/MovingLogic/Alive"]
-script = ExtResource("5_hkovr")
-to = NodePath("../../Hit")
-event = &"hit"
-delay_in_seconds = "0.0"
-metadata/_custom_type_script = "uid://knk6whqnftyj"
-
-[node name="HistoryState" type="Node" parent="StateChart/MovingLogic/Alive"]
-script = ExtResource("6_ej6yh")
-default_state = NodePath("../Idle")
-metadata/_custom_type_script = "uid://cgjyb2ep3lm12"
-
-[node name="ToFalling" type="Node" parent="StateChart/MovingLogic/Alive"]
-script = ExtResource("5_hkovr")
-to = NodePath("../../Falling")
-event = &"falling"
-delay_in_seconds = "0.0"
-metadata/_custom_type_script = "uid://knk6whqnftyj"
-
-[node name="Falling" type="Node" parent="StateChart/MovingLogic"]
-script = ExtResource("4_ch1o0")
-metadata/_custom_type_script = "uid://bitddddrhbl0d"
-
-[node name="ToAlive" type="Node" parent="StateChart/MovingLogic/Falling"]
-script = ExtResource("5_hkovr")
-to = NodePath("../../Alive/Walk")
-event = &"landed"
-delay_in_seconds = "0.0"
-metadata/_custom_type_script = "uid://knk6whqnftyj"
-
-[node name="ToDead" type="Node" parent="StateChart/MovingLogic/Falling"]
-script = ExtResource("5_hkovr")
-to = NodePath("../../Dead")
-event = &"die"
-delay_in_seconds = "0.0"
-metadata/_custom_type_script = "uid://knk6whqnftyj"
-
-[node name="Dead" type="Node" parent="StateChart/MovingLogic"]
-script = ExtResource("4_ch1o0")
-metadata/_custom_type_script = "uid://bitddddrhbl0d"
-
-[node name="Hit" type="Node" parent="StateChart/MovingLogic"]
-script = ExtResource("4_ch1o0")
-metadata/_custom_type_script = "uid://bitddddrhbl0d"
-
-[node name="ToAlive" type="Node" parent="StateChart/MovingLogic/Hit"]
-script = ExtResource("5_hkovr")
-to = NodePath("../../Alive/Walk")
-delay_in_seconds = "0.7"
-metadata/_custom_type_script = "uid://knk6whqnftyj"
-
-[connection signal="state_entered" from="StateChart/MovingLogic/Alive/Idle" to="." method="_on_idle_state_entered"]
-[connection signal="state_physics_processing" from="StateChart/MovingLogic/Alive/Idle" to="." method="_on_idle_state_physics_processing"]
-[connection signal="state_entered" from="StateChart/MovingLogic/Alive/Walk" to="." method="_on_walk_state_entered"]
-[connection signal="state_physics_processing" from="StateChart/MovingLogic/Alive/Walk" to="." method="_on_walk_state_physics_processing"]
-[connection signal="state_entered" from="StateChart/MovingLogic/Alive/Attack" to="." method="_on_attack_state_entered"]
-[connection signal="state_exited" from="StateChart/MovingLogic/Alive/Attack" to="." method="_on_attack_state_exited"]
-[connection signal="state_physics_processing" from="StateChart/MovingLogic/Alive/Attack" to="." method="_on_attack_state_physics_processing"]
-[connection signal="state_entered" from="StateChart/MovingLogic/Falling" to="." method="_on_falling_state_entered"]
-[connection signal="state_physics_processing" from="StateChart/MovingLogic/Falling" to="." method="_on_falling_state_physics_processing"]
-[connection signal="state_entered" from="StateChart/MovingLogic/Dead" to="." method="_on_dead_state_entered"]
-[connection signal="state_entered" from="StateChart/MovingLogic/Hit" to="." method="_on_hit_state_entered"]
-[connection signal="state_physics_processing" from="StateChart/MovingLogic/Hit" to="." method="_on_hit_state_physics_processing"]
+[node name="OperatingBallista" type="LimboState" parent="LimboHSM"]

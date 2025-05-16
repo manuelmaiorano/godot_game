@@ -7,15 +7,25 @@ extends CharacterBody3D
 
 @export var trigger_areas: Array[Area3D]
 
+@onready var gravity = ProjectSettings.get_setting("physics/3d/default_gravity") * ProjectSettings.get_setting("physics/3d/default_gravity_vector")
+
 var orientation = Transform3D()
 var root_motion = Transform3D()
 var is_dead: bool = false
+
+var target: Node3D:
+	get:
+		return $EnemyBehaviourComponent.target
 
 
 func _ready():
 	# Pre-initialize orientation transform.
 	orientation = model.global_transform
 	orientation.origin = Vector3()
+
+
+func check_aggression():
+	$EnemyBehaviourComponent.check_aggression()
 	
 func rotate_towards_target(delta, target):
 	var direction: Vector3 = global_position - target.global_position
@@ -25,6 +35,20 @@ func rotate_towards_target(delta, target):
 	
 	var q_from = orientation.basis.get_rotation_quaternion()
 	var q_to = Transform3D().looking_at(-direction.normalized(), Vector3.UP, true).basis.get_rotation_quaternion()
+	
+	
+	# Interpolate current rotation with desired one.
+	orientation.basis = Basis(q_from.slerp(q_to, delta * rotation_interpolate_spped))
+
+
+func rotate_away_from_target(delta, target):
+	var direction: Vector3 = global_position - target.global_position
+	direction.y = 0
+	if direction.is_zero_approx():
+		return
+	
+	var q_from = orientation.basis.get_rotation_quaternion()
+	var q_to = Transform3D().looking_at(direction.normalized(), Vector3.UP, true).basis.get_rotation_quaternion()
 	
 	
 	# Interpolate current rotation with desired one.
