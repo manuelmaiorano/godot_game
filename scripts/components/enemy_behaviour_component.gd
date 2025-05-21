@@ -12,7 +12,6 @@ extends Node
 @export var ragdoll_on_death: bool = false
 @export var skeleton_modifier: PhysicalBoneSimulator3D
 @export var hip_bone: PhysicalBone3D
-@export var can_dodge: bool = false
 @export var alive: LimboHSM
 @export var has_hit_anim: bool = true
 @export var can_ballista: bool = false

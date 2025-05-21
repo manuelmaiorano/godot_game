@@ -84,11 +84,11 @@ size = Vector3(3.48961, 6.87442, 8.46653)
 material = SubResource("StandardMaterial3D_nxq7d")
 
 [node name="Knight" parent="." node_paths=PackedStringArray("trigger_areas") instance=ExtResource("4_kgyma")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.9845, 0.5, -24.3407)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.9845, 0.5, -39.8235)
 trigger_areas = [NodePath("../Area3D")]
 
 [node name="Knight2" parent="." node_paths=PackedStringArray("trigger_areas") instance=ExtResource("4_kgyma")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.253, 0.5, -25.6728)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.253, 0.5, -41.1556)
 trigger_areas = [NodePath("../Area3D")]
 
 [node name="Item" parent="." instance=ExtResource("7_klx48")]
@@ -110,7 +110,7 @@ shape = SubResource("BoxShape3D_is4ce")
 character = NodePath("../Player")
 
 [node name="RockGuy" parent="." instance=ExtResource("9_nxq7d")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.9972, 0.503097, 28.5416)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.9972, 0.503097, 35.8531)
 
 [node name="DogSmall" parent="." instance=ExtResource("5_p3tkv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.23515, 0.5, 12.4463)

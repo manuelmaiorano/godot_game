@@ -108,7 +108,6 @@ hp_bar = NodePath("../HealthBar")
 ragdoll_on_death = true
 skeleton_modifier = NodePath("../knight/Armature_001/Skeleton3D/PhysicalBoneSimulator3D")
 hip_bone = NodePath("../knight/Armature_001/Skeleton3D/PhysicalBoneSimulator3D/Physical Bone hips")
-can_dodge = true
 alive = NodePath("LimboHSM/FollowAndAttack")
 can_ballista = true
 
@@ -181,10 +180,10 @@ bone = 15
 active = false
 
 [node name="Physical Bone hips" type="PhysicalBone3D" parent="knight/Armature_001/Skeleton3D/PhysicalBoneSimulator3D"]
-transform = Transform3D(1, 1.42108e-14, -1.42071e-14, -1.42071e-14, 2.14578e-21, -1, -1.42108e-14, 1, 2.14578e-21, -2.50239e-14, 2.07891, -1.11886e-27)
+transform = Transform3D(1, 2.84217e-14, -2.8418e-14, -2.8418e-14, 9.62839e-35, -1, -2.84217e-14, 1, 8.07794e-28, -4.76637e-13, 2.07891, 8.80358e-35)
 collision_layer = 4
 collision_mask = 5
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.50009e-14, -4.73285e-22, 0.220567)
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.5001e-14, -4.73286e-22, 0.220567)
 body_offset = Transform3D(1, 2.84217e-14, -2.8418e-14, -2.8418e-14, 0, -1, -2.84217e-14, 1, 2.14578e-21, -7.87329e-14, 0.220567, 0)
 bone_name = "ctrl.torso"
 
@@ -193,11 +192,11 @@ transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_mvyd6")
 
 [node name="Physical Bone leg1_L" type="PhysicalBone3D" parent="knight/Armature_001/Skeleton3D/PhysicalBoneSimulator3D"]
-transform = Transform3D(-1, -1.6238e-06, 1.40079e-06, 5.61372e-07, 0.43221, 0.901773, -2.06974e-06, 0.901773, -0.43221, 0.185506, 1.3363, 0.212052)
+transform = Transform3D(-1, -1.62381e-06, 1.40079e-06, 5.61373e-07, 0.432209, 0.901774, -2.06974e-06, 0.901774, -0.432209, 0.185506, 1.33629, 0.212052)
 collision_layer = 4
 collision_mask = 5
 joint_type = 3
-joint_offset = Transform3D(0.999995, 0, 0, 0, 0.999956, 0, 0, 0, 0.999961, -2.75417e-07, 0.0174122, 0.526952)
+joint_offset = Transform3D(0.999995, 0, 0, 0, 0.999956, 0, 0, 0, 0.999961, -2.75416e-07, 0.0174121, 0.526952)
 body_offset = Transform3D(1, 1.63021e-06, -1.0865e-06, -5.0664e-07, -0.320531, -0.947238, -1.89245e-06, 0.947238, -0.320531, 8.19564e-07, 0.50473, 0.152411)
 bone_name = "leg1.L"
 joint_constraints/angular_limit_enabled = false
@@ -216,7 +215,7 @@ transform = Transform3D(-1, 1.75724e-06, -1.33721e-06, -5.4886e-07, 0.388769, 0.
 collision_layer = 4
 collision_mask = 5
 joint_type = 3
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.61399e-08, 0.0125658, 0.513998)
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.6139e-08, 0.0125659, 0.513998)
 body_offset = Transform3D(1, -1.8523e-06, 1.0667e-06, 5.16078e-07, -0.275052, -0.961429, 2.07425e-06, 0.961429, -0.275052, -5.81145e-07, 0.497629, 0.129295)
 bone_name = "leg1.R"
 joint_constraints/angular_limit_enabled = false
