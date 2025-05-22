@@ -3,12 +3,11 @@ extends LimboHSM
 @export var character: BaseAgent
 @onready var dead: LimboState = %Dead
 @onready var alive: LimboHSM = %Alive
-@onready var not_hit: LimboHSM = %NotHit
 @onready var onground: LimboHSM = %Onground
 @onready var falling: LimboState = %Falling
-@onready var hit_reaction: BTState = %HitReaction
 @onready var attack: BTState = %Attack
 @onready var patrol: BTState = %Patrol
+@onready var investigate: BTState = %Investigate
 
 
 func _ready() -> void:
@@ -21,13 +20,49 @@ func _ready() -> void:
 	alive.add_transition(falling, onground, &"landed")
 	onground.call_on_update(func (delta): if not character.is_on_floor(): dispatch(&"fall"))
 	
-	onground.add_transition(not_hit, hit_reaction, &"hit")
-	character.hit.connect(func(): dispatch(&"hit"))
-	onground.add_transition(hit_reaction, not_hit, hit_reaction.EVENT_FINISHED)
+	character.hit.connect(on_hit)
 	
-	character.target_spotted.connect(func(): dispatch(&"target_spotted"))
-	not_hit.add_transition(patrol, attack, &"target_spotted")
+	character.target_list_changed.connect(on_target_list_changed)
+	onground.add_transition(patrol, attack, &"target_spotted")
+	onground.add_transition(patrol, investigate, &"investigate")
+	
+	onground.add_transition(investigate, attack, &"target_spotted")
+	onground.add_transition(investigate, patrol, &"investigation_complete")
+	
+	onground.add_transition(attack, investigate, &"investigate")
+	onground.add_transition(attack, patrol, &"target_lost")
 	
 	initialize(character)
 	set_active(true)
+
+func on_hit(who):
+	character.animation_tree["parameters/OneShot/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
+	var current_target = onground.blackboard.get_var("target")
+	if current_target == null:
+		onground.blackboard.set_var("last_known_target_position", who.global_position)
+		dispatch(&"investigate")
+		return
+
+func on_target_list_changed(target_list: Dictionary[Node3D, BaseAgent.TargetInfo]):
+	var current_target = onground.blackboard.get_var("target")
+	if current_target == null:
+		var new_target = get_first_visible_target()
+		if new_target == null:
+			return
+		onground.blackboard.set_var("target", new_target)
+		dispatch( &"target_spotted")
+		return
 	
+	if not character.target_list[current_target].visible:
+		onground.blackboard.set_var("target", null)
+		onground.blackboard.set_var("last_known_target_position", character.target_list[current_target].last_known_position)
+		dispatch(&"investigate")
+		return
+
+func get_first_visible_target():
+	for key in character.target_list.keys():
+		var info = character.target_list[key]
+		if info.visible:
+			return key
+	
+	return null

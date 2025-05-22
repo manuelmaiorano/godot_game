@@ -11,7 +11,8 @@ class_name BaseAgent
 @export var skeleton_modifier: PhysicalBoneSimulator3D
 @export var hip_bone: PhysicalBone3D
 @export var antagonist_groups: Array[StringName]
-@export var detection_area: Area3D
+@export var patrol_points: Array[Node3D]
+@export var vision_cone: VisionCone3D
 
 @onready var gravity = ProjectSettings.get_setting("physics/3d/default_gravity") * ProjectSettings.get_setting("physics/3d/default_gravity_vector")
 
@@ -25,10 +26,19 @@ var target: Node3D = null
 
 signal hit(by_who: BaseAgent)
 signal target_spotted
+signal target_list_changed(target_list: Dictionary[Node3D, TargetInfo])
 signal dead
 signal antagonist_changed
 signal near_ballista(which: Node3D)
 signal took_damage(hp_percentage_now)
+
+
+class TargetInfo:
+	var visible: bool
+	var last_known_position: Vector3
+	var last_time_seen: int
+
+var target_list: Dictionary[Node3D, TargetInfo]
 
 
 func _ready():
@@ -40,23 +50,53 @@ func _ready():
 	orientation = model.global_transform
 	orientation.origin = Vector3()
 
-	if detection_area:
-		detection_area.body_entered.connect(_on_detection_area_body_entered)
-	for area in trigger_areas:
-		area.body_entered.connect(_on_detection_area_body_entered)
+	if vision_cone:
+		vision_cone.body_sighted.connect(_on_body_sighted)
+		vision_cone.body_hidden.connect(_on_body_hidden)
+	#for area in trigger_areas:
+		#area.body_entered.connect(_on_body_sighted)
+		#area.body_exited.connect(_on_body_hidden)
 
 
-func _on_detection_area_body_entered(body: Node3D) -> void:
+func _on_body_sighted(body: Node3D) -> void:
 	if body == self or body.is_dead:
 		return
-	for group in body.get_groups():
-		if antagonist_groups.find(group) > -1:
-			target = body
-			target_spotted.emit()
-			return
 	
-func rotate_towards_target(delta, target, run_away = false):
-	var direction: Vector3 = global_position - target.global_position
+	if not check_if_antagonist(body):
+		return
+	
+	if not target_list.has(body):
+		var info = TargetInfo.new()
+		info.visible = true
+		target_list[body] = info
+	else:
+		target_list[body].visible = true
+	
+	target_list_changed.emit(target_list)
+
+func _on_body_hidden(body: Node3D) -> void:
+	if body == self or body.is_dead:
+		return
+		
+	if not check_if_antagonist(body):
+		return
+	
+	if not target_list.has(body):
+		var info = TargetInfo.new()
+		info.visible = false
+		info.last_known_position = body.global_position
+		info.last_time_seen = Time.get_ticks_msec()
+		target_list[body] = info
+	else:
+		target_list[body].visible = false
+		target_list[body].last_known_position = body.global_position
+		target_list[body].last_time_seen = Time.get_ticks_msec()
+	
+	target_list_changed.emit(target_list)
+		
+
+func rotate_towards_point(delta, point, run_away = false):
+	var direction: Vector3 = global_position - point
 	direction.y = 0
 	
 	if run_away:
@@ -71,6 +111,9 @@ func rotate_towards_target(delta, target, run_away = false):
 	
 	# Interpolate current rotation with desired one.
 	orientation.basis = Basis(q_from.slerp(q_to, delta * rotation_interpolate_spped))
+	
+func rotate_towards_target(delta, target, run_away = false):
+	rotate_towards_point(delta, target.global_position, run_away)
 
 
 func rotate_away_from_target(delta, target):
@@ -127,6 +170,8 @@ func die():
 	if ragdoll_on_death:
 		ragdoll()
 
+	
+
 func ragdoll():
 	animation_tree.active = false
 	skeleton_modifier.active = true
@@ -137,12 +182,6 @@ func set_antagonists(value):
 	antagonist_groups = value
 	antagonist_changed.emit()
 
-	
-func check_aggression():
-	for body in detection_area.get_overlapping_bodies():
-		if check_if_antagonist(body):
-			target = body
-			return
 	
 func close_to_ballista(which):
 	near_ballista.emit(which)

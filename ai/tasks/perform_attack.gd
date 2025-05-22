@@ -7,6 +7,7 @@ extends BTAction
 @export var final_attack_anim_name: StringName
 
 var last_attack_animation_played = false
+var target
 
 # Called to generate a display name for the task (requires @tool).
 func _generate_name() -> String:
@@ -16,6 +17,7 @@ func _setup() -> void:
 	agent.animation_tree.animation_finished.connect(on_finished_animation)
 
 func _enter() -> void:
+	target = blackboard.get_var("target")
 	last_attack_animation_played = false
 	agent.animation_tree["parameters/Transition/transition_request"] = attack_anim_tree_state
 	
@@ -26,9 +28,11 @@ func on_finished_animation(name):
 	
 # Called each time this task is ticked (aka executed).
 func _tick(delta: float) -> Status:
+	if target == null:
+		return FAILURE
 	if last_attack_animation_played:
 		return SUCCESS
-	agent.rotate_towards_target(delta, agent.target)
+	agent.rotate_towards_target(delta, target)
 	agent.apply_root_motion_to_velocity(delta, true)
 	#agent.velocity += gravity * delta
 	

@@ -38,7 +38,12 @@ func _ready():
 	took_damage.connect(func(x): SignalBus.PlayerHealthChanged.emit(x))
 	dead.connect(func(): SignalBus.PlayerDead.emit())
 
-
+func reduce_health(damage):
+	if Globals.debug_mode:
+		return
+	else :
+		super.reduce_health(damage)
+	
 	
 func on_item_bought(item):
 	
