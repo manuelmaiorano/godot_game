@@ -7,7 +7,6 @@
 
 [node name="EnemyBehaviourComponent" type="Node"]
 script = ExtResource("1_51ut1")
-antagonist_groups = Array[StringName]([&"player"])
 
 [node name="LimboHSM" type="LimboHSM" parent="."]
 unique_name_in_owner = true

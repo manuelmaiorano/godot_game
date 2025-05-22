@@ -1,43 +1,30 @@
-extends CharacterBody3D
+extends BaseAgent
 
 const ROTATION_INTERPOLATE_SPEED = 10
 
 @export var mouse_sensitivity:float = 500
 @export var clamp_pitch_rotation:float = 80
 @export var move_speed: float = 10
-@export var antagonist_groups: Array[StringName]
-@export var stats: EntityStats
-@export var hip_bone: PhysicalBone3D
-@export var skeleton_modifier: SkeletonModifier3D
 
 
 @onready var camera_3d: Camera3D = %Camera3D
 @onready var pitch:Node3D = %Pitch
 @onready var yaw:Node3D =  %Yaw
-@onready var gravity = ProjectSettings.get_setting("physics/3d/default_gravity") * ProjectSettings.get_setting("physics/3d/default_gravity_vector")
-@onready var animation_tree: AnimationTree = %AnimationTree
 @onready var camera_animation: AnimationPlayer = %CameraAnimation
 
 @onready var state_chart: StateChart = %StateChart
 @onready var shoot_from: Marker3D = %ShootFrom
 
 
-var orientation = Transform3D()
-var root_motion = Transform3D()
-var is_dead = false
-
 var active_item: Item = null
 
 @export var item_amounts: Dictionary[Item, int]
 @export var money: int = 1000
 
-var hp: float = 0
 var current_ballista = null
+
 func _ready():
-	hp = stats.max_hp
-	# Pre-initialize orientation transform.
-	orientation = $chessinggame.global_transform
-	orientation.origin = Vector3()
+	super._ready()
 	SignalBus.InventoryItemSelected.connect(on_inventory_item_selected)
 	SignalBus.ItemsChanged.emit(item_amounts)
 	SignalBus.TrySell.connect(on_try_sell)
@@ -48,6 +35,10 @@ func _ready():
 	
 	SignalBus.BallistaModeEnter.connect(func(x): current_ballista = x; state_chart.send_event("ballista"))
 	SignalBus.BallistaModeExit.connect(func(): state_chart.send_event("ballista_exit"))
+	took_damage.connect(func(x): SignalBus.PlayerHealthChanged.emit(x))
+	dead.connect(func(): SignalBus.PlayerDead.emit())
+
+
 	
 func on_item_bought(item):
 	
@@ -78,22 +69,6 @@ func on_try_sell(item: Item):
 func on_inventory_item_selected(item: Item):
 	active_item = item
 
-func take_damage(attaker, damage):
-	reduce_health(damage)
-	if hp <= 0:
-		state_chart.send_event("die")
-		return true
-
-func reduce_health(damage):
-	hp = clamp(hp - damage, 0, hp)
-	SignalBus.PlayerHealthChanged.emit(hp/stats.max_hp)
-
-
-func take_explosion_damage(velocity, damage):
-	reduce_health(damage)
-	if hp <= 0:
-		state_chart.send_event("die")
-		hip_bone.apply_central_impulse(velocity)
 
 ### free cam
 
@@ -116,8 +91,6 @@ func _on_ballista_camera_state_unhandled_input(event: InputEvent) -> void:
 	
 	current_ballista.pitch.rotation_degrees.x = clamp(current_ballista.pitch.rotation_degrees.x - rad_to_deg(mouse_movement.y), -clamp_pitch_rotation, clamp_pitch_rotation )
 	current_ballista.yaw.rotate_y(-mouse_movement.x )
-
-	
 
 ### IDLE
 
@@ -347,11 +320,7 @@ func _on_aiming_state_exited() -> void:
 ### DEAD
 
 func _on_dead_state_entered() -> void:
-	reduce_health(hp)
-	is_dead = true
-	animation_tree.active = false
-	skeleton_modifier.active = true
-	skeleton_modifier.physical_bones_start_simulation()
+	die()
 	SignalBus.PlayerDead.emit()
 	
 ### Operating Ballista

@@ -1,15 +1,13 @@
-[gd_scene load_steps=16 format=3 uid="uid://3680c3mrpyes"]
+[gd_scene load_steps=14 format=3 uid="uid://3680c3mrpyes"]
 
 [ext_resource type="PackedScene" uid="uid://dpswfe7dkn232" path="res://scenes/gameloop.tscn" id="1_co56h"]
 [ext_resource type="PackedScene" uid="uid://cun5hi2ne8vti" path="res://scenes/ui.tscn" id="2_p3tkv"]
 [ext_resource type="PackedScene" uid="uid://cjca6mx3264lj" path="res://scenes/player.tscn" id="3_1n4ve"]
 [ext_resource type="Texture2D" uid="uid://dujcu7jcy8evu" path="res://assets/textures/texture_01.png" id="4_is4ce"]
 [ext_resource type="PackedScene" uid="uid://bhw884mxsuvea" path="res://scenes/knight.tscn" id="4_kgyma"]
-[ext_resource type="PackedScene" uid="uid://dyugdxrsv73ma" path="res://scenes/dog_small.tscn" id="5_p3tkv"]
 [ext_resource type="PackedScene" uid="uid://dypxun2hmd5ba" path="res://scenes/item.tscn" id="7_klx48"]
 [ext_resource type="PackedScene" uid="uid://bv37dfiqpjay6" path="res://scenes/spaceship.tscn" id="8_is4ce"]
 [ext_resource type="PackedScene" uid="uid://d3bnctvum4khh" path="res://scenes/utils/speed_checker.tscn" id="9_klx48"]
-[ext_resource type="PackedScene" uid="uid://et8e2bm1xmp0" path="res://scenes/rock_guy.tscn" id="9_nxq7d"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_co56h"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -87,10 +85,6 @@ material = SubResource("StandardMaterial3D_nxq7d")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.9845, 0.5, -39.8235)
 trigger_areas = [NodePath("../Area3D")]
 
-[node name="Knight2" parent="." node_paths=PackedStringArray("trigger_areas") instance=ExtResource("4_kgyma")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.253, 0.5, -41.1556)
-trigger_areas = [NodePath("../Area3D")]
-
 [node name="Item" parent="." instance=ExtResource("7_klx48")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.46022, 0.510948, -62.5839)
 
@@ -108,9 +102,3 @@ shape = SubResource("BoxShape3D_is4ce")
 
 [node name="SpeedChecker" parent="." node_paths=PackedStringArray("character") instance=ExtResource("9_klx48")]
 character = NodePath("../Player")
-
-[node name="RockGuy" parent="." instance=ExtResource("9_nxq7d")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.9972, 0.503097, 35.8531)
-
-[node name="DogSmall" parent="." instance=ExtResource("5_p3tkv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.23515, 0.5, 12.4463)
