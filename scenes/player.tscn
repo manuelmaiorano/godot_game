@@ -69,7 +69,7 @@ input_4/break_loop_at_end = false
 input_4/reset = true
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_tuyoq"]
-graph_offset = Vector2(-302.836, 9.61181)
+graph_offset = Vector2(-273.581, 64.8986)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_fjrip")
 nodes/Animation/position = Vector2(60, 20)
 "nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_tuyoq")
@@ -186,18 +186,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.569077, 1.56689, -1.51667)
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
 [node name="Skeleton3D" parent="chessinggame/Armature_001" index="0"]
-bones/7/position = Vector3(0, 0, 1.07042)
+bones/7/position = Vector3(0, 0, 1.07626)
 bones/7/rotation = Quaternion(3.09086e-08, 0.707107, 0.707107, 3.09086e-08)
 bones/13/rotation = Quaternion(0.0220125, 0.434717, -0.06845, 0.897692)
 bones/14/rotation = Quaternion(0.411066, 1.72524e-08, 1.52854e-07, 0.911606)
 bones/17/rotation = Quaternion(0.0320414, -0.463594, 0.107068, 0.878971)
 bones/18/rotation = Quaternion(0.331471, 1.58489e-08, -1.02186e-07, 0.943466)
-bones/20/rotation = Quaternion(-5.11257e-08, 0.106824, 0.994278, 2.75329e-07)
-bones/21/rotation = Quaternion(-0.198765, -6.58808e-09, 4.44119e-07, 0.980047)
-bones/22/rotation = Quaternion(0.535316, -3.37308e-07, -2.24537e-07, 0.844652)
-bones/24/rotation = Quaternion(6.69397e-08, 0.106824, 0.994278, -2.77028e-07)
-bones/25/rotation = Quaternion(-0.198765, 6.58807e-09, -4.44119e-07, 0.980047)
-bones/26/rotation = Quaternion(0.535316, 3.52085e-07, 2.18656e-07, 0.844652)
+bones/20/rotation = Quaternion(-5.16136e-08, 0.088796, 0.99605, 2.34023e-07)
+bones/21/rotation = Quaternion(-0.165509, -6.62945e-09, 3.69813e-07, 0.986208)
+bones/22/rotation = Quaternion(0.521983, -3.21841e-07, -1.89735e-07, 0.852956)
+bones/24/rotation = Quaternion(6.74558e-08, 0.088796, 0.99605, -2.35435e-07)
+bones/25/rotation = Quaternion(-0.165509, 6.62945e-09, -3.69813e-07, 0.986208)
+bones/26/rotation = Quaternion(0.521983, 3.36524e-07, 1.83623e-07, 0.852956)
 bones/27/rotation = Quaternion(0.308471, 4.15797e-08, 1.33607e-07, 0.951234)
 bones/28/position = Vector3(0.961641, -0.184145, 0.267276)
 bones/30/position = Vector3(-0.976214, -0.246263, 0.171608)
@@ -206,7 +206,7 @@ bones/31/position = Vector3(-0.957383, 0.731472, -0.309752)
 [node name="PhysicalBoneSimulator3D" type="PhysicalBoneSimulator3D" parent="chessinggame/Armature_001/Skeleton3D" index="9"]
 
 [node name="Physical Bone hips" type="PhysicalBone3D" parent="chessinggame/Armature_001/Skeleton3D/PhysicalBoneSimulator3D"]
-transform = Transform3D(1, 8.52651e-14, 0, 0, 0, -1, -8.52651e-14, 1, 0, 0, 1.29366, 0)
+transform = Transform3D(1, -7.10543e-15, 0, 0, 0, -1, 7.10543e-15, 1, 0, 0, 1.2995, 0)
 collision_layer = 4
 collision_mask = 5
 joint_type = 3
@@ -225,12 +225,12 @@ transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, -0.0155545)
 shape = SubResource("CapsuleShape3D_d2wvv")
 
 [node name="Physical Bone leg1_L" type="PhysicalBone3D" parent="chessinggame/Armature_001/Skeleton3D/PhysicalBoneSimulator3D"]
-transform = Transform3D(-1, -4.14533e-08, 5.41218e-07, 5.19896e-07, 0.213452, 0.976954, -1.56022e-07, 0.976954, -0.213452, 0.194193, 0.887777, 0.0331043)
+transform = Transform3D(-1, -5.99512e-08, 4.5815e-07, 4.40171e-07, 0.177934, 0.984043, -1.40515e-07, 0.984043, -0.177934, 0.19418, 0.892646, 0.0265849)
 collision_layer = 4
 collision_mask = 5
 joint_type = 3
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00873259, 0.00575015, 0.181408)
-body_offset = Transform3D(1, -8.02643e-10, 1.7257e-08, 1.72562e-08, -0.00105086, -0.999999, 8.20755e-10, 0.999999, -0.00105089, 0.00873259, 0.181414, -0.0055595)
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00874611, 0.00576564, 0.181295)
+body_offset = Transform3D(1, -8.0362e-10, 1.72785e-08, 1.72776e-08, -0.00106005, -1, 8.21924e-10, 0.999999, -0.00106005, 0.0087461, 0.181301, -0.00557345)
 bone_name = "leg1.L"
 joint_constraints/angular_limit_enabled = false
 joint_constraints/angular_limit_upper = 90.0
@@ -244,12 +244,12 @@ transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_3v2ag")
 
 [node name="Physical Bone leg1_R" type="PhysicalBone3D" parent="chessinggame/Armature_001/Skeleton3D/PhysicalBoneSimulator3D"]
-transform = Transform3D(-1, 6.463e-08, -5.49103e-07, -5.22653e-07, 0.213452, 0.976954, 1.80348e-07, 0.976954, -0.213452, -0.196951, 0.869813, 0.0529709)
+transform = Transform3D(-1, 8.33213e-08, -4.64914e-07, -4.42669e-07, 0.177934, 0.984043, 1.64715e-07, 0.984043, -0.177934, -0.196938, 0.873923, 0.0458376)
 collision_layer = 4
 collision_mask = 5
 joint_type = 3
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00597535, -0.00982417, 0.203199)
-body_offset = Transform3D(1, 8.70295e-09, -1.61611e-08, -1.6152e-08, -0.00105086, -0.999999, -8.71992e-09, 0.999999, -0.00105089, -0.00597535, 0.203188, 0.0100377)
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00598745, -0.00984828, 0.203146)
+body_offset = Transform3D(1, 8.73612e-09, -1.61744e-08, -1.61651e-08, -0.00106005, -1, -8.75323e-09, 0.999999, -0.00106005, -0.00598745, 0.203135, 0.0100636)
 bone_name = "leg1.R"
 joint_constraints/angular_limit_enabled = false
 joint_constraints/angular_limit_upper = 90.0
@@ -423,7 +423,7 @@ root_motion_local = false
 callback_mode_process = 0
 tree_root = SubResource("AnimationNodeBlendTree_tuyoq")
 anim_player = NodePath("../chessinggame/AnimationPlayer")
-parameters/TimeScale/scale = 2.0
+parameters/TimeScale/scale = 1.0
 parameters/Transition/current_state = "idle"
 parameters/Transition/transition_request = ""
 parameters/Transition/current_index = 0.18332

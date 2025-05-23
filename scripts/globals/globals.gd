@@ -8,6 +8,7 @@ extends Node
 
 func _ready() -> void:
 	SignalBus.PauseGameDebug.connect(func () : get_tree().paused = true)
+	#Engine.set_time_scale(0.5)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("unpause") and get_tree().paused == true:

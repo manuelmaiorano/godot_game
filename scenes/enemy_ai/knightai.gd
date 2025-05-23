@@ -58,20 +58,25 @@ func on_target_list_changed(target_list: Dictionary[Node3D, BaseAgent.TargetInfo
 	var current_target = onground.blackboard.get_var("target")
 	if current_target == null:
 		var new_target = get_new_target()
-		
 		if new_target == null:
 			return
+			
 		onground.blackboard.set_var("target", new_target)
 		var global_targets = Agentgroup.shared_scope.get_var("global_targets")
 		global_targets[new_target] = true
+		
+		
+		print_rich("[color=orange][b]target_spotted[/b][/color]")
 		dispatch( &"target_spotted")
 		return
 	
 	if not character.target_list[current_target].visible or not character.target_list.has(current_target):
+		
 		var distance_to_target = character.global_position.distance_to(current_target.global_position)
 		if distance_to_target < 10:
 			return
 		print(distance_to_target)
+			
 		onground.blackboard.set_var("target", null)
 		var global_targets = Agentgroup.shared_scope.get_var("global_targets") as Dictionary
 		global_targets.erase(current_target)
@@ -85,10 +90,11 @@ func on_target_list_changed(target_list: Dictionary[Node3D, BaseAgent.TargetInfo
 		
 func get_new_target():
 	var target_list = character.target_list
-	
 	var global_targets = Agentgroup.shared_scope.get_var("global_targets") as Dictionary
 	var already_targeted = []
-	for target in target_list:
+	for target in target_list.keys():
+		if target_list[target].visible == false:
+			return
 		if global_targets.has(target):
 			already_targeted.append(target)
 			continue

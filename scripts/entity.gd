@@ -1,7 +1,7 @@
 extends CharacterBody3D
 class_name BaseAgent
 
-@export var rotation_interpolate_spped = 20
+@export var rotation_interpolate_spped = 10
 @export var animation_tree: AnimationTree
 @export var model: Node3D
 @export var entity_stats: EntityStats
@@ -12,7 +12,7 @@ class_name BaseAgent
 @export var hip_bone: PhysicalBone3D
 @export var antagonist_groups: Array[StringName]
 @export var patrol_points: Array[Node3D]
-@export var vision_cone: VisionCone3D
+@export var vision_cone: VisionSystem
 
 @onready var gravity = ProjectSettings.get_setting("physics/3d/default_gravity") * ProjectSettings.get_setting("physics/3d/default_gravity_vector")
 
@@ -56,6 +56,7 @@ func _ready():
 	for area in trigger_areas:
 		area.body_entered.connect(_on_body_sighted)
 		area.body_exited.connect(_on_body_hidden)
+		
 
 
 func _on_body_sighted(body: Node3D) -> void:
@@ -81,7 +82,7 @@ func _on_body_hidden(body: Node3D) -> void:
 	if not check_if_antagonist(body):
 		return
 		
-	SignalBus.PauseGameDebug.emit()
+	#SignalBus.PauseGameDebug.emit()
 	
 	if not target_list.has(body):
 		var info = TargetInfo.new()

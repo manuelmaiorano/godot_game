@@ -4,18 +4,20 @@
 [ext_resource type="Script" uid="uid://bc32kei4pauw1" path="res://addons/tattomoosa.vision_cone_3d/src/ConeShape3D.gd" id="1_sflen"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_pgndb"]
-points = PackedVector3Array(0.5, -1, 0, 0.353553, -1, 0.353553, 3.06152e-17, -1, 0.5, -0.353553, -1, 0.353553, -0.5, -1, 6.12303e-17, -0.353553, -1, -0.353553, -9.18455e-17, -1, -0.5, 0.353553, -1, -0.353553, 0, 1, 0)
+points = PackedVector3Array(51.295, -25, 0, 36.271, -25, 36.271, 3.14081e-15, -25, 51.295, -36.271, -25, 36.271, -51.295, -25, 6.28162e-15, -36.271, -25, -36.271, -9.42243e-15, -25, -51.295, 36.271, -25, -36.271, 0, 25, 0)
 script = ExtResource("1_sflen")
-height = 2.0
-radius = 0.5
+height = 50.0
+radius = 51.295
 resolution = 8
 metadata/_custom_type_script = "uid://bc32kei4pauw1"
 
 [node name="VisionSystem" type="Node3D"]
 script = ExtResource("1_pgndb")
-collision_environment_mask = 2
+collision_mask = 2
+collision_environment_mask = 1
 
 [node name="Area3D" type="Area3D" parent="."]
+unique_name_in_owner = true
 collision_layer = 0
 collision_mask = 2
 monitorable = false
