@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://3680c3mrpyes"]
+[gd_scene load_steps=15 format=3 uid="uid://3680c3mrpyes"]
 
 [ext_resource type="PackedScene" uid="uid://dpswfe7dkn232" path="res://scenes/gameloop.tscn" id="1_co56h"]
 [ext_resource type="PackedScene" uid="uid://cun5hi2ne8vti" path="res://scenes/ui.tscn" id="2_p3tkv"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dypxun2hmd5ba" path="res://scenes/item.tscn" id="7_klx48"]
 [ext_resource type="PackedScene" uid="uid://bv37dfiqpjay6" path="res://scenes/spaceship.tscn" id="8_is4ce"]
 [ext_resource type="PackedScene" uid="uid://d3bnctvum4khh" path="res://scenes/utils/speed_checker.tscn" id="9_klx48"]
+[ext_resource type="PackedScene" uid="uid://dyugdxrsv73ma" path="res://scenes/dog_small.tscn" id="9_nxq7d"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_co56h"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -81,9 +82,8 @@ use_collision = true
 size = Vector3(3.48961, 6.87442, 8.46653)
 material = SubResource("StandardMaterial3D_nxq7d")
 
-[node name="Knight" parent="." node_paths=PackedStringArray("trigger_areas", "patrol_points") instance=ExtResource("4_kgyma")]
+[node name="Knight" parent="." node_paths=PackedStringArray("patrol_points") instance=ExtResource("4_kgyma")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.9845, 0.5, -39.8235)
-trigger_areas = [NodePath("../Node3D/Area3D")]
 patrol_points = [NodePath("../PatrolPoints/Marker3D"), NodePath("../PatrolPoints/Marker3D2")]
 
 [node name="Item" parent="." instance=ExtResource("7_klx48")]
@@ -116,3 +116,14 @@ monitorable = false
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.00407, 1.75903, 0)
 shape = SubResource("BoxShape3D_is4ce")
+
+[node name="DogSmall" parent="." instance=ExtResource("9_nxq7d")]
+process_mode = 4
+transform = Transform3D(0.904314, 0, 0.426869, 0, 1, 0, -0.426869, 0, 0.904314, -19.7738, 0.499996, -1.27469)
+
+[node name="Knight2" parent="." instance=ExtResource("4_kgyma")]
+process_mode = 4
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -40.1633)
+
+[node name="DogSmall2" parent="." instance=ExtResource("9_nxq7d")]
+process_mode = 4

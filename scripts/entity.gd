@@ -1,7 +1,7 @@
 extends CharacterBody3D
 class_name BaseAgent
 
-@export var rotation_interpolate_spped = 10
+@export var rotation_interpolate_spped = 20
 @export var animation_tree: AnimationTree
 @export var model: Node3D
 @export var entity_stats: EntityStats
@@ -53,9 +53,9 @@ func _ready():
 	if vision_cone:
 		vision_cone.body_sighted.connect(_on_body_sighted)
 		vision_cone.body_hidden.connect(_on_body_hidden)
-	#for area in trigger_areas:
-		#area.body_entered.connect(_on_body_sighted)
-		#area.body_exited.connect(_on_body_hidden)
+	for area in trigger_areas:
+		area.body_entered.connect(_on_body_sighted)
+		area.body_exited.connect(_on_body_hidden)
 
 
 func _on_body_sighted(body: Node3D) -> void:
@@ -93,7 +93,16 @@ func _on_body_hidden(body: Node3D) -> void:
 		target_list[body].last_time_seen = Time.get_ticks_msec()
 	
 	target_list_changed.emit(target_list)
-		
+
+func get_first_visible_target():
+	for key in target_list.keys():
+		if key == null or key.is_dead:
+			continue
+		var info = target_list[key]
+		if info.visible:
+			return key
+	
+	return null
 
 func rotate_towards_point(delta, point, run_away = false):
 	var direction: Vector3 = global_position - point
@@ -153,6 +162,7 @@ func take_damage(attaker, damage):
 		return true
 	
 	hit.emit(attaker)
+	print("%s attacked %s" % [attaker.name, self.name])
 
 func take_explosion_damage(velocity, damage):
 	reduce_health(damage)

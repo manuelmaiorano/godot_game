@@ -36,6 +36,7 @@ config/icon="res://icon.svg"
 
 Globals="*res://scenes/globals/globals.tscn"
 SignalBus="*res://scenes/globals/SignalBus.tscn"
+Agentgroup="*res://scenes/agentgroup.tscn"
 
 [display]
 
