@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://bhw461dwmm7ls"]
+
+[ext_resource type="Script" uid="uid://c48bt1akhwcb8" path="res://scenes/vision_system/vision_system.gd" id="1_pgndb"]
+[ext_resource type="Script" uid="uid://bc32kei4pauw1" path="res://addons/tattomoosa.vision_cone_3d/src/ConeShape3D.gd" id="1_sflen"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_pgndb"]
+points = PackedVector3Array(0.5, -1, 0, 0.353553, -1, 0.353553, 3.06152e-17, -1, 0.5, -0.353553, -1, 0.353553, -0.5, -1, 6.12303e-17, -0.353553, -1, -0.353553, -9.18455e-17, -1, -0.5, 0.353553, -1, -0.353553, 0, 1, 0)
+script = ExtResource("1_sflen")
+height = 2.0
+radius = 0.5
+resolution = 8
+metadata/_custom_type_script = "uid://bc32kei4pauw1"
+
+[node name="VisionSystem" type="Node3D"]
+script = ExtResource("1_pgndb")
+collision_environment_mask = 2
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("ConvexPolygonShape3D_pgndb")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]

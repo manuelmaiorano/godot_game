@@ -10,10 +10,6 @@ func _ready() -> void:
 	SignalBus.CloseToShip.connect(func (): state_chart.send_event("back_to_ship"))
 	SignalBus.RestartGame.connect(func (): get_tree().reload_current_scene())
 
-func _unhandled_input(event: InputEvent) -> void:
-	if Input.is_action_just_pressed("ui_cancel"):
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-
 func _on_playing_state_entered() -> void:
 	SignalBus.MissionStatusChanged.emit("get item")
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)

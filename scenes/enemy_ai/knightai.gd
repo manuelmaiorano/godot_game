@@ -11,6 +11,7 @@ extends LimboHSM
 
 
 func _ready() -> void:
+	
 	onground.active_state_changed.connect(func(current, _prev): print(current.name))
 	dead.call_on_enter(func (): character.die())
 	character.dead.connect(func(): dispatch(&"dead"))
@@ -67,10 +68,18 @@ func on_target_list_changed(target_list: Dictionary[Node3D, BaseAgent.TargetInfo
 		return
 	
 	if not character.target_list[current_target].visible or not character.target_list.has(current_target):
+		var distance_to_target = character.global_position.distance_to(current_target.global_position)
+		if distance_to_target < 10:
+			return
+		print(distance_to_target)
 		onground.blackboard.set_var("target", null)
 		var global_targets = Agentgroup.shared_scope.get_var("global_targets") as Dictionary
 		global_targets.erase(current_target)
-		onground.blackboard.set_var("last_known_target_position", character.target_list[current_target].last_known_position)
+		
+		var last_known_position = character.target_list[current_target].last_known_position
+		onground.blackboard.set_var("last_known_target_position", last_known_position)
+		%LastKnownPosition.global_position = last_known_position
+
 		dispatch(&"investigate")
 		return
 		

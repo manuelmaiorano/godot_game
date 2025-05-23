@@ -80,6 +80,8 @@ func _on_body_hidden(body: Node3D) -> void:
 		
 	if not check_if_antagonist(body):
 		return
+		
+	SignalBus.PauseGameDebug.emit()
 	
 	if not target_list.has(body):
 		var info = TargetInfo.new()
