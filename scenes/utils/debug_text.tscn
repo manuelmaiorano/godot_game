@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://h63otx4k1bpf"]
+
+[ext_resource type="Script" uid="uid://dfdma45xeigoj" path="res://scenes/utils/debug_text.gd" id="1_oh1ic"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oh1ic"]
+shading_mode = 0
+billboard_mode = 1
+
+[sub_resource type="TextMesh" id="TextMesh_t48ny"]
+material = SubResource("StandardMaterial3D_oh1ic")
+text = "text"
+font_size = 30
+uppercase = true
+depth = 0.0
+
+[node name="MeshInstance3D" type="MeshInstance3D"]
+mesh = SubResource("TextMesh_t48ny")
+script = ExtResource("1_oh1ic")

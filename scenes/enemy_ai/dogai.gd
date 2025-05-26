@@ -34,6 +34,8 @@ func _ready() -> void:
 	onground.add_transition(attack, investigate, &"investigate")
 	onground.add_transition(attack, patrol, &"target_lost")
 	
+	patrol.call_on_enter(on_target_list_changed.bind(character.target_list))
+	
 	initialize(character)
 	set_active(true)
 	
@@ -41,11 +43,16 @@ func _ready() -> void:
 	blackboard.set_parent(Agentgroup.shared_scope)
 
 func on_hit(who):
-	var current_target = onground.blackboard.get_var("target")
-	if current_target == null:
+	if not character.check_if_antagonist(who):
+		return
+		
+	if character.global_position.distance_to(who.global_position) < 5:
+		
+		onground.blackboard.set_var("target", who)
+		dispatch(&"target_spotted")
+	else:
 		onground.blackboard.set_var("last_known_target_position", who.global_position)
 		dispatch(&"investigate")
-		return
 
 func on_target_list_changed(target_list: Dictionary[Node3D, BaseAgent.TargetInfo]):
 	var current_target = onground.blackboard.get_var("target")
@@ -54,15 +61,15 @@ func on_target_list_changed(target_list: Dictionary[Node3D, BaseAgent.TargetInfo
 		if new_target == null:
 			return
 		onground.blackboard.set_var("target", new_target)
-		var global_targets = Agentgroup.shared_scope.get_var("global_targets")
-		global_targets[new_target] = true
 		dispatch( &"target_spotted")
 		return
 	
-	if not character.target_list[current_target].visible:
+	if not character.target_list.has(current_target) or not character.target_list[current_target].visible:
+		var distance_to_target = character.global_position.distance_to(current_target.global_position)
+		if distance_to_target < 10:
+			return
+			
 		onground.blackboard.set_var("target", null)
-		var global_targets = Agentgroup.shared_scope.get_var("global_targets") as Dictionary
-		global_targets.erase(current_target)
 		onground.blackboard.set_var("last_known_target_position", character.target_list[current_target].last_known_position)
 		dispatch(&"investigate")
 		return

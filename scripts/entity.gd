@@ -12,7 +12,8 @@ class_name BaseAgent
 @export var hip_bone: PhysicalBone3D
 @export var antagonist_groups: Array[StringName]
 @export var patrol_points: Array[Node3D]
-@export var vision_cone: VisionSystem
+@export var vision_cone: Node3D
+@export var debug_mode: bool = false
 
 @onready var gravity = ProjectSettings.get_setting("physics/3d/default_gravity") * ProjectSettings.get_setting("physics/3d/default_gravity_vector")
 
@@ -147,7 +148,13 @@ func apply_orientation_to_model():
 	orientation = orientation.orthonormalized()
 	model.global_transform.basis = orientation.basis
 	
-
+func apply_lateral_velocity(speed):
+	var lateral_velocity = model.global_basis.z * speed
+	velocity.x = lateral_velocity.x
+	velocity.z = lateral_velocity.z
+	
+func apply_gravity(delta):
+	velocity += gravity * delta
 	
 func reduce_health(damage):
 	hp = clamp(hp - damage, 0, hp)
@@ -182,6 +189,7 @@ func die():
 		SignalBus.EnemyKilled.emit(entity_stats.points)
 	if ragdoll_on_death:
 		ragdoll()
+	$CollisionShape3D.disabled = true
 
 	
 

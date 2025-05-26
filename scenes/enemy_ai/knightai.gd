@@ -12,7 +12,7 @@ extends LimboHSM
 
 func _ready() -> void:
 	
-	onground.active_state_changed.connect(func(current, _prev): print(current.name))
+	onground.active_state_changed.connect(on_state_cahnged)
 	dead.call_on_enter(func (): character.die())
 	character.dead.connect(func(): dispatch(&"dead"))
 	add_transition(alive, dead, &"dead")
@@ -33,11 +33,16 @@ func _ready() -> void:
 	onground.add_transition(attack, investigate, &"investigate")
 	onground.add_transition(attack, patrol, &"target_lost")
 	
+	patrol.call_on_enter(on_target_list_changed.bind(character.target_list))
+	
 	initialize(character)
 	set_active(true)
 	
 	blackboard.set_parent(Agentgroup.shared_scope)
 
+func on_state_cahnged(current, _prev): 
+	if character.debug_mode: 
+		%TextDebug.set_text(current.name)
 
 func on_hit(who):
 	character.animation_tree["parameters/OneShot/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
@@ -56,7 +61,7 @@ func on_hit(who):
 
 func on_target_list_changed(target_list: Dictionary[Node3D, BaseAgent.TargetInfo]):
 	var current_target = onground.blackboard.get_var("target")
-	if current_target == null:
+	if current_target == null or current_target.is_dead:
 		var new_target = get_new_target()
 		if new_target == null:
 			return
@@ -65,8 +70,6 @@ func on_target_list_changed(target_list: Dictionary[Node3D, BaseAgent.TargetInfo
 		var global_targets = Agentgroup.shared_scope.get_var("global_targets")
 		global_targets[new_target] = true
 		
-		
-		print_rich("[color=orange][b]target_spotted[/b][/color]")
 		dispatch( &"target_spotted")
 		return
 	
@@ -75,7 +78,6 @@ func on_target_list_changed(target_list: Dictionary[Node3D, BaseAgent.TargetInfo
 		var distance_to_target = character.global_position.distance_to(current_target.global_position)
 		if distance_to_target < 10:
 			return
-		print(distance_to_target)
 			
 		onground.blackboard.set_var("target", null)
 		var global_targets = Agentgroup.shared_scope.get_var("global_targets") as Dictionary
@@ -93,6 +95,8 @@ func get_new_target():
 	var global_targets = Agentgroup.shared_scope.get_var("global_targets") as Dictionary
 	var already_targeted = []
 	for target in target_list.keys():
+		if target.is_dead:
+			continue
 		if target_list[target].visible == false:
 			return
 		if global_targets.has(target):

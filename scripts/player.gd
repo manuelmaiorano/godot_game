@@ -146,30 +146,20 @@ func _on_run_state_physics_processing(delta: float) -> void:
 	var target = - camera_x * movement_direction.y + camera_z * movement_direction.x
 	if target.is_zero_approx():
 		return
-	
-	
+		
 	var q_from = orientation.basis.get_rotation_quaternion()
 	var q_to = Transform3D().looking_at(target, Vector3.UP).basis.get_rotation_quaternion()
 	# Interpolate current rotation with desired one.
 	orientation.basis = Basis(q_from.slerp(q_to, delta * ROTATION_INTERPOLATE_SPEED))
-
-
-	root_motion = Transform3D(animation_tree.get_root_motion_rotation(), animation_tree.get_root_motion_position())
-
-	orientation *= root_motion
 	
-	var h_velocity = orientation.origin / delta
-	velocity.x = h_velocity.x
-	velocity.z = h_velocity.z
 	
-	velocity += gravity * delta
+	#apply_root_motion_to_velocity(delta, false)
+	apply_lateral_velocity(entity_stats.run_speed)
+	apply_gravity(delta)
 	
 	move_and_slide()
 	
-	orientation.origin = Vector3() # Clear accumulated root motion displacement (was applied to speed).
-	orientation = orientation.orthonormalized() # Orthonormalize orientation.
-	
-	$chessinggame.global_transform.basis = orientation.basis
+	apply_orientation_to_model()
 
 
 func _on_run_state_entered() -> void:
@@ -193,29 +183,17 @@ func _on_falling_state_physics_processing(delta: float) -> void:
 
 
 func _on_jumping_state_entered() -> void:
-	animation_tree["parameters/Transition/transition_request"] = "jump"
+	animation_tree["parameters/Transition/transition_request"] = "fall"
+	velocity.y = entity_stats.jump_speed
 
 
 func _on_jumping_state_physics_processing(delta: float) -> void:
 	if is_on_floor():
 		state_chart.send_event("landed")
-		
-	root_motion = Transform3D(animation_tree.get_root_motion_rotation(), animation_tree.get_root_motion_position())
-
-	orientation *= root_motion
 	
-	var h_velocity = orientation.origin / delta
-	#velocity.x = h_velocity.x
-	#velocity.z = h_velocity.z
-	velocity.y = h_velocity.y
-	#velocity += gravity * delta
-	
+	apply_gravity(delta)
 	move_and_slide()
 	
-	orientation.origin = Vector3() # Clear accumulated root motion displacement (was applied to speed).
-	orientation = orientation.orthonormalized() # Orthonormalize orientation.
-	
-	$chessinggame.global_transform.basis = orientation.basis
 
 ### AIM
 

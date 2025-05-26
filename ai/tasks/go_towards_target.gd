@@ -6,6 +6,7 @@ extends BTAction
 @export var min_distance: float
 @export var move_anim_tree_state: StringName
 @export var run_away: bool = false
+@export var use_root_motion: bool = false
 
 var target = null
 
@@ -31,8 +32,12 @@ func _tick(delta: float) -> Status:
 		agent.rotate_away_from_target(delta, target)
 	else:
 		agent.rotate_towards_target(delta, target)
-	agent.apply_root_motion_to_velocity(delta)
-	agent.velocity += agent.gravity * delta
+	if use_root_motion:
+		agent.apply_root_motion_to_velocity(delta)
+	else:
+		agent.apply_lateral_velocity(agent.entity_stats.run_speed)
+	
+	agent.apply_gravity(delta)
 	
 	agent.move_and_slide()
 	agent.apply_orientation_to_model()
