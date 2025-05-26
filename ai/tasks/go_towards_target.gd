@@ -24,14 +24,19 @@ func _tick(delta: float) -> Status:
 		return FAILURE
 	
 	var distance_to_target = agent.global_position.distance_to(target.global_position)
-	if distance_to_target < min_distance:
+	if not run_away and distance_to_target < min_distance:
 		blackboard.set_var("distance_to_target", distance_to_target)
 		return SUCCESS
 	
+	if run_away and distance_to_target > min_distance:
+		blackboard.set_var("distance_to_target", distance_to_target)
+		return SUCCESS
+		
 	if run_away:
 		agent.rotate_away_from_target(delta, target)
 	else:
 		agent.rotate_towards_target(delta, target)
+		
 	if use_root_motion:
 		agent.apply_root_motion_to_velocity(delta)
 	else:

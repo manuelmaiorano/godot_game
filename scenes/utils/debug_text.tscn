@@ -13,6 +13,6 @@ font_size = 30
 uppercase = true
 depth = 0.0
 
-[node name="MeshInstance3D" type="MeshInstance3D"]
+[node name="TextDebug" type="MeshInstance3D"]
 mesh = SubResource("TextMesh_t48ny")
 script = ExtResource("1_oh1ic")

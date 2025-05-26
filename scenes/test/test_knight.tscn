@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://3680c3mrpyes"]
+[gd_scene load_steps=16 format=3 uid="uid://3680c3mrpyes"]
 
 [ext_resource type="PackedScene" uid="uid://dpswfe7dkn232" path="res://scenes/gameloop.tscn" id="1_co56h"]
 [ext_resource type="PackedScene" uid="uid://cun5hi2ne8vti" path="res://scenes/ui.tscn" id="2_p3tkv"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bv37dfiqpjay6" path="res://scenes/spaceship.tscn" id="8_is4ce"]
 [ext_resource type="PackedScene" uid="uid://d3bnctvum4khh" path="res://scenes/utils/speed_checker.tscn" id="9_klx48"]
 [ext_resource type="PackedScene" uid="uid://dyugdxrsv73ma" path="res://scenes/dog_small.tscn" id="9_nxq7d"]
+[ext_resource type="PackedScene" uid="uid://et8e2bm1xmp0" path="res://scenes/rock_guy.tscn" id="10_nxq7d"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_co56h"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -127,14 +128,21 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.00407, 1.75903, 0)
 shape = SubResource("BoxShape3D_is4ce")
 
 [node name="DogSmall" parent="." node_paths=PackedStringArray("patrol_points") instance=ExtResource("9_nxq7d")]
+process_mode = 4
 transform = Transform3D(-0.998085, 0, -0.0618674, 0, 1, 0, 0.0618674, 0, -0.998085, -19.7738, 0.499996, -1.27469)
 patrol_points = [NodePath("../PatrolPoints/Marker3D3"), NodePath("../PatrolPoints/Marker3D4")]
 
 [node name="Knight2" parent="." node_paths=PackedStringArray("patrol_points") instance=ExtResource("4_kgyma")]
+process_mode = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -40.1633)
 patrol_points = [NodePath("../PatrolPoints/Marker3D2"), NodePath("../PatrolPoints/Marker3D")]
 debug_mode = true
 
 [node name="DogSmall2" parent="." node_paths=PackedStringArray("patrol_points") instance=ExtResource("9_nxq7d")]
+process_mode = 4
 transform = Transform3D(-0.996659, 0, -0.0816776, 0, 1, 0, 0.0816776, 0, -0.996659, 0, 0, 0)
 patrol_points = [NodePath("../PatrolPoints/Marker3D4"), NodePath("../PatrolPoints/Marker3D3")]
+
+[node name="RockGuy" parent="." instance=ExtResource("10_nxq7d")]
+transform = Transform3D(-0.150536, 0, -0.988604, 0, 1, 0, 0.988604, 0, -0.150536, 0, 0, 28.4618)
+debug_mode = true
