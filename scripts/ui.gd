@@ -19,14 +19,7 @@ var current_idx = 0
 var current_shop_item_selected: Item = null
 var is_shop_item = false
 
-func _ready() -> void:
-	item_list = %ItemList.get_children()
-	cross_hair.hide()
-	shop_menu.hide()
-	info_label.hide()
-	end_screen.hide()
-	
-	SignalBus.InventoryItemSelected.emit(item_list[current_idx].item)
+func _enter_tree() -> void:
 	SignalBus.ItemsChanged.connect(on_items_changed)
 	SignalBus.ShopEntered.connect(func(x): shop_menu.show(); info_label.hide();  shop_inventory.set_items(x))
 	SignalBus.ShopItemChanged.connect(func(x): shop_inventory.set_items(x))
@@ -38,6 +31,17 @@ func _ready() -> void:
 	SignalBus.PlayerDead.connect(func(): end_screen.show(); end_screen_label.text = "GameOver")
 	SignalBus.MissionCompleted.connect(func(): end_screen.show(); end_screen_label.text = "Mission Passed")
 	SignalBus.MissionStatusChanged.connect(func(x): mission_status.text = x)
+	
+
+func _ready() -> void:
+	item_list = %ItemList.get_children()
+	cross_hair.hide()
+	shop_menu.hide()
+	info_label.hide()
+	end_screen.hide()
+	
+	item_list[current_idx].press()
+	SignalBus.InventoryItemSelected.emit(item_list[current_idx].item)
 	
 
 func on_shop_item_selected(item, inventory):

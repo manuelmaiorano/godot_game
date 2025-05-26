@@ -23,20 +23,22 @@ var active_item: Item = null
 
 var current_ballista = null
 
-func _ready():
-	super._ready()
+func _enter_tree() -> void:
 	SignalBus.InventoryItemSelected.connect(on_inventory_item_selected)
-	SignalBus.ItemsChanged.emit(item_amounts)
 	SignalBus.TrySell.connect(on_try_sell)
 	SignalBus.ItemBought.connect(on_item_bought)
-	SignalBus.MoneyChanged.emit(money)
 	SignalBus.EnemyKilled.connect(func (x): money += x; SignalBus.MoneyChanged.emit(money))
-	SignalBus.PlayerHealthChanged.emit(1)
-	
 	SignalBus.BallistaModeEnter.connect(func(x): current_ballista = x; state_chart.send_event("ballista"))
 	SignalBus.BallistaModeExit.connect(func(): state_chart.send_event("ballista_exit"))
 	took_damage.connect(func(x): SignalBus.PlayerHealthChanged.emit(x))
 	dead.connect(func(): SignalBus.PlayerDead.emit())
+	
+func _ready():
+	super._ready()
+	SignalBus.ItemsChanged.emit(item_amounts)
+	SignalBus.MoneyChanged.emit(money)
+	SignalBus.PlayerHealthChanged.emit(1)
+	
 
 func reduce_health(damage):
 	if Globals.debug_mode:
