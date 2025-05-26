@@ -44,7 +44,7 @@ shadow_enabled = true
 [node name="UI" parent="." instance=ExtResource("2_p3tkv")]
 
 [node name="Player" parent="." instance=ExtResource("3_1n4ve")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.6008, 0.502828, 14.9604)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.6008, 0.502828, 47.5089)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.19734, 0, 102.436)
@@ -133,7 +133,6 @@ transform = Transform3D(-0.998085, 0, -0.0618674, 0, 1, 0, 0.0618674, 0, -0.9980
 patrol_points = [NodePath("../PatrolPoints/Marker3D3"), NodePath("../PatrolPoints/Marker3D4")]
 
 [node name="Knight2" parent="." node_paths=PackedStringArray("patrol_points") instance=ExtResource("4_kgyma")]
-process_mode = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -40.1633)
 patrol_points = [NodePath("../PatrolPoints/Marker3D2"), NodePath("../PatrolPoints/Marker3D")]
 debug_mode = true
@@ -144,5 +143,6 @@ transform = Transform3D(-0.996659, 0, -0.0816776, 0, 1, 0, 0.0816776, 0, -0.9966
 patrol_points = [NodePath("../PatrolPoints/Marker3D4"), NodePath("../PatrolPoints/Marker3D3")]
 
 [node name="RockGuy" parent="." instance=ExtResource("10_nxq7d")]
+process_mode = 4
 transform = Transform3D(-0.150536, 0, -0.988604, 0, 1, 0, 0.988604, 0, -0.150536, 0, 0, 28.4618)
 debug_mode = true

@@ -41,7 +41,13 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 func _on_area_3d_body_exited(body: Node3D) -> void:
 	body_list_visibility.erase(body)
 	body_hidden.emit(body)
-	
+
+func get_visible_bodies():
+	var list = []
+	for body in body_list_visibility:
+		if body_list_visibility[body]:
+			list.append(body)
+	return list
 
 func check_visibility():
 	for body in body_list_visibility.keys():

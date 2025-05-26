@@ -201,7 +201,18 @@ func ragdoll():
 
 func set_antagonists(value):
 	antagonist_groups = value
-	antagonist_changed.emit()
+	target_list = {}
+	for body in vision_cone.get_visible_bodies():
+		if body == self or body.is_dead:
+			return
+	
+		if not check_if_antagonist(body):
+			return
+		var info = TargetInfo.new()
+		info.visible = true
+		target_list[body] = info
+		
+	target_list_changed.emit(target_list)
 
 	
 func close_to_ballista(which):
