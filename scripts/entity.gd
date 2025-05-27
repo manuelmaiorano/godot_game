@@ -22,7 +22,6 @@ var root_motion = Transform3D()
 
 var hp: float
 var is_dead: bool = false
-var target: Node3D = null
 
 
 signal hit(by_who: BaseAgent)

@@ -5,7 +5,7 @@ const ROTATION_INTERPOLATE_SPEED = 10
 @export var mouse_sensitivity:float = 500
 @export var clamp_pitch_rotation:float = 80
 @export var move_speed: float = 10
-
+@export var timescale_mult: float = 0.1
 
 @onready var camera_3d: Camera3D = %Camera3D
 @onready var pitch:Node3D = %Pitch
@@ -31,7 +31,7 @@ func _enter_tree() -> void:
 	SignalBus.BallistaModeEnter.connect(func(x): current_ballista = x; state_chart.send_event("ballista"))
 	SignalBus.BallistaModeExit.connect(func(): state_chart.send_event("ballista_exit"))
 	took_damage.connect(func(x): SignalBus.PlayerHealthChanged.emit(x))
-	dead.connect(func(): SignalBus.PlayerDead.emit())
+	dead.connect(func(): state_chart.send_event("die"))
 	
 func _ready():
 	super._ready()
@@ -165,6 +165,7 @@ func _on_run_state_physics_processing(delta: float) -> void:
 
 
 func _on_run_state_entered() -> void:
+	animation_tree["parameters/TimeScale/scale"] = entity_stats.run_speed * timescale_mult
 	animation_tree["parameters/Transition/transition_request"] = "run"
 	
 ### FALL
@@ -280,6 +281,7 @@ func _on_aiming_state_unhandled_input(event: InputEvent) -> void:
 		
 		if active_item.name == &"branch":
 			var collider: Node = get_target_collider()
+
 			if collider:
 				for group in collider.get_groups():
 					if antagonist_groups.find(group) > -1:
@@ -287,9 +289,6 @@ func _on_aiming_state_unhandled_input(event: InputEvent) -> void:
 						collider.add_to_group("player")
 						return
 			
-			
-		
-		
 	if Input.is_action_just_pressed("aim"):
 		camera_animation.play_backwards("zoom_in")
 		state_chart.send_event("stop_aim")
@@ -305,8 +304,9 @@ func _on_aiming_state_exited() -> void:
 ### DEAD
 
 func _on_dead_state_entered() -> void:
-	die()
 	SignalBus.PlayerDead.emit()
+	motion_mode = CharacterBody3D.MOTION_MODE_FLOATING
+
 	
 ### Operating Ballista
 func _on_operating_ballista_state_unhandled_input(event: InputEvent) -> void:

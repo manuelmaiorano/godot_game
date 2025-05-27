@@ -1,11 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://dqsfpqla5m35b"]
+[gd_scene load_steps=5 format=3 uid="uid://dqsfpqla5m35b"]
 
 [ext_resource type="Script" uid="uid://drw23mnbs2p3e" path="res://scripts/bullet.gd" id="1_mkf8s"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_y25gk"]
 radius = 0.1
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mkf8s"]
+emission_enabled = true
+emission = Color(0, 0, 1, 1)
+emission_energy_multiplier = 4.8
+
 [sub_resource type="SphereMesh" id="SphereMesh_l5glv"]
+material = SubResource("StandardMaterial3D_mkf8s")
 radius = 0.1
 height = 0.2
 
