@@ -4,6 +4,7 @@ var target = null
 var is_biting = false
 var has_caught_enemy = false
 @onready var bone_attachment_3d: BoneAttachment3D = %BoneAttachment3D
+@onready var physical_bone_mouth_1: PhysicalBone3D = %"Physical Bone mouth1"
 
 
 func _ready() -> void:
@@ -18,11 +19,13 @@ func blend_bite(amount):
 func  _physics_process(delta: float) -> void:
 	if has_caught_enemy:
 		blend_bite(0)
-		return
-	rotate_towards_target(delta, target)
+		
+	if not has_caught_enemy:
+		rotate_towards_target(delta, target)
 	if global_position.distance_to(target.global_position) < 10:
 		blend_bite(1)
 		is_biting = true
+		#velocity.y = entity_stats.jump_speed
 	else:
 		blend_bite(0)
 		is_biting = false
@@ -37,5 +40,5 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 	
 	if is_biting and check_if_antagonist(body):
 		print("caught")
-		body.die()
+		body.ragdoll()
 		has_caught_enemy = true

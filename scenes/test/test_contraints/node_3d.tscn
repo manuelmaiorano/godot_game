@@ -1,0 +1,71 @@
+[gd_scene load_steps=8 format=3 uid="uid://cb7m34jjgl6mm"]
+
+[ext_resource type="Script" uid="uid://bj74wm0sib6f4" path="res://scenes/test/test_contraints/test_constrain.gd" id="1_uto1s"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_unvr6"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_uto1s"]
+sky_material = SubResource("ProceduralSkyMaterial_unvr6")
+
+[sub_resource type="Environment" id="Environment_6ix63"]
+background_mode = 2
+sky = SubResource("Sky_uto1s")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5ku2w"]
+size = Vector3(0.649902, 0.255371, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_unvr6"]
+radius = 0.05
+height = 0.1
+is_hemisphere = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_unvr6"]
+albedo_color = Color(0.43, 0.43, 0.43, 1)
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_uto1s")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_6ix63")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Main" type="RigidBody3D" parent="."]
+gravity_scale = 0.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Main"]
+shape = SubResource("BoxShape3D_5ku2w")
+debug_color = Color(0, 0.595, 0.7, 1)
+
+[node name="Generic6DOFJoint3D" type="Generic6DOFJoint3D" parent="Main"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.442349, 0, 0)
+node_a = NodePath("../../Following")
+node_b = NodePath("..")
+linear_spring_x/enabled = true
+linear_spring_y/enabled = true
+linear_spring_z/enabled = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Main/Generic6DOFJoint3D"]
+mesh = SubResource("SphereMesh_unvr6")
+
+[node name="Following" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.808068, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Following"]
+shape = SubResource("BoxShape3D_5ku2w")
+debug_color = Color(0, 0.595, 0.7, 1)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.996699, 0.0811905, 0, -0.0811905, 0.996699, 0, 0, 2.10596)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00128174, -0.411133, -1.06927)
+use_collision = true
+size = Vector3(4.59436, 0.177734, 6.55774)
+material = SubResource("StandardMaterial3D_unvr6")

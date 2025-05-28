@@ -135,117 +135,117 @@ var/last_known_target_position/value = Vector3(0, 0, 0)
 var/last_known_target_position/hint = 0
 var/last_known_target_position/hint_string = ""
 
-[sub_resource type="BlackboardPlan" id="BlackboardPlan_c7bgd"]
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_8a0iq"]
 
-[sub_resource type="BTAction" id="BTAction_oi1vv"]
+[sub_resource type="BTAction" id="BTAction_8ko4r"]
 script = ExtResource("7_mvyd6")
 idle_anim_tree_state = &"idle"
 
-[sub_resource type="BTTimeLimit" id="BTTimeLimit_06ia3"]
+[sub_resource type="BTTimeLimit" id="BTTimeLimit_tpjby"]
 time_limit = 2.0
-children = [SubResource("BTAction_oi1vv")]
+children = [SubResource("BTAction_8ko4r")]
 
-[sub_resource type="BTAction" id="BTAction_8a0iq"]
+[sub_resource type="BTAction" id="BTAction_ouiji"]
 script = ExtResource("9_c7bgd")
 walk_anim_tree_state = &"run"
 point_reach_distance = 0.1
 
-[sub_resource type="BTSelector" id="BTSelector_8ko4r"]
-children = [SubResource("BTTimeLimit_06ia3"), SubResource("BTAction_8a0iq")]
+[sub_resource type="BTSelector" id="BTSelector_o7g6j"]
+children = [SubResource("BTTimeLimit_tpjby"), SubResource("BTAction_ouiji")]
 
-[sub_resource type="BTRepeat" id="BTRepeat_tpjby"]
+[sub_resource type="BTRepeat" id="BTRepeat_rlkoa"]
 forever = true
-children = [SubResource("BTSelector_8ko4r")]
+children = [SubResource("BTSelector_o7g6j")]
 
 [sub_resource type="BehaviorTree" id="BehaviorTree_o7g6j"]
-blackboard_plan = SubResource("BlackboardPlan_c7bgd")
-root_task = SubResource("BTRepeat_tpjby")
+blackboard_plan = SubResource("BlackboardPlan_8a0iq")
+root_task = SubResource("BTRepeat_rlkoa")
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_nw3uw"]
 
-[sub_resource type="BlackboardPlan" id="BlackboardPlan_8a0iq"]
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_4yp3h"]
 var/distance_to_target/name = &"distance_to_target"
 var/distance_to_target/type = 3
 var/distance_to_target/value = 0.0
 var/distance_to_target/hint = 0
 var/distance_to_target/hint_string = ""
 
-[sub_resource type="BTAction" id="BTAction_8ko4r"]
+[sub_resource type="BTAction" id="BTAction_co5rl"]
 script = ExtResource("8_3cm67")
 min_distance = 5.0
 move_anim_tree_state = &"run"
 run_away = false
 use_root_motion = false
 
-[sub_resource type="BBVariant" id="BBVariant_tpjby"]
+[sub_resource type="BBVariant" id="BBVariant_ujkqr"]
 type = 3
 saved_value = 2.0
 resource_name = "2.0"
 
-[sub_resource type="BTCheckVar" id="BTCheckVar_ouiji"]
+[sub_resource type="BTCheckVar" id="BTCheckVar_vx178"]
 variable = &"distance_to_target"
 check_type = 2
-value = SubResource("BBVariant_tpjby")
+value = SubResource("BBVariant_ujkqr")
 
-[sub_resource type="BTAction" id="BTAction_o7g6j"]
+[sub_resource type="BTAction" id="BTAction_g2y7m"]
 script = ExtResource("9_w8y5l")
 attack_anim_tree_state = &"close_attack"
 final_attack_anim_name = &"attack"
 
-[sub_resource type="BTAction" id="BTAction_rlkoa"]
+[sub_resource type="BTAction" id="BTAction_o8aj7"]
 script = ExtResource("8_14u3r")
 anim_tree_state = &"run"
 final_anim_name = &"run"
 
-[sub_resource type="BTTimeLimit" id="BTTimeLimit_4yp3h"]
+[sub_resource type="BTTimeLimit" id="BTTimeLimit_s8y5s"]
 time_limit = 0.1
-children = [SubResource("BTAction_rlkoa")]
+children = [SubResource("BTAction_o8aj7")]
 
-[sub_resource type="BTAlwaysSucceed" id="BTAlwaysSucceed_co5rl"]
-children = [SubResource("BTTimeLimit_4yp3h")]
+[sub_resource type="BTAlwaysSucceed" id="BTAlwaysSucceed_rhhm5"]
+children = [SubResource("BTTimeLimit_s8y5s")]
 
-[sub_resource type="BTSequence" id="BTSequence_ujkqr"]
-children = [SubResource("BTCheckVar_ouiji"), SubResource("BTAction_o7g6j"), SubResource("BTAlwaysSucceed_co5rl")]
+[sub_resource type="BTSequence" id="BTSequence_pdmsg"]
+children = [SubResource("BTCheckVar_vx178"), SubResource("BTAction_g2y7m"), SubResource("BTAlwaysSucceed_rhhm5")]
 
-[sub_resource type="BBVariant" id="BBVariant_vx178"]
+[sub_resource type="BBVariant" id="BBVariant_qd0la"]
 type = 3
 saved_value = 5.0
 resource_name = "5.0"
 
-[sub_resource type="BTCheckVar" id="BTCheckVar_g2y7m"]
+[sub_resource type="BTCheckVar" id="BTCheckVar_ggoaa"]
 variable = &"distance_to_target"
 check_type = 2
-value = SubResource("BBVariant_vx178")
+value = SubResource("BBVariant_qd0la")
 
-[sub_resource type="BTAction" id="BTAction_o8aj7"]
+[sub_resource type="BTAction" id="BTAction_8pn50"]
 script = ExtResource("9_w8y5l")
 attack_anim_tree_state = &"jump_attack"
 final_attack_anim_name = &"lounge_attack"
 
-[sub_resource type="BTAction" id="BTAction_s8y5s"]
+[sub_resource type="BTAction" id="BTAction_bt444"]
 script = ExtResource("8_14u3r")
 anim_tree_state = &"run"
 final_anim_name = &"run"
 
-[sub_resource type="BTTimeLimit" id="BTTimeLimit_rhhm5"]
+[sub_resource type="BTTimeLimit" id="BTTimeLimit_p2wyf"]
 time_limit = 0.5
-children = [SubResource("BTAction_s8y5s")]
+children = [SubResource("BTAction_bt444")]
 
-[sub_resource type="BTSequence" id="BTSequence_pdmsg"]
-children = [SubResource("BTCheckVar_g2y7m"), SubResource("BTAction_o8aj7"), SubResource("BTTimeLimit_rhhm5")]
+[sub_resource type="BTSequence" id="BTSequence_irm4b"]
+children = [SubResource("BTCheckVar_ggoaa"), SubResource("BTAction_8pn50"), SubResource("BTTimeLimit_p2wyf")]
 
-[sub_resource type="BTSelector" id="BTSelector_qd0la"]
-children = [SubResource("BTSequence_ujkqr"), SubResource("BTSequence_pdmsg")]
+[sub_resource type="BTSelector" id="BTSelector_m012m"]
+children = [SubResource("BTSequence_pdmsg"), SubResource("BTSequence_irm4b")]
 
-[sub_resource type="BTAlwaysSucceed" id="BTAlwaysSucceed_ggoaa"]
-children = [SubResource("BTSelector_qd0la")]
+[sub_resource type="BTAlwaysSucceed" id="BTAlwaysSucceed_3vh21"]
+children = [SubResource("BTSelector_m012m")]
 
-[sub_resource type="BTSequence" id="BTSequence_8pn50"]
-children = [SubResource("BTAction_8ko4r"), SubResource("BTAlwaysSucceed_ggoaa")]
+[sub_resource type="BTSequence" id="BTSequence_xgw7t"]
+children = [SubResource("BTAction_co5rl"), SubResource("BTAlwaysSucceed_3vh21")]
 
 [sub_resource type="BehaviorTree" id="BehaviorTree_bt444"]
-blackboard_plan = SubResource("BlackboardPlan_8a0iq")
-root_task = SubResource("BTSequence_8pn50")
+blackboard_plan = SubResource("BlackboardPlan_4yp3h")
+root_task = SubResource("BTSequence_xgw7t")
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_3cm67"]
 
@@ -370,11 +370,11 @@ bone = 15
 active = false
 
 [node name="Physical Bone hips" type="PhysicalBone3D" parent="knight/Armature_001/Skeleton3D/PhysicalBoneSimulator3D"]
-transform = Transform3D(1, 2.84202e-14, -2.84165e-14, -2.84165e-14, 4.03897e-28, -1, -2.84202e-14, 1, 1.2115e-27, 1.06008e-13, 1.15384, 0.0683477)
+transform = Transform3D(1, 4.26311e-14, -4.26274e-14, -4.26274e-14, -2.14578e-21, -1, -4.26311e-14, 1, -2.14578e-21, 6.3679e-13, 1.11778, 0.0683477)
 collision_layer = 4
 collision_mask = 5
 joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.60453e-14, -0.0683477, -0.717932)
-body_offset = Transform3D(1, 4.26311e-14, -4.26274e-14, -4.26274e-14, -2.14578e-21, -1, -4.26311e-14, 1, 1.81746e-27, 6.83555e-14, -0.717932, 0.0683477)
+body_offset = Transform3D(1, 4.26311e-14, -4.26274e-14, -4.26274e-14, -2.14578e-21, -1, -4.26311e-14, 1, -2.14578e-21, 6.83555e-14, -0.717932, 0.0683477)
 bone_name = "ctrl.torso"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="knight/Armature_001/Skeleton3D/PhysicalBoneSimulator3D/Physical Bone hips"]
@@ -382,12 +382,12 @@ transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_mvyd6")
 
 [node name="Physical Bone leg1_L" type="PhysicalBone3D" parent="knight/Armature_001/Skeleton3D/PhysicalBoneSimulator3D"]
-transform = Transform3D(-1, -8.47842e-07, 5.42387e-06, -2.86699e-07, 0.994719, 0.102633, -5.48224e-06, 0.102633, -0.994719, 0.185503, 0.856476, 0.749326)
+transform = Transform3D(-1, -4.95049e-07, 5.42748e-06, -8.05327e-07, 0.998356, -0.0573181, -5.39018e-06, -0.0573181, -0.998356, 0.185503, 0.952405, 0.895383)
 collision_layer = 4
 collision_mask = 5
 joint_type = 3
-joint_offset = Transform3D(0.999995, 0, 0, 0, 0.999956, 0, 0, 0, 0.999961, -3.97347e-07, 0.89391, 0.845536)
-body_offset = Transform3D(1, 9.38629e-07, -5.29832e-06, 2.14009e-07, -0.990827, -0.135139, -5.37656e-06, 0.135139, -0.990827, 4.03821e-06, 0.999975, 0.716977)
+joint_offset = Transform3D(0.999995, 0, 0, 0, 0.999956, 0, 0, 0, 0.999961, -4.42054e-07, 0.893911, 0.845536)
+body_offset = Transform3D(1, 9.38628e-07, -5.29832e-06, 2.14009e-07, -0.990826, -0.135139, -5.37656e-06, 0.135139, -0.990827, 4.08292e-06, 0.999975, 0.716977)
 bone_name = "leg1.L"
 joint_constraints/angular_limit_enabled = false
 joint_constraints/angular_limit_upper = 90.0
@@ -401,12 +401,12 @@ transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_14u3r")
 
 [node name="Physical Bone leg1_R" type="PhysicalBone3D" parent="knight/Armature_001/Skeleton3D/PhysicalBoneSimulator3D"]
-transform = Transform3D(-1, 1.20347e-06, -5.02327e-06, 4.36918e-07, 0.988702, 0.149894, 5.14691e-06, 0.149894, -0.988702, -0.185503, 0.838415, 0.733258)
+transform = Transform3D(-1, 8.69202e-07, -5.04241e-06, 9.18083e-07, 0.999953, -0.00970207, 5.03374e-06, -0.00970207, -0.999953, -0.185502, 0.932013, 0.8824)
 collision_layer = 4
 collision_mask = 5
 joint_type = 3
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.19079e-06, 0.872889, 0.873973)
-body_offset = Transform3D(1, -1.30504e-06, 5.00474e-06, -3.71443e-07, -0.983266, -0.182178, 5.15874e-06, 0.182178, -0.983265, -4.42564e-06, 1.0175, 0.700326)
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.23549e-06, 0.872889, 0.873973)
+body_offset = Transform3D(1, -1.30504e-06, 5.00474e-06, -3.71443e-07, -0.983265, -0.182178, 5.15874e-06, 0.182178, -0.983265, -4.47035e-06, 1.0175, 0.700326)
 bone_name = "leg1.R"
 joint_constraints/angular_limit_enabled = false
 joint_constraints/angular_limit_upper = 90.0

@@ -1,6 +1,5 @@
 extends BaseAgent
 
-const ROTATION_INTERPOLATE_SPEED = 10
 
 @export var mouse_sensitivity:float = 500
 @export var clamp_pitch_rotation:float = 80
@@ -22,6 +21,12 @@ var active_item: Item = null
 @export var money: int = 1000
 
 var current_ballista = null
+
+func bind_bone(bone):
+	var joint = Generic6DOFJoint3D.new()
+	skeleton_modifier.add_child(joint)
+	joint.node_a = hip_bone.get_path()
+	joint.node_b = bone.get_path()
 
 func _enter_tree() -> void:
 	SignalBus.InventoryItemSelected.connect(on_inventory_item_selected)
@@ -152,7 +157,7 @@ func _on_run_state_physics_processing(delta: float) -> void:
 	var q_from = orientation.basis.get_rotation_quaternion()
 	var q_to = Transform3D().looking_at(target, Vector3.UP).basis.get_rotation_quaternion()
 	# Interpolate current rotation with desired one.
-	orientation.basis = Basis(q_from.slerp(q_to, delta * ROTATION_INTERPOLATE_SPEED))
+	orientation.basis = Basis(q_from.slerp(q_to, delta * rotation_interpolate_spped))
 	
 	
 	#apply_root_motion_to_velocity(delta, false)
@@ -205,7 +210,7 @@ func _on_aiming_state_physics_processing(delta: float) -> void:
 	var q_from = orientation.basis.get_rotation_quaternion()
 	var q_to = yaw.basis.get_rotation_quaternion()
 	# Interpolate current rotation with desired one.
-	orientation.basis = Basis(q_from.slerp(q_to, delta * ROTATION_INTERPOLATE_SPEED))
+	orientation.basis = Basis(q_from.slerp(q_to, delta * rotation_interpolate_spped))
 	
 	velocity.x = 0
 	velocity.z = 0
