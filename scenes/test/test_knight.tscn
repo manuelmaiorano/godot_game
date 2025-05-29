@@ -123,22 +123,25 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.00407, 1.75903, 0)
 shape = SubResource("BoxShape3D_is4ce")
 
 [node name="enemies" type="Node3D" parent="."]
-process_mode = 4
 
 [node name="DogSmall" parent="enemies" node_paths=PackedStringArray("patrol_points") instance=ExtResource("9_nxq7d")]
+process_mode = 4
 transform = Transform3D(-0.998085, 0, -0.0618674, 0, 1, 0, 0.0618674, 0, -0.998085, -19.7738, 0.499996, -1.27469)
 patrol_points = [NodePath("../../PatrolPoints/Marker3D3"), NodePath("../../PatrolPoints/Marker3D4")]
 
 [node name="Knight2" parent="enemies" node_paths=PackedStringArray("patrol_points") instance=ExtResource("4_kgyma")]
+process_mode = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -40.1633)
 patrol_points = [NodePath("../../PatrolPoints/Marker3D2"), NodePath("../../PatrolPoints/Marker3D")]
 debug_mode = true
 
 [node name="DogSmall2" parent="enemies" node_paths=PackedStringArray("patrol_points") instance=ExtResource("9_nxq7d")]
+process_mode = 4
 transform = Transform3D(-0.996659, 0, -0.0816776, 0, 1, 0, 0.0816776, 0, -0.996659, 0, 0, 0)
 patrol_points = [NodePath("../../PatrolPoints/Marker3D4"), NodePath("../../PatrolPoints/Marker3D3")]
 
 [node name="RockGuy" parent="enemies" instance=ExtResource("10_nxq7d")]
+process_mode = 4
 transform = Transform3D(-0.150536, 0, -0.988604, 0, 1, 0, 0.988604, 0, -0.150536, 0, 0, 28.4618)
 debug_mode = true
 

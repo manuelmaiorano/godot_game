@@ -21,6 +21,9 @@ func _enter() -> void:
 	last_attack_animation_played = false
 	agent.animation_tree["parameters/Transition/transition_request"] = attack_anim_tree_state
 	
+func _exit() -> void:
+	agent.animation_tree["parameters/Transition/transition_request"] = "idle"
+	
 func on_finished_animation(name):
 	if name == final_attack_anim_name: 
 		last_attack_animation_played = true
