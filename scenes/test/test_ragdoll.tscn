@@ -676,7 +676,7 @@ skin = SubResource("Skin_yvct4")
 [node name="PhysicalBoneSimulator3D" type="PhysicalBoneSimulator3D" parent="chessinggame/Armature_001/Skeleton3D"]
 
 [node name="Physical Bone hips" type="PhysicalBone3D" parent="chessinggame/Armature_001/Skeleton3D/PhysicalBoneSimulator3D"]
-transform = Transform3D(1, -7.10543e-15, 0, 0, 0, -1, 7.10543e-15, 1, 0, 0, 1.31212, 0)
+transform = Transform3D(1, 1.06581e-13, 0, 0, 0, -1, -1.06581e-13, 1, 0, 0, 1.31212, 0)
 collision_layer = 4
 collision_mask = 5
 joint_type = 5
@@ -753,7 +753,7 @@ transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_26xcw")
 
 [node name="Physical Bone spine" type="PhysicalBone3D" parent="chessinggame/Armature_001/Skeleton3D/PhysicalBoneSimulator3D"]
-transform = Transform3D(1, -7.10543e-15, 0, 0, 0, -1, 7.10543e-15, 1, 0, 0, 1.7586, 0)
+transform = Transform3D(1, 1.06581e-13, 0, 0, 0, -1, -1.06581e-13, 1, 0, 0, 1.7586, 0)
 collision_layer = 4
 collision_mask = 5
 joint_type = 5
@@ -829,7 +829,7 @@ transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_635yd")
 
 [node name="Physical Bone neck" type="PhysicalBone3D" parent="chessinggame/Armature_001/Skeleton3D/PhysicalBoneSimulator3D"]
-transform = Transform3D(1, -7.10543e-15, 0, 0, 0, -1, 7.10543e-15, 1, 0, 0, 2.11385, 0)
+transform = Transform3D(1, 1.06581e-13, 0, 0, 0, -1, -1.06581e-13, 1, 0, 0, 2.11385, 0)
 collision_layer = 4
 collision_mask = 5
 joint_type = 5
@@ -905,7 +905,7 @@ transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_hpvc6")
 
 [node name="Physical Bone shoulder_L" type="PhysicalBone3D" parent="chessinggame/Armature_001/Skeleton3D/PhysicalBoneSimulator3D"]
-transform = Transform3D(-0.461814, 1.51471e-08, -0.886977, -0.886977, -1.05214e-07, 0.461814, -8.63269e-08, 1, 6.20243e-08, 0.155078, 1.90109, -6.99772e-09)
+transform = Transform3D(-0.461814, 1.51472e-08, -0.886977, -0.886977, -1.05214e-07, 0.461814, -8.63268e-08, 1, 6.20244e-08, 0.155079, 1.9011, -6.99773e-09)
 collision_layer = 4
 collision_mask = 5
 joint_type = 5
@@ -981,7 +981,7 @@ transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_7dqut")
 
 [node name="Physical Bone arm1_L" type="PhysicalBone3D" parent="chessinggame/Armature_001/Skeleton3D/PhysicalBoneSimulator3D"]
-transform = Transform3D(-0.428473, -0.703369, -0.567171, -0.121804, -0.577018, 0.807598, -0.895307, 0.415117, 0.161563, 0.493868, 1.55876, -0.0523317)
+transform = Transform3D(-0.428473, -0.703369, -0.567171, -0.121804, -0.577018, 0.807598, -0.895307, 0.415117, 0.161564, 0.493868, 1.55876, -0.0523319)
 collision_layer = 4
 collision_mask = 5
 joint_type = 5
@@ -1057,7 +1057,7 @@ transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_ymxqp")
 
 [node name="Physical Bone arm2_L" type="PhysicalBone3D" parent="chessinggame/Armature_001/Skeleton3D/PhysicalBoneSimulator3D"]
-transform = Transform3D(-0.428478, -0.900575, 0.0732924, -0.121806, 0.137947, 0.982921, -0.895304, 0.412233, -0.168802, 0.654635, 0.969861, -0.045446)
+transform = Transform3D(-0.428478, -0.900575, 0.0732924, -0.121805, 0.137947, 0.982921, -0.895304, 0.412233, -0.168802, 0.654636, 0.969862, -0.0454465)
 collision_layer = 4
 collision_mask = 5
 joint_type = 5
@@ -1133,7 +1133,7 @@ transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_4w5dt")
 
 [node name="Physical Bone shoulder_R" type="PhysicalBone3D" parent="chessinggame/Armature_001/Skeleton3D/PhysicalBoneSimulator3D"]
-transform = Transform3D(-0.461814, -1.56131e-08, 0.886977, 0.886977, -1.04371e-07, 0.461814, 8.53642e-08, 1, 6.20485e-08, -0.155078, 1.90109, -1.46993e-08)
+transform = Transform3D(-0.461814, -1.5613e-08, 0.886977, 0.886977, -1.04371e-07, 0.461814, 8.53642e-08, 1, 6.20483e-08, -0.155079, 1.9011, -1.46993e-08)
 collision_layer = 4
 collision_mask = 5
 joint_type = 5
@@ -1209,11 +1209,11 @@ transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_abi5j")
 
 [node name="Physical Bone arm1_R" type="PhysicalBone3D" parent="chessinggame/Armature_001/Skeleton3D/PhysicalBoneSimulator3D"]
-transform = Transform3D(0.042291, 0.761, 0.647372, 0.99519, 0.025223, -0.0946631, -0.0883672, 0.648262, -0.756273, -0.51977, 1.8511, 0.244876)
+transform = Transform3D(0.0422919, 0.761, 0.647372, 0.99519, 0.0252224, -0.0946638, -0.0883675, 0.648261, -0.756273, -0.519771, 1.8511, 0.244876)
 collision_layer = 4
 collision_mask = 5
 joint_type = 5
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.29495e-05, -2.54169e-06, 0.323801)
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.29494e-05, -2.54169e-06, 0.323802)
 body_offset = Transform3D(1, 7.45058e-08, -1.04308e-07, -1.86265e-07, 2.32458e-06, -1, -3.72529e-09, 1, 2.23517e-06, 9.29832e-05, 0.323802, 1.81794e-06)
 bone_name = "arm1.R"
 joint_constraints/x/linear_limit_enabled = true
@@ -1285,11 +1285,11 @@ transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_u6suh")
 
 [node name="Physical Bone arm2_R" type="PhysicalBone3D" parent="chessinggame/Armature_001/Skeleton3D/PhysicalBoneSimulator3D"]
-transform = Transform3D(0.0422898, 0.998752, -0.0265903, 0.995188, -0.0444636, -0.0873187, -0.088392, -0.0227696, -0.995826, -0.721026, 1.90868, 0.79814)
+transform = Transform3D(0.0422907, 0.998752, -0.0265912, 0.995188, -0.0444646, -0.0873189, -0.0883922, -0.0227704, -0.995826, -0.721026, 1.90868, 0.798141)
 collision_layer = 4
 collision_mask = 5
 joint_type = 5
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.67292e-06, -7.95796e-07, 0.30982)
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.67291e-06, -7.95796e-07, 0.30982)
 body_offset = Transform3D(1, 6.32601e-07, -2.47657e-05, -2.47881e-05, 2.50153e-06, -1, -5.28293e-07, 1, 2.56859e-06, 0, 0.30982, 0)
 bone_name = "arm2.R"
 joint_constraints/x/linear_limit_enabled = true
@@ -1361,7 +1361,7 @@ transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_xdls3")
 
 [node name="Physical Bone leg1_L" type="PhysicalBone3D" parent="chessinggame/Armature_001/Skeleton3D/PhysicalBoneSimulator3D"]
-transform = Transform3D(-1, -1.04303e-07, 1.44458e-07, 1.40332e-07, 0.0385218, 0.999258, -1.0979e-07, 0.999258, -0.0385218, 0.202926, 0.861451, 0.0086057)
+transform = Transform3D(-1, -1.04302e-07, 1.44458e-07, 1.40332e-07, 0.0385218, 0.999258, -1.0979e-07, 0.999258, -0.0385218, 0.202926, 0.861452, 0.00860569)
 collision_layer = 4
 collision_mask = 5
 joint_type = 5
@@ -1437,11 +1437,11 @@ transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_11x3g")
 
 [node name="Physical Bone leg2_L" type="PhysicalBone3D" parent="chessinggame/Armature_001/Skeleton3D/PhysicalBoneSimulator3D"]
-transform = Transform3D(-1, -9.57665e-08, 9.57034e-09, 1.27788e-08, -0.0335593, 0.999437, -9.53914e-08, 0.999437, 0.0335593, 0.202926, 0.381922, 0.00860652)
+transform = Transform3D(-1, -9.57664e-08, 9.57037e-09, 1.27788e-08, -0.0335594, 0.999437, -9.53913e-08, 0.999437, 0.0335594, 0.202926, 0.381923, 0.00860656)
 collision_layer = 4
 collision_mask = 5
 joint_type = 5
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.62985e-09, -8.13449e-07, 0.256434)
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.62984e-09, -8.13449e-07, 0.256434)
 body_offset = Transform3D(1, 2.95373e-11, -2.5854e-08, -2.5854e-08, 7.45058e-09, -1, -2.95302e-11, 1, -8.19564e-08, 0, 0.256434, 8.34465e-07)
 bone_name = "leg2.L"
 joint_constraints/x/linear_limit_enabled = true
@@ -1513,11 +1513,11 @@ transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_lasc5")
 
 [node name="Physical Bone foot1_L" type="PhysicalBone3D" parent="chessinggame/Armature_001/Skeleton3D/PhysicalBoneSimulator3D"]
-transform = Transform3D(-1, 4.46521e-07, -1.02574e-07, 3.01348e-07, 0.809691, 0.586856, 3.45096e-07, 0.586856, -0.809691, 0.202926, 0.0628163, 0.0866675)
+transform = Transform3D(-1, 4.4652e-07, -1.02574e-07, 3.01348e-07, 0.809692, 0.586855, 3.45096e-07, 0.586855, -0.809692, 0.202926, 0.0628161, 0.0866677)
 collision_layer = 4
 collision_mask = 5
 joint_type = 5
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.54557e-09, 3.30799e-08, 0.107038)
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.54558e-09, 3.30795e-08, 0.107038)
 body_offset = Transform3D(1, 1.1795e-12, 2.3782e-08, 2.37815e-08, 1.19209e-07, -1, -1.35003e-12, 1, 8.04663e-07, 0, 0.107038, -1.19209e-07)
 bone_name = "foot1.L"
 joint_constraints/x/linear_limit_enabled = true
@@ -1589,7 +1589,7 @@ transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_uv5ho")
 
 [node name="Physical Bone leg1_R" type="PhysicalBone3D" parent="chessinggame/Armature_001/Skeleton3D/PhysicalBoneSimulator3D"]
-transform = Transform3D(-1, 1.36057e-07, -1.45692e-07, -1.40343e-07, 0.0385218, 0.999258, 1.41568e-07, 0.999258, -0.0385218, -0.202926, 0.861451, 0.0086057)
+transform = Transform3D(-1, 1.36057e-07, -1.45692e-07, -1.40343e-07, 0.0385218, 0.999258, 1.41568e-07, 0.999258, -0.0385218, -0.202926, 0.861452, 0.00860569)
 collision_layer = 4
 collision_mask = 5
 joint_type = 5
@@ -1665,11 +1665,11 @@ transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_yxnqo")
 
 [node name="Physical Bone leg2_R" type="PhysicalBone3D" parent="chessinggame/Armature_001/Skeleton3D/PhysicalBoneSimulator3D"]
-transform = Transform3D(-1, 1.27554e-07, -8.50281e-09, -1.27787e-08, -0.0335593, 0.999437, 1.27197e-07, 0.999437, 0.0335593, -0.202926, 0.381922, 0.00860652)
+transform = Transform3D(-1, 1.27555e-07, -8.50285e-09, -1.27787e-08, -0.0335594, 0.999437, 1.27197e-07, 0.999437, 0.0335594, -0.202926, 0.381923, 0.00860656)
 collision_layer = 4
 collision_mask = 5
 joint_type = 5
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.62985e-09, -8.13449e-07, 0.256434)
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.62984e-09, -8.13449e-07, 0.256434)
 body_offset = Transform3D(1, -2.52669e-11, 2.5854e-08, 2.5854e-08, 7.45058e-09, -1, 2.52669e-11, 1, -8.19564e-08, 0, 0.256434, 8.34465e-07)
 bone_name = "leg2.R"
 joint_constraints/x/linear_limit_enabled = true
@@ -1741,11 +1741,11 @@ transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_fqfrv")
 
 [node name="Physical Bone foot1_R" type="PhysicalBone3D" parent="chessinggame/Armature_001/Skeleton3D/PhysicalBoneSimulator3D"]
-transform = Transform3D(-1, -4.46521e-07, 1.02573e-07, -3.01349e-07, 0.809691, 0.586856, -3.45096e-07, 0.586856, -0.809691, -0.202926, 0.0628163, 0.0866675)
+transform = Transform3D(-1, -4.46522e-07, 1.02573e-07, -3.01349e-07, 0.809692, 0.586855, -3.45096e-07, 0.586855, -0.809692, -0.202926, 0.0628161, 0.0866677)
 collision_layer = 4
 collision_mask = 5
 joint_type = 5
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.54552e-09, 3.30799e-08, 0.107038)
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.54552e-09, 3.30795e-08, 0.107038)
 body_offset = Transform3D(1, -3.69482e-13, -2.37815e-08, -2.3781e-08, 1.19209e-07, -1, 5.54223e-13, 1, 8.04663e-07, 0, 0.107038, -1.19209e-07)
 bone_name = "foot1.R"
 joint_constraints/x/linear_limit_enabled = true
