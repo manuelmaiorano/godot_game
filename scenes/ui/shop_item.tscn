@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b5q3t8nftjc86"]
 
-[ext_resource type="Script" uid="uid://b56s5l3c2qo0k" path="res://scripts/ui/shop_item.gd" id="1_obnp4"]
+[ext_resource type="Script" uid="uid://b56s5l3c2qo0k" path="res://scenes/ui/shop_item.gd" id="1_obnp4"]
 
 [node name="ShopItem" type="PanelContainer"]
 offset_right = 64.0

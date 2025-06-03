@@ -14,6 +14,7 @@ class_name BaseAgent
 @export var patrol_points: Array[Node3D]
 @export var vision_cone: Node3D
 @export var debug_mode: bool = false
+@export var entity_size: EntitySize = EntitySize.SMALL
 
 @onready var gravity = ProjectSettings.get_setting("physics/3d/default_gravity") * ProjectSettings.get_setting("physics/3d/default_gravity_vector")
 
@@ -31,6 +32,11 @@ signal dead
 signal antagonist_changed
 signal near_ballista(which: Node3D)
 signal took_damage(hp_percentage_now)
+
+enum EntitySize {
+	SMALL,
+	BIG
+}
 
 
 class TargetInfo:
@@ -97,16 +103,6 @@ func _on_body_hidden(body: Node3D) -> void:
 	
 	target_list_changed.emit(target_list)
 
-func get_first_visible_target():
-	for key in target_list.keys():
-		if key == null or key.is_dead:
-			continue
-		var info = target_list[key]
-		if info.visible:
-			return key
-	
-	return null
-
 func rotate_towards_point(delta, point, run_away = false):
 	var direction: Vector3 = global_position - point
 	direction.y = 0
@@ -151,9 +147,27 @@ func apply_lateral_velocity(speed):
 	var lateral_velocity = model.global_basis.z * speed
 	velocity.x = lateral_velocity.x
 	velocity.z = lateral_velocity.z
-	
+
 func apply_gravity(delta):
 	velocity += gravity * delta
+
+func move_towards(delta, point, use_root_motion=false, is_running=true):
+	rotate_towards_point(delta, point)
+	
+	var speed
+	if is_running:
+		speed = entity_stats.run_speed
+	else:
+		speed = entity_stats.walk_speed
+		
+	if use_root_motion:
+		apply_root_motion_to_velocity(delta)
+	else:
+		apply_lateral_velocity(speed)
+	
+	apply_gravity(delta)
+	move_and_slide()
+	apply_orientation_to_model()
 	
 func reduce_health(damage):
 	hp = clamp(hp - damage, 0, hp)
@@ -188,9 +202,14 @@ func die():
 		SignalBus.EnemyKilled.emit(entity_stats.points)
 	if ragdoll_on_death:
 		ragdoll()
-	$CollisionShape3D.disabled = true
-
+	disable_collision()
+	disable_ai()
 	
+func attach_to(target):
+	disable_collision()
+	disable_ai()
+	reparent(target)
+
 
 func ragdoll():
 	animation_tree.active = false
@@ -223,3 +242,16 @@ func check_if_antagonist(body):
 		if antagonist_groups.find(group) > -1:
 			return true
 	return false
+	
+func disable_collision():
+	$CollisionShape3D.disabled = true
+	
+
+func enable_collision():
+	$CollisionShape3D.disabled = true
+
+
+func disable_ai():
+	for child in get_children():
+		if child is BTPlayer or child is LimboHSM:
+			child.set_active(false)

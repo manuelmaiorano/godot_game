@@ -1,10 +1,10 @@
 [gd_scene load_steps=9 format=3 uid="uid://rljwykqs5en2"]
 
-[ext_resource type="PackedScene" uid="uid://dpswfe7dkn232" path="res://scenes/gameloop.tscn" id="1_7t5cv"]
-[ext_resource type="PackedScene" uid="uid://cun5hi2ne8vti" path="res://scenes/ui.tscn" id="2_er88l"]
-[ext_resource type="PackedScene" uid="uid://cjca6mx3264lj" path="res://scenes/player.tscn" id="3_k62f0"]
-[ext_resource type="PackedScene" uid="uid://csufe0hdsj2qy" path="res://scenes/ballista.tscn" id="5_bb2ry"]
-[ext_resource type="PackedScene" uid="uid://bhw884mxsuvea" path="res://scenes/knight.tscn" id="5_vpl4u"]
+[ext_resource type="PackedScene" uid="uid://dpswfe7dkn232" path="res://scenes/gameloop/gameloop.tscn" id="1_7t5cv"]
+[ext_resource type="PackedScene" uid="uid://cun5hi2ne8vti" path="res://scenes/ui/ui.tscn" id="2_er88l"]
+[ext_resource type="PackedScene" uid="uid://cjca6mx3264lj" path="res://scenes/player/player.tscn" id="3_k62f0"]
+[ext_resource type="PackedScene" uid="uid://csufe0hdsj2qy" path="res://scenes/interactable/ballista.tscn" id="5_bb2ry"]
+[ext_resource type="PackedScene" uid="uid://bhw884mxsuvea" path="res://scenes/wackyenemies/knight.tscn" id="5_vpl4u"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_co56h"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)

@@ -1,0 +1,24 @@
+[gd_resource type="BehaviorTree" load_steps=7 format=3 uid="uid://b8qv6asemx75b"]
+
+[ext_resource type="Script" uid="uid://ctvf6ck11ej54" path="res://ai/tasks/general/go_to_next_patrol_point.gd" id="1_b4iyh"]
+[ext_resource type="Script" uid="uid://cf3ajn1p71af3" path="res://ai/tasks/general/stand_idle.gd" id="2_ubv31"]
+
+[sub_resource type="BTAction" id="BTAction_rn1bv"]
+script = ExtResource("1_b4iyh")
+walk_anim_tree_state = &"run"
+point_reach_distance = 0.1
+
+[sub_resource type="BTAction" id="BTAction_bo2ix"]
+script = ExtResource("2_ubv31")
+idle_anim_tree_state = &"idle"
+
+[sub_resource type="BTCooldown" id="BTCooldown_yi36u"]
+duration = 3.0
+children = [SubResource("BTAction_bo2ix")]
+
+[sub_resource type="BTSequence" id="BTSequence_c2hod"]
+custom_name = "Patrol"
+children = [SubResource("BTAction_rn1bv"), SubResource("BTCooldown_yi36u")]
+
+[resource]
+root_task = SubResource("BTSequence_c2hod")

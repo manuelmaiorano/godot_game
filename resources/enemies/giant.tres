@@ -6,4 +6,8 @@
 script = ExtResource("1_edo7j")
 max_hp = 400.0
 damage = 60.0
+points = 100
+walk_speed = 10.0
+run_speed = 5.0
+jump_speed = 5.0
 metadata/_custom_type_script = "uid://cphv378vnyo5p"

@@ -1,0 +1,161 @@
+[gd_scene load_steps=16 format=3 uid="uid://0xnk1iydrnbm"]
+
+[ext_resource type="PackedScene" uid="uid://dvf3myh2tvnsm" path="res://assets/models/giant.glb" id="1_5x4qu"]
+[ext_resource type="Script" uid="uid://yvlgjjkmf4r4" path="res://scripts/entity.gd" id="1_glfi2"]
+[ext_resource type="Resource" uid="uid://driqvtafmtumj" path="res://resources/enemies/giant.tres" id="2_ukwaf"]
+[ext_resource type="PackedScene" uid="uid://dyriga41qx3tc" path="res://scenes/ui/health_bar.tscn" id="3_2xoio"]
+[ext_resource type="PackedScene" uid="uid://b3d1ljpbp74ry" path="res://scenes/components/ai/TargetingComponenet.tscn" id="3_qm8pm"]
+[ext_resource type="Script" uid="uid://cmgcelj1qxg8o" path="res://addons/tattomoosa.vision_cone_3d/src/VisionCone3D.gd" id="5_k5ykd"]
+[ext_resource type="BehaviorTree" uid="uid://xyghprjt8f06" path="res://resources/bt/enemies/giant.tres" id="7_rb0g1"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2xoio"]
+size = Vector3(1.89, 1.95, 1.4)
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5x4qu"]
+animation = &"walk"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_glfi2"]
+animation = &"attack"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_sx7hc"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_ukwaf"]
+xfade_time = 0.2
+input_0/name = "idle"
+input_0/auto_advance = false
+input_0/break_loop_at_end = false
+input_0/reset = true
+input_1/name = "walk"
+input_1/auto_advance = false
+input_1/break_loop_at_end = false
+input_1/reset = true
+input_2/name = "attack"
+input_2/auto_advance = false
+input_2/break_loop_at_end = false
+input_2/reset = true
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_sx7hc"]
+nodes/Animation/node = SubResource("AnimationNodeAnimation_sx7hc")
+nodes/Animation/position = Vector2(580, 20)
+"nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_5x4qu")
+"nodes/Animation 2/position" = Vector2(580, 240)
+"nodes/Animation 3/node" = SubResource("AnimationNodeAnimation_glfi2")
+"nodes/Animation 3/position" = Vector2(580, 420)
+nodes/Transition/node = SubResource("AnimationNodeTransition_ukwaf")
+nodes/Transition/position = Vector2(860, 100)
+nodes/output/position = Vector2(1160, 180)
+node_connections = [&"Transition", 0, &"Animation", &"Transition", 1, &"Animation 2", &"Transition", 2, &"Animation 3", &"output", 0, &"Transition"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5x4qu"]
+radius = 3.11056
+height = 16.8316
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_rb0g1"]
+
+[node name="Giant" type="CharacterBody3D" node_paths=PackedStringArray("animation_tree", "model", "hp_bar", "vision_cone") groups=["knights"]]
+collision_layer = 2
+script = ExtResource("1_glfi2")
+animation_tree = NodePath("AnimationTree")
+model = NodePath("giant")
+entity_stats = ExtResource("2_ukwaf")
+hp_bar = NodePath("HealthBar")
+antagonist_groups = Array[StringName]([&"player", &"animals"])
+vision_cone = NodePath("giant/Armature_002/VisionCone3D")
+entity_size = 1
+
+[node name="TargetingComponenet" parent="." node_paths=PackedStringArray("agent", "bt") instance=ExtResource("3_qm8pm")]
+agent = NodePath("..")
+bt = NodePath("../BTPlayer")
+min_distance_to_keep_target_after_not_visible = 30.0
+
+[node name="HealthBar" parent="." instance=ExtResource("3_2xoio")]
+
+[node name="giant" parent="." instance=ExtResource("1_5x4qu")]
+
+[node name="Skeleton3D" parent="giant/Armature_002" index="0"]
+bones/3/rotation = Quaternion(0.707107, 3.09086e-08, -3.06266e-07, 0.707107)
+bones/4/rotation = Quaternion(-1.05796e-21, -5.25952e-23, 0, 1)
+bones/9/rotation = Quaternion(0.707107, -3.09086e-08, 3.06266e-07, 0.707107)
+bones/10/rotation = Quaternion(-1.05796e-21, 5.25952e-23, 0, 1)
+bones/13/position = Vector3(0, 0, 5.5145)
+bones/13/rotation = Quaternion(-5.33851e-08, 0.707107, 0.707107, -5.33851e-08)
+bones/15/position = Vector3(5.18955, 1.29303, 2.52968)
+bones/15/rotation = Quaternion(0.613299, -0.34618, -0.678324, 0.209525)
+bones/16/position = Vector3(8.07977, 8.27539, -2.70886)
+bones/22/rotation = Quaternion(0.289403, 0.341641, -0.470607, 0.7603)
+bones/23/rotation = Quaternion(0.418291, -7.86774e-09, 4.28316e-07, 0.908313)
+bones/24/rotation = Quaternion(0.0147627, 0.179625, 0.12518, 0.975627)
+bones/26/rotation = Quaternion(0.289403, -0.341641, 0.470607, 0.7603)
+bones/27/rotation = Quaternion(0.418291, -4.7255e-09, -4.1033e-07, 0.908313)
+bones/28/rotation = Quaternion(0.0147627, -0.179625, -0.12518, 0.975627)
+bones/29/rotation = Quaternion(-1.39626e-07, 0.0602698, 0.998182, 3.94417e-08)
+bones/30/rotation = Quaternion(-0.126428, 1.1841e-07, 4.99606e-08, 0.991976)
+bones/31/rotation = Quaternion(0.467692, -9.99936e-08, 2.6339e-08, 0.883891)
+bones/32/rotation = Quaternion(0.357118, -8.72167e-08, -3.33466e-08, 0.934059)
+bones/32/scale = Vector3(1, 0.999987, 1.00001)
+bones/33/rotation = Quaternion(-7.93022e-08, 0.0602698, 0.998182, -3.98793e-08)
+bones/34/rotation = Quaternion(-0.126428, -1.18096e-07, -7.86477e-08, 0.991976)
+bones/35/rotation = Quaternion(0.467692, 9.99936e-08, -2.6339e-08, 0.883891)
+bones/36/rotation = Quaternion(0.357118, 8.72167e-08, 3.33466e-08, 0.934059)
+bones/36/scale = Vector3(1, 0.999987, 1.00001)
+bones/37/position = Vector3(-5.18955, 1.29303, 2.52968)
+bones/37/rotation = Quaternion(0.613299, 0.34618, 0.678324, 0.209525)
+bones/38/position = Vector3(-8.07977, 8.27539, -2.70886)
+
+[node name="LookAtModifier3D" type="LookAtModifier3D" parent="giant/Armature_002/Skeleton3D" index="9"]
+active = false
+bone_name = "spine"
+bone = 18
+
+[node name="BoneAttachment3D" type="BoneAttachment3D" parent="giant/Armature_002/Skeleton3D" index="10"]
+transform = Transform3D(-0.159928, 0.140372, 0.977097, 0.708874, -0.672518, 0.212641, 0.686964, 0.726646, 0.00804839, -5.18955, 6.80753, 2.52968)
+bone_name = "ikhand.R"
+bone_idx = 37
+
+[node name="DamageArea" type="Area3D" parent="giant/Armature_002/Skeleton3D/BoneAttachment3D"]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="giant/Armature_002/Skeleton3D/BoneAttachment3D/DamageArea"]
+transform = Transform3D(1.00002, -1.16825e-05, 1.20001e-06, 1.2964e-05, 1.00002, -1.24145e-06, -5.9139e-07, 1.86265e-08, 1.00002, -0.130781, 1.00777, -0.0392296)
+shape = SubResource("BoxShape3D_2xoio")
+
+[node name="VisionCone3D" type="Area3D" parent="giant/Armature_002" index="1" node_paths=PackedStringArray("vision_test_ignore_bodies")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 15.7257, 2.81345)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("5_k5ykd")
+range = 43.443
+angle = 99.1537
+vision_test_ignore_bodies = [NodePath("../../..")]
+collision_layer_ = 0
+collision_mask_ = 2
+metadata/_custom_type_script = "uid://cmgcelj1qxg8o"
+
+[node name="AnimationPlayer" parent="giant" index="1"]
+root_motion_track = NodePath("Armature_002/Skeleton3D:root")
+root_motion_local = false
+callback_mode_process = 0
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+root_node = NodePath("../giant")
+root_motion_track = NodePath("Armature_002/Skeleton3D:root")
+root_motion_local = false
+callback_mode_process = 0
+tree_root = SubResource("AnimationNodeBlendTree_sx7hc")
+anim_player = NodePath("../giant/AnimationPlayer")
+parameters/Transition/current_state = "idle"
+parameters/Transition/transition_request = ""
+parameters/Transition/current_index = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.39852, 0)
+shape = SubResource("CapsuleShape3D_5x4qu")
+
+[node name="BTPlayer" type="BTPlayer" parent="."]
+behavior_tree = ExtResource("7_rb0g1")
+blackboard_plan = SubResource("BlackboardPlan_rb0g1")
+
+[editable path="giant"]

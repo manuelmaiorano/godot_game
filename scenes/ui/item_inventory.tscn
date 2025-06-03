@@ -2,7 +2,7 @@
 
 [ext_resource type="ButtonGroup" uid="uid://c6xtq0yaqb828" path="res://resources/buttons/inventory.tres" id="1_6miie"]
 [ext_resource type="Texture2D" uid="uid://dxse5qte08hjv" path="res://assets/textures/icons/branch.png" id="2_s5aup"]
-[ext_resource type="Script" uid="uid://cpm8rtjs0cpa8" path="res://scripts/ui/item_button.gd" id="3_7x4f6"]
+[ext_resource type="Script" uid="uid://cpm8rtjs0cpa8" path="res://scenes/ui/item_button.gd" id="3_7x4f6"]
 
 [node name="ItemInventory" type="PanelContainer"]
 offset_right = 72.0

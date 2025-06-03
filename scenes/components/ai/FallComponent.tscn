@@ -1,0 +1,26 @@
+[gd_scene load_steps=7 format=3 uid="uid://duc77vynaaxr4"]
+
+[ext_resource type="Script" uid="uid://qpsj4n48efa6" path="res://scenes/components/ai/fall_component.gd" id="1_rl3jl"]
+[ext_resource type="Script" uid="uid://bs28s835akfx" path="res://ai/tasks/general/fall.gd" id="2_i1q2p"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_5siyo"]
+
+[sub_resource type="BTAction" id="BTAction_oqjl1"]
+script = ExtResource("2_i1q2p")
+fall_anim_tree_state = &""
+velocity_to_take_damage = 15.0
+damage_taken = 1000.0
+
+[sub_resource type="BehaviorTree" id="BehaviorTree_7ar2g"]
+blackboard_plan = SubResource("BlackboardPlan_5siyo")
+root_task = SubResource("BTAction_oqjl1")
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_rl3jl"]
+
+[node name="FallComponent" type="Node"]
+script = ExtResource("1_rl3jl")
+
+[node name="BTPlayer" type="BTPlayer" parent="."]
+behavior_tree = SubResource("BehaviorTree_7ar2g")
+blackboard_plan = SubResource("BlackboardPlan_rl3jl")
+unique_name_in_owner = true

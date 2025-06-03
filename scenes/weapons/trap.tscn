@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://dx7gmxaut3ijv"]
+
+[ext_resource type="Script" uid="uid://dcejpxwgjboa6" path="res://scenes/weapons/trap.gd" id="1_npg1n"]
+[ext_resource type="Resource" uid="uid://c52toyb75lqsa" path="res://resources/weapons/trap.tres" id="2_62q8x"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ykdm6"]
+radius = 21.1576
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_62q8x"]
+size = Vector3(0.674194, 0.155151, 0.591248)
+
+[sub_resource type="BoxMesh" id="BoxMesh_62q8x"]
+size = Vector3(0.674194, 0.155151, 0.591248)
+
+[node name="Trap" type="Node3D"]
+script = ExtResource("1_npg1n")
+stats = ExtResource("2_62q8x")
+
+[node name="DetectArea" type="Area3D" parent="."]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectArea"]
+shape = SubResource("SphereShape3D_ykdm6")
+
+[node name="Switch" type="Area3D" parent="."]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Switch"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.10352e-05, 0.0774536, -0.0174255)
+shape = SubResource("BoxShape3D_62q8x")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0910834, 0)
+mesh = SubResource("BoxMesh_62q8x")
+
+[connection signal="body_entered" from="Switch" to="." method="_on_switch_body_entered"]

@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://cw6ky57uhkxbd"]
+
+[ext_resource type="PackedScene" uid="uid://b66vsllh0itjg" path="res://assets/models/dart.glb" id="1_er84i"]
+[ext_resource type="Script" uid="uid://cfw7pdpitishw" path="res://scenes/weapons/dart.gd" id="1_mqum6"]
+[ext_resource type="Resource" uid="uid://posud1oogk0n" path="res://resources/weapons/dart.tres" id="2_sxpos"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_mqum6"]
+radius = 0.278679
+
+[node name="Dart" type="CharacterBody3D"]
+collision_mask = 3
+motion_mode = 1
+script = ExtResource("1_mqum6")
+stats = ExtResource("2_sxpos")
+
+[node name="dart" parent="." instance=ExtResource("1_er84i")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.11742)
+shape = SubResource("SphereShape3D_mqum6")
