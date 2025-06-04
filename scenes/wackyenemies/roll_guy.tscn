@@ -1,0 +1,218 @@
+[gd_scene load_steps=19 format=3 uid="uid://bposrsr7ekfv6"]
+
+[ext_resource type="PackedScene" uid="uid://doj5g8bfjyh11" path="res://assets/models/rollingguy.glb" id="1_7nncw"]
+[ext_resource type="Script" uid="uid://c3j6uxyodb27m" path="res://scenes/wackyenemies/roll_guy.gd" id="1_dvbya"]
+[ext_resource type="BehaviorTree" uid="uid://8bnuyn34db0p" path="res://resources/bt/enemies/rollguy.tres" id="2_apb05"]
+[ext_resource type="Resource" uid="uid://cirpwosqup7ab" path="res://resources/enemies/roll_guy.tres" id="2_pdxao"]
+[ext_resource type="PackedScene" uid="uid://dyriga41qx3tc" path="res://scenes/ui/health_bar.tscn" id="5_fmhqt"]
+[ext_resource type="Script" uid="uid://cmgcelj1qxg8o" path="res://addons/tattomoosa.vision_cone_3d/src/VisionCone3D.gd" id="5_xndqv"]
+[ext_resource type="PackedScene" uid="uid://b3d1ljpbp74ry" path="res://scenes/components/ai/TargetingComponenet.tscn" id="7_xndqv"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_apb05"]
+radius = 0.82313
+height = 2.83212
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_7nncw"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dvbya"]
+animation = &"run"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7nncw"]
+animation = &"roll"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_apb05"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_7ked8"]
+
+[sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_dvbya"]
+input_0/name = "idle"
+input_0/auto_advance = false
+input_0/break_loop_at_end = false
+input_0/reset = true
+input_1/name = "run"
+input_1/auto_advance = false
+input_1/break_loop_at_end = false
+input_1/reset = true
+input_2/name = "roll"
+input_2/auto_advance = false
+input_2/break_loop_at_end = false
+input_2/reset = true
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_7nncw"]
+graph_offset = Vector2(-411.571, 174.202)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_apb05")
+nodes/Animation/position = Vector2(240, 60)
+"nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_dvbya")
+"nodes/Animation 2/position" = Vector2(240, 220)
+"nodes/Animation 3/node" = SubResource("AnimationNodeAnimation_7nncw")
+"nodes/Animation 3/position" = Vector2(300, 420)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_7ked8")
+nodes/TimeScale/position = Vector2(460, 220)
+nodes/Transition/node = SubResource("AnimationNodeTransition_dvbya")
+nodes/Transition/position = Vector2(740, 140)
+nodes/output/position = Vector2(940, 220)
+node_connections = [&"TimeScale", 0, &"Animation 2", &"Transition", 0, &"Animation", &"Transition", 1, &"TimeScale", &"Transition", 2, &"Animation 3", &"output", 0, &"Transition"]
+
+[sub_resource type="Animation" id="Animation_xndqv"]
+resource_name = "spikeout"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PivotOrientation/PivotSpin/rollingguy/Armature_001/Skeleton3D/spikes/spikes:blend_shapes/Key 1")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.233333, 0.493333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [1.0, -1.0, -0.75598]
+}
+
+[sub_resource type="Animation" id="Animation_rhd10"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PivotOrientation/PivotSpin/rollingguy/Armature_001/Skeleton3D/spikes/spikes:blend_shapes/Key 1")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1jelw"]
+_data = {
+&"RESET": SubResource("Animation_rhd10"),
+&"spikeout": SubResource("Animation_xndqv")
+}
+
+[node name="RollGuy" type="CharacterBody3D" node_paths=PackedStringArray("animation_tree", "model", "hp_bar", "vision_cone") groups=["animals"]]
+collision_layer = 2
+script = ExtResource("1_dvbya")
+animation_tree = NodePath("AnimationTree")
+model = NodePath("PivotOrientation")
+entity_stats = ExtResource("2_pdxao")
+hp_bar = NodePath("HealthBar")
+antagonist_groups = Array[StringName]([&"player", &"knights"])
+vision_cone = NodePath("PivotOrientation/VisionCone3D")
+
+[node name="TargetingComponenet" parent="." node_paths=PackedStringArray("agent", "bt") instance=ExtResource("7_xndqv")]
+agent = NodePath("..")
+bt = NodePath("../BTPlayer")
+target_selection_mode = 1
+
+[node name="HealthBar" parent="." instance=ExtResource("5_fmhqt")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.42304, 0)
+shape = SubResource("CapsuleShape3D_apb05")
+
+[node name="BTPlayer" type="BTPlayer" parent="."]
+behavior_tree = ExtResource("2_apb05")
+blackboard_plan = SubResource("BlackboardPlan_7nncw")
+
+[node name="PivotOrientation" type="Node3D" parent="."]
+
+[node name="PivotSpin" type="Node3D" parent="PivotOrientation"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.515196, 0)
+
+[node name="rollingguy" parent="PivotOrientation/PivotSpin" instance=ExtResource("1_7nncw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.486853, 0)
+
+[node name="Skeleton3D" parent="PivotOrientation/PivotSpin/rollingguy/Armature_001" index="0"]
+bones/1/position = Vector3(0.385226, -1.13397, -0.229095)
+bones/1/rotation = Quaternion(-3.33793e-08, 1, -1.92741e-08, 1.94707e-07)
+bones/2/rotation = Quaternion(3.1622e-07, 0.783242, 0.621717, -3.98375e-07)
+bones/3/rotation = Quaternion(1.10746e-07, 0.94327, 0.332027, -6.50633e-08)
+bones/4/rotation = Quaternion(1, -1.74047e-14, -4.33126e-07, -7.21775e-08)
+bones/6/position = Vector3(0.385226, -1.13397, -0.229095)
+bones/6/rotation = Quaternion(-1.3944e-08, 0.997432, 0.0716151, 1.94207e-07)
+bones/8/position = Vector3(-0.385226, 0.434196, -0.101242)
+bones/8/rotation = Quaternion(4.42907e-08, 0.974956, -0.222396, -3.32288e-07)
+bones/9/rotation = Quaternion(-4.76831e-07, 0.00490288, 0.999988, 2.33788e-09)
+bones/10/rotation = Quaternion(-1.05802e-07, 0.964626, 0.263622, 7.28273e-08)
+bones/11/rotation = Quaternion(1, 3.29978e-14, 4.33126e-07, -5.96046e-08)
+bones/12/position = Vector3(-0.385226, 0.434196, -0.101242)
+bones/12/rotation = Quaternion(5.03714e-08, 0.974956, -0.222396, -3.06055e-07)
+bones/13/position = Vector3(-1.50103e-07, 4.01586e-35, -0.99409)
+bones/13/rotation = Quaternion(-0.707107, 5.33851e-08, 5.33851e-08, 0.707107)
+bones/14/rotation = Quaternion(-0.115342, -1.18414e-07, 1.37498e-08, 0.993326)
+bones/15/rotation = Quaternion(0.173153, 2.34817e-07, -9.84327e-16, 0.984895)
+bones/16/rotation = Quaternion(0.244325, -2.31193e-07, -8.23308e-17, 0.969693)
+bones/17/rotation = Quaternion(0.121122, 5.91658e-07, 4.33167e-08, 0.992638)
+bones/18/rotation = Quaternion(0.468953, 0.382364, -0.599769, 0.523601)
+bones/19/rotation = Quaternion(0.436672, -0.00301373, -0.00620847, 0.899595)
+bones/20/rotation = Quaternion(0.317078, 4.28661e-08, -5.82793e-09, 0.948399)
+bones/21/rotation = Quaternion(-0.0269155, 4.27016e-10, 9.24093e-09, 0.999638)
+bones/22/rotation = Quaternion(0.468953, -0.382364, 0.599769, 0.523601)
+bones/23/rotation = Quaternion(0.436672, 0.00301372, 0.00620847, 0.899595)
+bones/24/rotation = Quaternion(0.317078, -4.43847e-08, 5.21864e-09, 0.948399)
+bones/25/rotation = Quaternion(-0.0269155, 3.13149e-12, -1.91569e-09, 0.999638)
+bones/27/rotation = Quaternion(5.83987e-07, -0.202764, 0.979228, 8.50571e-07)
+bones/27/scale = Vector3(1, 1, 1.00003)
+bones/28/rotation = Quaternion(-0.608933, 3.1384e-07, 1.3588e-06, 0.793221)
+bones/29/rotation = Quaternion(0.286315, -1.14812e-06, -7.83605e-07, 0.958136)
+bones/30/rotation = Quaternion(0.332126, 3.42294e-07, -4.31669e-07, 0.943235)
+bones/31/rotation = Quaternion(1.50661e-07, 0.282148, 0.959371, -3.47004e-07)
+bones/31/scale = Vector3(1, 1.00001, 1.00002)
+bones/32/rotation = Quaternion(-0.276922, -3.62144e-07, -4.84735e-07, 0.960892)
+bones/32/scale = Vector3(1, 0.999987, 1.00001)
+bones/33/rotation = Quaternion(0.57855, 7.38339e-07, 1.25783e-07, 0.815647)
+bones/33/scale = Vector3(1, 1.00001, 0.99999)
+bones/34/rotation = Quaternion(0.263755, -4.16867e-07, 6.25947e-07, 0.96459)
+bones/35/position = Vector3(2.47136, 1.11428, -2.12231e-08)
+bones/35/rotation = Quaternion(-2.66925e-08, -2.66925e-08, -0.707107, 0.707107)
+bones/37/position = Vector3(-2.47136, 1.11428, -2.12231e-08)
+bones/37/rotation = Quaternion(-2.66925e-08, 2.66925e-08, 0.707107, 0.707107)
+bones/39/position = Vector3(1.59272e-13, 1.26412, 0.113098)
+bones/39/rotation = Quaternion(0.413845, 1.08522e-07, 4.93341e-08, 0.910347)
+bones/41/position = Vector3(-1.4102, -0.0188075, -2.96183)
+bones/42/position = Vector3(1.41019, -0.0188075, -2.96183)
+bones/43/position = Vector3(-4.90406e-07, 5.03358e-36, -3.24781)
+
+[node name="spikes" parent="PivotOrientation/PivotSpin/rollingguy/Armature_001/Skeleton3D" index="0"]
+transform = Transform3D(0.611371, -0.754324, -0.23921, 0.727421, 0.654716, -0.205441, 0.311584, -0.0484057, 0.948985, -5.96047e-08, -0.0333154, -3.72529e-08)
+
+[node name="spikes" parent="PivotOrientation/PivotSpin/rollingguy/Armature_001/Skeleton3D/spikes" index="0"]
+"blend_shapes/Key 1" = 1.0
+
+[node name="AnimationPlayer" parent="PivotOrientation/PivotSpin/rollingguy" index="1"]
+active = false
+callback_mode_process = 0
+
+[node name="VisionCone3D" type="Area3D" parent="PivotOrientation" node_paths=PackedStringArray("vision_test_ignore_bodies")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 2.5436, 0.344723)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("5_xndqv")
+range = 49.392
+angle = 120.04
+vision_test_mode = 0
+vision_test_ignore_bodies = [NodePath("../..")]
+collision_layer_ = 0
+collision_mask_ = 2
+metadata/_custom_type_script = "uid://cmgcelj1qxg8o"
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+root_node = NodePath("%PivotSpin/rollingguy")
+callback_mode_process = 0
+tree_root = SubResource("AnimationNodeBlendTree_7nncw")
+anim_player = NodePath("../PivotOrientation/PivotSpin/rollingguy/AnimationPlayer")
+parameters/TimeScale/scale = 2.73
+parameters/Transition/current_state = "run"
+parameters/Transition/transition_request = ""
+parameters/Transition/current_index = 1
+
+[node name="SpikeAnimation" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+&"": SubResource("AnimationLibrary_1jelw")
+}
+
+[editable path="PivotOrientation/PivotSpin/rollingguy"]

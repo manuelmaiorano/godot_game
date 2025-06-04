@@ -24,8 +24,8 @@ value = SubResource("BBVariant_7nr1q")
 
 [sub_resource type="BTAction" id="BTAction_h5res"]
 script = ExtResource("1_45ul0")
-jump_animation_state = &"jump"
-follow_speed = null
+attach_animation_state = &"jump"
+follow_speed = 10.0
 
 [sub_resource type="BTSequence" id="BTSequence_v20vg"]
 custom_name = "AttachedToBigTarget"
@@ -43,8 +43,8 @@ value = SubResource("BBVariant_be0ol")
 [sub_resource type="BTAction" id="BTAction_2tupo"]
 script = ExtResource("1_nix0i")
 move_anim_tree_state = &"run"
-min_distance_to_eat = 5.0
-min_distance_to_start_bite = 5.0
+min_distance_to_eat = 2.0
+min_distance_to_start_bite = 7.0
 
 [sub_resource type="BTSequence" id="BTSequence_45ul0"]
 custom_name = "AttackTarget"
@@ -52,6 +52,7 @@ children = [SubResource("BTCheckVar_b8ros"), SubResource("BTAction_2tupo")]
 
 [sub_resource type="BBVariant" id="BBVariant_nix0i"]
 saved_value = null
+resource_name = "<null>"
 
 [sub_resource type="BTCheckVar" id="BTCheckVar_45ul0"]
 variable = &"last_known_target_position"

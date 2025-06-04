@@ -33,6 +33,7 @@ children = [SubResource("BTCheckVar_kd28a"), SubResource("BTAction_ufd2v"), SubR
 
 [sub_resource type="BBVariant" id="BBVariant_a18io"]
 saved_value = null
+resource_name = "<null>"
 
 [sub_resource type="BTCheckVar" id="BTCheckVar_oi2nu"]
 variable = &"last_known_target_position"

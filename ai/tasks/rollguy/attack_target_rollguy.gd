@@ -4,17 +4,20 @@ extends BTAction
 
 # Task parameters.
 @export var move_anim_tree_state: StringName
+@export var roll_anim_tree_state: StringName
+@export var distance_to_start_rolling: float = 5
 
-@export var min_distance_to_eat: float
-@export var min_distance_to_start_bite: float = 5.0
+@export var distance_to_kill: float = 2
 
 var target = null
+var started_rolling = false
 
 # Called to generate a display name for the task (requires @tool).
 func _generate_name() -> String:
-	return "AttackTargetBiteGuy"
+	return "AttackTargetRollGuy"
 
 func _enter() -> void:
+	started_rolling = false
 	target = blackboard.get_var("target")
 	agent.animation_tree["parameters/Transition/transition_request"] = move_anim_tree_state
 
@@ -24,18 +27,19 @@ func _tick(delta: float) -> Status:
 		return FAILURE
 	
 	var distance_to_target = agent.global_position.distance_to(target.global_position)
-	if distance_to_target < min_distance_to_start_bite:
-		agent.blend_bite(1.0)
+	if distance_to_target < distance_to_start_rolling:
+		if not started_rolling:
+			agent.animation_tree["parameters/Transition/transition_request"] = roll_anim_tree_state
+			agent.spikes()
+			started_rolling = true
+		agent.roll_towards(delta, target.global_position)
+	else:
+		agent.move_towards(delta, target.global_position)
 		
-	if distance_to_target < min_distance_to_eat:
-		agent.blend_bite(0.0)
+	if distance_to_target < distance_to_kill:
 		if target.entity_size == BaseAgent.EntitySize.SMALL:
-			target.die()
-			target.attach_to(agent.target_to_attach_victim)
+			target.attach_to(agent)
 		else:
-			agent.jump()
+			#agent.jump()
 			blackboard.set_var("is_attached", true)
-		return SUCCESS
-		
-	agent.move_towards(delta, target.global_position)
 	return RUNNING

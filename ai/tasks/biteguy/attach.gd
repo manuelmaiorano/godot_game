@@ -3,7 +3,7 @@ extends BTAction
 
 
 # Task parameters.
-@export var jump_animation_state: StringName
+@export var attach_animation_state: StringName
 @export var follow_speed: float = 10
 var target 
 
@@ -15,17 +15,17 @@ func _setup() -> void:
 	pass
 
 func _enter() -> void:
-	agent.animation_tree["parameters/Transition/transition_request"] = jump_animation_state
+	agent.animation_tree["parameters/Transition/transition_request"] = attach_animation_state
 	agent.disable_collision()
 	target = blackboard.get_var("target")
 	
 func _exit() -> void:
-	agent.enable_collsion()
+	agent.enable_collision()
 
 func _tick(delta: float) -> Status:
 	if target == null:
 		return FAILURE
 	
-	agent.global_position = agent.global_position.lerp(target.global_position + Vector3.UP * 5, delta * follow_speed)
-	agent.global_basis = agent.global_basis.slerp(target.global_basis, delta * follow_speed)
+	agent.global_position = agent.global_position.lerp(target.hip_bone.global_position, delta * follow_speed)
+	#agent.global_basis = agent.global_basis.slerp(target.hip_bone.global_basis, delta * follow_speed)
 	return RUNNING

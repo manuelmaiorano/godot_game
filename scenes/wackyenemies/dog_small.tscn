@@ -173,7 +173,7 @@ attaker = NodePath("../../../../..")
 active = false
 
 [node name="Physical Bone spine_004" type="PhysicalBone3D" parent="dogsmall/metarig/Skeleton3D/PhysicalBoneSimulator3D"]
-transform = Transform3D(1, 6.67529e-13, -8.96002e-08, -8.96002e-08, -0.000599261, -1, -5.43614e-11, 1, -0.000599261, -8.27475e-16, 0.7928, -0.4085)
+transform = Transform3D(1, 6.67636e-13, -8.96002e-08, -8.96002e-08, -0.00059926, -1, -5.43614e-11, 1, -0.00059926, -3.5489e-10, 0.788741, -0.4085)
 collision_layer = 4
 collision_mask = 5
 body_offset = Transform3D(1, 6.67532e-13, -2.17739e-09, -6.67532e-13, 1, 5.82077e-11, 2.1774e-09, 0, 1, 0, 0, 0)
@@ -184,7 +184,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.73472e-18, 0.366959, -1.45
 shape = SubResource("CapsuleShape3D_3e3wd")
 
 [node name="Physical Bone front_thigh_L" type="PhysicalBone3D" parent="dogsmall/metarig/Skeleton3D/PhysicalBoneSimulator3D"]
-transform = Transform3D(1, -6.34882e-06, -1.37444e-06, 3.49006e-06, 0.346654, 0.937993, -5.4787e-06, -0.937993, 0.346654, 0.124772, 0.564866, 0.269628)
+transform = Transform3D(0.999998, 0.000135066, -0.00221524, 0.00200457, 0.373412, 0.927663, 0.000952495, -0.927666, 0.373411, 0.125068, 0.562191, 0.266053)
 collision_layer = 4
 collision_mask = 5
 joint_type = 3
@@ -203,7 +203,7 @@ transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_qe3af")
 
 [node name="Physical Bone front_thigh_R" type="PhysicalBone3D" parent="dogsmall/metarig/Skeleton3D/PhysicalBoneSimulator3D"]
-transform = Transform3D(1, 6.34882e-06, 1.37444e-06, -3.49006e-06, 0.346654, 0.937993, 5.4787e-06, -0.937993, 0.346654, -0.124772, 0.564866, 0.269628)
+transform = Transform3D(0.999998, -0.000135066, 0.00221524, -0.00200457, 0.373412, 0.927663, -0.000952495, -0.927666, 0.373411, -0.125068, 0.562191, 0.266053)
 collision_layer = 4
 collision_mask = 5
 joint_type = 3
@@ -222,11 +222,11 @@ transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_udl3d")
 
 [node name="Physical Bone thigh_L" type="PhysicalBone3D" parent="dogsmall/metarig/Skeleton3D/PhysicalBoneSimulator3D"]
-transform = Transform3D(1, -1.71227e-06, -6.70495e-06, 6.02364e-06, -0.26157, 0.965185, -3.40646e-06, -0.965185, -0.26157, 0.124566, 0.604107, -0.305606)
+transform = Transform3D(1, 3.0769e-05, -0.000481276, 0.000471968, -0.267507, 0.963556, -9.90969e-05, -0.963556, -0.267507, 0.124632, 0.600274, -0.304783)
 collision_layer = 4
 collision_mask = 5
 joint_type = 3
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000334507, 3.38866e-05, 0.138628)
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000334506, 3.38859e-05, 0.138628)
 body_offset = Transform3D(1, -1.71539e-06, -6.70225e-06, -6.69579e-06, 0.00374013, -0.999993, 1.74045e-06, 0.999993, 0.00374033, -0.000333577, 0.138627, -0.000552401)
 bone_name = "thigh.L"
 joint_constraints/angular_limit_enabled = false
@@ -241,11 +241,11 @@ transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_6g66n")
 
 [node name="Physical Bone thigh_R" type="PhysicalBone3D" parent="dogsmall/metarig/Skeleton3D/PhysicalBoneSimulator3D"]
-transform = Transform3D(1, 1.7672e-06, 6.58584e-06, -5.89433e-06, -0.261562, 0.965187, 3.42829e-06, -0.965187, -0.261562, -0.124686, 0.604264, -0.305733)
+transform = Transform3D(1, -3.07115e-05, 0.000481158, -0.000471839, -0.267499, 0.963558, 9.91171e-05, -0.963558, -0.267499, -0.124752, 0.60043, -0.304911)
 collision_layer = 4
 collision_mask = 5
 joint_type = 3
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000215035, -4.61165e-05, 0.138444)
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000215035, -4.61177e-05, 0.138444)
 body_offset = Transform3D(1, 1.76528e-06, 6.59627e-06, 6.58964e-06, 0.00373232, -0.999993, -1.78989e-06, 0.999993, 0.00373249, 0.000214122, 0.138443, -0.000470623)
 bone_name = "thigh.R"
 joint_constraints/angular_limit_enabled = false
