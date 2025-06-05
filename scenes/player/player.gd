@@ -304,11 +304,15 @@ func _on_aiming_state_unhandled_input(event: InputEvent) -> void:
 
 
 func _on_aiming_state_entered() -> void:
-	get_tree().get_first_node_in_group("crosshair").show()
+	var cross_hair = get_tree().get_first_node_in_group("crosshair")
+	if cross_hair:
+		cross_hair.show()
 
 
 func _on_aiming_state_exited() -> void:
-	get_tree().get_first_node_in_group("crosshair").hide()
+	var cross_hair = get_tree().get_first_node_in_group("crosshair")
+	if cross_hair:
+		cross_hair.hide()
 
 ### DEAD
 

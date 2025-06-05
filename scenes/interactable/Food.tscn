@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://cmskmuufwfvw6"]
+
+[ext_resource type="Script" uid="uid://b0cat8ot40647" path="res://scenes/interactable/food.gd" id="1_bt5ji"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n64qk"]
+albedo_color = Color(0.228917, 0.41, 0.1927, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_bt5ji"]
+material = SubResource("StandardMaterial3D_n64qk")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_n64qk"]
+radius = 0.677385
+
+[node name="Food" type="Node3D"]
+script = ExtResource("1_bt5ji")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_bt5ji")
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 8
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_n64qk")

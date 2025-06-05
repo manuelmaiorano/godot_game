@@ -1,5 +1,6 @@
-[gd_resource type="BehaviorTree" load_steps=29 format=3 uid="uid://b7bmi8xsck8xq"]
+[gd_resource type="BehaviorTree" load_steps=39 format=3 uid="uid://b7bmi8xsck8xq"]
 
+[ext_resource type="Script" uid="uid://tvbmr22qeln2" path="res://ai/tasks/general/go_towards_food_target.gd" id="1_7nr1q"]
 [ext_resource type="Script" uid="uid://dfc34t1x6mr2d" path="res://ai/tasks/biteguy/attach.gd" id="1_45ul0"]
 [ext_resource type="Script" uid="uid://b2ke78lbl5b2e" path="res://ai/tasks/biteguy/attack_target_biteguy.gd" id="1_nix0i"]
 [ext_resource type="Script" uid="uid://0iyt8orb6i2p" path="res://ai/tasks/general/investigate_position.gd" id="2_45ul0"]
@@ -12,6 +13,42 @@ var/is_attached/type = 1
 var/is_attached/value = false
 var/is_attached/hint = 0
 var/is_attached/hint_string = ""
+
+[sub_resource type="BBVariant" id="BBVariant_45ul0"]
+type = 1
+saved_value = true
+resource_name = "true"
+
+[sub_resource type="BTCheckVar" id="BTCheckVar_7nr1q"]
+variable = &"is_hungry"
+value = SubResource("BBVariant_45ul0")
+
+[sub_resource type="BBVariant" id="BBVariant_2tupo"]
+saved_value = null
+resource_name = "<null>"
+
+[sub_resource type="BTCheckVar" id="BTCheckVar_h5res"]
+variable = &"food_target"
+check_type = 5
+value = SubResource("BBVariant_2tupo")
+
+[sub_resource type="BTAction" id="BTAction_v20vg"]
+script = ExtResource("1_7nr1q")
+min_distance = 0.1
+move_anim_tree_state = &"run"
+
+[sub_resource type="BTSequence" id="BTSequence_0o78l"]
+children = [SubResource("BTCheckVar_h5res"), SubResource("BTAction_v20vg")]
+
+[sub_resource type="BTSequence" id="BTSequence_7nr1q"]
+
+[sub_resource type="BTDynamicSelector" id="BTDynamicSelector_la2tq"]
+children = [SubResource("BTSequence_0o78l"), SubResource("BTSequence_7nr1q")]
+
+[sub_resource type="BTSequence" id="BTSequence_h5res"]
+custom_name = "EatWhenHungry"
+children = [SubResource("BTCheckVar_7nr1q"), SubResource("BTDynamicSelector_la2tq")]
+_enabled = false
 
 [sub_resource type="BBVariant" id="BBVariant_7nr1q"]
 type = 1
@@ -104,7 +141,7 @@ custom_name = "Patrol"
 children = [SubResource("BTRepeat_45ul0")]
 
 [sub_resource type="BTDynamicSelector" id="BTDynamicSelector_0l8fm"]
-children = [SubResource("BTSequence_v20vg"), SubResource("BTSequence_45ul0"), SubResource("BTSequence_be0ol"), SubResource("BTSequence_qdtx0")]
+children = [SubResource("BTSequence_h5res"), SubResource("BTSequence_v20vg"), SubResource("BTSequence_45ul0"), SubResource("BTSequence_be0ol"), SubResource("BTSequence_qdtx0")]
 
 [resource]
 blackboard_plan = SubResource("BlackboardPlan_0l8fm")

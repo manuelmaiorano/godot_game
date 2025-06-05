@@ -30,7 +30,6 @@ signal target_spotted
 signal target_list_changed(target_list: Dictionary[Node3D, TargetInfo])
 signal dead
 signal antagonist_changed
-signal near_ballista(which: Node3D)
 signal took_damage(hp_percentage_now)
 
 enum EntitySize {
@@ -231,11 +230,6 @@ func set_antagonists(value):
 		target_list[body] = info
 		
 	target_list_changed.emit(target_list)
-
-	
-func close_to_ballista(which):
-	near_ballista.emit(which)
-	
 
 func check_if_antagonist(body):
 	for group in body.get_groups():

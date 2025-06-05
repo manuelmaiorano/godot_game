@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://5b2nw3rl3pmk"]
+
+[ext_resource type="Script" uid="uid://btxd8cpt2lje1" path="res://scenes/components/ai/sense_food_component.gd" id="1_xn6eg"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_xn6eg"]
+
+[node name="SenseFoodComponent" type="Node"]
+script = ExtResource("1_xn6eg")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_xn6eg")
+
+[connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]

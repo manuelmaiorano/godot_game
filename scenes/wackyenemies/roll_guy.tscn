@@ -6,7 +6,7 @@
 [ext_resource type="Resource" uid="uid://cirpwosqup7ab" path="res://resources/enemies/roll_guy.tres" id="2_pdxao"]
 [ext_resource type="PackedScene" uid="uid://dyriga41qx3tc" path="res://scenes/ui/health_bar.tscn" id="5_fmhqt"]
 [ext_resource type="Script" uid="uid://cmgcelj1qxg8o" path="res://addons/tattomoosa.vision_cone_3d/src/VisionCone3D.gd" id="5_xndqv"]
-[ext_resource type="PackedScene" uid="uid://b3d1ljpbp74ry" path="res://scenes/components/ai/TargetingComponenet.tscn" id="7_xndqv"]
+[ext_resource type="PackedScene" uid="uid://b3d1ljpbp74ry" path="res://scenes/components/ai/TargetingComponent.tscn" id="7_xndqv"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_apb05"]
 radius = 0.82313
@@ -54,6 +54,21 @@ nodes/Transition/position = Vector2(740, 140)
 nodes/output/position = Vector2(940, 220)
 node_connections = [&"TimeScale", 0, &"Animation 2", &"Transition", 0, &"Animation", &"Transition", 1, &"TimeScale", &"Transition", 2, &"Animation 3", &"output", 0, &"Transition"]
 
+[sub_resource type="Animation" id="Animation_rhd10"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PivotOrientation/PivotSpin/rollingguy/Armature_001/Skeleton3D/spikes/spikes:blend_shapes/Key 1")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
 [sub_resource type="Animation" id="Animation_xndqv"]
 resource_name = "spikeout"
 length = 0.5
@@ -68,21 +83,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [1.0, -1.0, -0.75598]
-}
-
-[sub_resource type="Animation" id="Animation_rhd10"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("PivotOrientation/PivotSpin/rollingguy/Armature_001/Skeleton3D/spikes/spikes:blend_shapes/Key 1")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [1.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1jelw"]

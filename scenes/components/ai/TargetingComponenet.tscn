@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://b3d1ljpbp74ry"]
-
-[ext_resource type="Script" uid="uid://dm21ekmir6mt2" path="res://scenes/components/ai/targeting_componenet.gd" id="1_ah02s"]
-
-[node name="TargetingComponenet" type="Node"]
-script = ExtResource("1_ah02s")
