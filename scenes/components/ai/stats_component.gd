@@ -19,6 +19,11 @@ func _physics_process(delta: float) -> void:
 	
 	
 func eat(delta):
-	hunger -= delta * 1.0/time_to_eat_seconds
+	if hunger <= 0:
+		return
+	var amount = min(hunger, delta * 1.0/time_to_eat_seconds)
+	hunger -= amount
 	if hunger <= 0.1:
 		bt.blackboard.set_var("is_hungry", false)
+		
+	return amount

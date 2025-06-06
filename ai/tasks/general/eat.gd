@@ -17,7 +17,7 @@ func _setup() -> void:
 	
 
 func _enter() -> void:
-	target = blackboard.get_var("food_target")
+	target = blackboard.get_var(&"food_target")
 	if eat_anim_tree_state:
 		agent.animation_tree["parameters/Transition/transition_request"] = eat_anim_tree_state
 
@@ -25,5 +25,8 @@ func _enter() -> void:
 func _tick(delta: float) -> Status:
 	if target == null:
 		return FAILURE
-	stat_component.eat(delta)
+	if blackboard.get_var(&"is_hungry") == false:
+		return SUCCESS
+	var amount = stat_component.eat(delta)
+	target.consume(amount)
 	return RUNNING

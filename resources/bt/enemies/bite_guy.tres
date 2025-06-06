@@ -1,10 +1,12 @@
-[gd_resource type="BehaviorTree" load_steps=39 format=3 uid="uid://b7bmi8xsck8xq"]
+[gd_resource type="BehaviorTree" load_steps=45 format=3 uid="uid://b7bmi8xsck8xq"]
 
 [ext_resource type="Script" uid="uid://tvbmr22qeln2" path="res://ai/tasks/general/go_towards_food_target.gd" id="1_7nr1q"]
 [ext_resource type="Script" uid="uid://dfc34t1x6mr2d" path="res://ai/tasks/biteguy/attach.gd" id="1_45ul0"]
 [ext_resource type="Script" uid="uid://b2ke78lbl5b2e" path="res://ai/tasks/biteguy/attack_target_biteguy.gd" id="1_nix0i"]
+[ext_resource type="Script" uid="uid://c5q31mejwxhpb" path="res://ai/tasks/general/eat.gd" id="2_2tupo"]
 [ext_resource type="Script" uid="uid://0iyt8orb6i2p" path="res://ai/tasks/general/investigate_position.gd" id="2_45ul0"]
 [ext_resource type="Script" uid="uid://ctvf6ck11ej54" path="res://ai/tasks/general/go_to_next_patrol_point.gd" id="3_7nr1q"]
+[ext_resource type="Script" uid="uid://c6ce2r4i7v2os" path="res://ai/tasks/general/go_random_direction.gd" id="3_h5res"]
 [ext_resource type="Script" uid="uid://cf3ajn1p71af3" path="res://ai/tasks/general/stand_idle.gd" id="4_2tupo"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_0l8fm"]
@@ -34,21 +36,36 @@ value = SubResource("BBVariant_2tupo")
 
 [sub_resource type="BTAction" id="BTAction_v20vg"]
 script = ExtResource("1_7nr1q")
-min_distance = 0.1
+min_distance = 1.0
 move_anim_tree_state = &"run"
 
-[sub_resource type="BTSequence" id="BTSequence_0o78l"]
-children = [SubResource("BTCheckVar_h5res"), SubResource("BTAction_v20vg")]
+[sub_resource type="BTAction" id="BTAction_0o78l"]
+script = ExtResource("2_2tupo")
+eat_anim_tree_state = &""
 
-[sub_resource type="BTSequence" id="BTSequence_7nr1q"]
+[sub_resource type="BTSequence" id="BTSequence_0o78l"]
+children = [SubResource("BTCheckVar_h5res"), SubResource("BTAction_v20vg"), SubResource("BTAction_0o78l")]
+
+[sub_resource type="BTAction" id="BTAction_la2tq"]
+script = ExtResource("3_h5res")
+move_anim_tree_state = &"run"
+
+[sub_resource type="BTTimeLimit" id="BTTimeLimit_a4jll"]
+children = [SubResource("BTAction_la2tq")]
+
+[sub_resource type="BTRepeat" id="BTRepeat_67hvf"]
+forever = true
+children = [SubResource("BTTimeLimit_a4jll")]
+
+[sub_resource type="BTSequence" id="BTSequence_ek8yv"]
+children = [SubResource("BTRepeat_67hvf")]
 
 [sub_resource type="BTDynamicSelector" id="BTDynamicSelector_la2tq"]
-children = [SubResource("BTSequence_0o78l"), SubResource("BTSequence_7nr1q")]
+children = [SubResource("BTSequence_0o78l"), SubResource("BTSequence_ek8yv")]
 
 [sub_resource type="BTSequence" id="BTSequence_h5res"]
 custom_name = "EatWhenHungry"
 children = [SubResource("BTCheckVar_7nr1q"), SubResource("BTDynamicSelector_la2tq")]
-_enabled = false
 
 [sub_resource type="BBVariant" id="BBVariant_7nr1q"]
 type = 1
@@ -67,6 +84,7 @@ follow_speed = 10.0
 [sub_resource type="BTSequence" id="BTSequence_v20vg"]
 custom_name = "AttachedToBigTarget"
 children = [SubResource("BTCheckVar_2tupo"), SubResource("BTAction_h5res")]
+_enabled = false
 
 [sub_resource type="BBVariant" id="BBVariant_be0ol"]
 saved_value = null
@@ -86,6 +104,7 @@ min_distance_to_start_bite = 7.0
 [sub_resource type="BTSequence" id="BTSequence_45ul0"]
 custom_name = "AttackTarget"
 children = [SubResource("BTCheckVar_b8ros"), SubResource("BTAction_2tupo")]
+_enabled = false
 
 [sub_resource type="BBVariant" id="BBVariant_nix0i"]
 saved_value = null
@@ -115,11 +134,12 @@ children = [SubResource("BTSequence_2tupo")]
 [sub_resource type="BTSequence" id="BTSequence_be0ol"]
 custom_name = "InvestigateLastKnownPosition"
 children = [SubResource("BTCheckVar_45ul0"), SubResource("BTTimeLimit_nix0i")]
+_enabled = false
 
 [sub_resource type="BTAction" id="BTAction_a4jll"]
 script = ExtResource("3_7nr1q")
 walk_anim_tree_state = &"run"
-point_reach_distance = 0.1
+point_reach_distance = 1.0
 
 [sub_resource type="BTAction" id="BTAction_67hvf"]
 script = ExtResource("4_2tupo")

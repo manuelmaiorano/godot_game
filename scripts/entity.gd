@@ -167,6 +167,24 @@ func move_towards(delta, point, use_root_motion=false, is_running=true):
 	apply_gravity(delta)
 	move_and_slide()
 	apply_orientation_to_model()
+
+func move_along_direction(delta, direction, use_root_motion=false, is_running=true):
+	rotate_towards_point(delta, global_position - direction)
+	
+	var speed
+	if is_running:
+		speed = entity_stats.run_speed
+	else:
+		speed = entity_stats.walk_speed
+		
+	if use_root_motion:
+		apply_root_motion_to_velocity(delta)
+	else:
+		apply_lateral_velocity(speed)
+	
+	apply_gravity(delta)
+	move_and_slide()
+	apply_orientation_to_model()
 	
 func reduce_health(damage):
 	hp = clamp(hp - damage, 0, hp)

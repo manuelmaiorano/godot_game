@@ -22,11 +22,6 @@ var active_item: Item = null
 
 var current_ballista = null
 
-func bind_bone(bone):
-	var joint = Generic6DOFJoint3D.new()
-	skeleton_modifier.add_child(joint)
-	joint.node_a = hip_bone.get_path()
-	joint.node_b = bone.get_path()
 
 func _enter_tree() -> void:
 	SignalBus.InventoryItemSelected.connect(on_inventory_item_selected)
