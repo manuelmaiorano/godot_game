@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cq8ta0q06gohi"]
+
+[ext_resource type="Script" uid="uid://dnuf16603xtd6" path="res://scenes/components/movement/avoid_edge_component.gd" id="1_3u2pt"]
+
+[node name="AvoidEdgeComponent" type="Node"]
+script = ExtResource("1_3u2pt")

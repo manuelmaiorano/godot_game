@@ -38,6 +38,7 @@ func _tick(delta: float) -> Status:
 		
 	if distance_to_target < distance_to_kill:
 		if target.entity_size == BaseAgent.EntitySize.SMALL:
+			target.die()
 			target.attach_to(agent)
 		else:
 			#agent.jump()

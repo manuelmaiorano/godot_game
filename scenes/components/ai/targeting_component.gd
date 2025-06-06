@@ -62,7 +62,7 @@ func pick_random(target_list:  Dictionary[Node3D, BaseAgent.TargetInfo]):
 	return target_list.keys().filter(func (x): return not x.is_dead and target_list[x].visible ).pick_random()
 	
 func pick_first_non_targeted(target_list:  Dictionary[Node3D, BaseAgent.TargetInfo]):
-	var global_targets = WorldState.get_var("global_targets") as Array
+	var global_targets = WorldState.shared_scope.get_var("global_targets") as Array
 	var already_targeted = []
 	
 	for target in target_list.keys():

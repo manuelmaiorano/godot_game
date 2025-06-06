@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://nh6bnfyg06hi"]
+
+[ext_resource type="Script" uid="uid://dcbn4ihkog7ul" path="res://scenes/components/ai/sense_predator_component.gd" id="1_fpcih"]
+
+[node name="SensePredatorComponent" type="Node"]
+script = ExtResource("1_fpcih")

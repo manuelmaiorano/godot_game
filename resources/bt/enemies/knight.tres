@@ -1,0 +1,92 @@
+[gd_resource type="BehaviorTree" load_steps=26 format=3 uid="uid://bvik0r1itxevv"]
+
+[ext_resource type="Script" uid="uid://c0r6gjup4rrgq" path="res://ai/tasks/general/go_towards_target.gd" id="1_vit60"]
+[ext_resource type="Script" uid="uid://chtqbnjed8vmf" path="res://ai/tasks/general/perform_attack.gd" id="2_lkmn0"]
+[ext_resource type="Script" uid="uid://0iyt8orb6i2p" path="res://ai/tasks/general/investigate_position.gd" id="3_o5hvy"]
+[ext_resource type="Script" uid="uid://cf3ajn1p71af3" path="res://ai/tasks/general/stand_idle.gd" id="4_khiww"]
+[ext_resource type="Script" uid="uid://ctvf6ck11ej54" path="res://ai/tasks/general/go_to_next_patrol_point.gd" id="5_no48s"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_a3hag"]
+
+[sub_resource type="BBVariant" id="BBVariant_cllr2"]
+saved_value = null
+resource_name = "<null>"
+
+[sub_resource type="BTCheckVar" id="BTCheckVar_jipo0"]
+variable = &"target"
+check_type = 5
+value = SubResource("BBVariant_cllr2")
+
+[sub_resource type="BTAction" id="BTAction_wp7y2"]
+script = ExtResource("1_vit60")
+min_distance = 3.0
+move_anim_tree_state = &"run"
+
+[sub_resource type="BTAction" id="BTAction_651ke"]
+script = ExtResource("2_lkmn0")
+attack_anim_tree_state = &"jump_attack"
+final_attack_anim_name = &"lounge_attack"
+
+[sub_resource type="BTSequence" id="BTSequence_ccnsm"]
+custom_name = "AttackTarget"
+children = [SubResource("BTCheckVar_jipo0"), SubResource("BTAction_wp7y2"), SubResource("BTAction_651ke")]
+
+[sub_resource type="BBVariant" id="BBVariant_2vvn0"]
+saved_value = null
+resource_name = "<null>"
+
+[sub_resource type="BTCheckVar" id="BTCheckVar_bl4ci"]
+variable = &"last_known_target_position"
+check_type = 5
+value = SubResource("BBVariant_2vvn0")
+
+[sub_resource type="BTAction" id="BTAction_qgbf7"]
+script = ExtResource("3_o5hvy")
+min_distance = 0.5
+move_anim_tree_state = &"run"
+
+[sub_resource type="BTAction" id="BTAction_i234v"]
+script = ExtResource("4_khiww")
+idle_anim_tree_state = &"idle"
+
+[sub_resource type="BTSequence" id="BTSequence_63ctc"]
+children = [SubResource("BTAction_qgbf7"), SubResource("BTAction_i234v")]
+
+[sub_resource type="BTTimeLimit" id="BTTimeLimit_hyntx"]
+time_limit = 10.0
+children = [SubResource("BTSequence_63ctc")]
+
+[sub_resource type="BTSequence" id="BTSequence_hp6t1"]
+custom_name = "InvestigateLastKnownPosition"
+children = [SubResource("BTCheckVar_bl4ci"), SubResource("BTTimeLimit_hyntx")]
+
+[sub_resource type="BTAction" id="BTAction_bmgra"]
+script = ExtResource("5_no48s")
+walk_anim_tree_state = &"walk"
+point_reach_distance = 0.1
+
+[sub_resource type="BTAction" id="BTAction_87dlr"]
+script = ExtResource("4_khiww")
+idle_anim_tree_state = &"idle"
+
+[sub_resource type="BTTimeLimit" id="BTTimeLimit_n0lgc"]
+time_limit = 3.0
+children = [SubResource("BTAction_87dlr")]
+
+[sub_resource type="BTSequence" id="BTSequence_cdc5d"]
+children = [SubResource("BTAction_bmgra"), SubResource("BTTimeLimit_n0lgc")]
+
+[sub_resource type="BTRepeat" id="BTRepeat_8bx5h"]
+forever = true
+children = [SubResource("BTSequence_cdc5d")]
+
+[sub_resource type="BTSequence" id="BTSequence_8s3ni"]
+custom_name = "Patrol"
+children = [SubResource("BTRepeat_8bx5h")]
+
+[sub_resource type="BTDynamicSelector" id="BTDynamicSelector_nr8mx"]
+children = [SubResource("BTSequence_ccnsm"), SubResource("BTSequence_hp6t1"), SubResource("BTSequence_8s3ni")]
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_a3hag")
+root_task = SubResource("BTDynamicSelector_nr8mx")

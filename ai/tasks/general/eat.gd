@@ -23,9 +23,8 @@ func _enter() -> void:
 
 # Called each time this task is ticked (aka executed).
 func _tick(delta: float) -> Status:
-	if target == null:
-		return FAILURE
-	if blackboard.get_var(&"is_hungry") == false:
+
+	if target == null or blackboard.get_var(&"is_hungry") == false:
 		return SUCCESS
 	var amount = stat_component.eat(delta)
 	target.consume(amount)

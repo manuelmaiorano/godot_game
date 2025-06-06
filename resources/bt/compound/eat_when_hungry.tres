@@ -1,0 +1,67 @@
+[gd_resource type="BehaviorTree" load_steps=20 format=3 uid="uid://c6bxkartl2u1q"]
+
+[ext_resource type="Script" uid="uid://tvbmr22qeln2" path="res://ai/tasks/general/go_towards_food_target.gd" id="1_yay7t"]
+[ext_resource type="Script" uid="uid://c5q31mejwxhpb" path="res://ai/tasks/general/eat.gd" id="2_fvakk"]
+[ext_resource type="Script" uid="uid://181espjliyve" path="res://ai/tasks/general/try_find_nearby_food.gd" id="3_p0sew"]
+[ext_resource type="Script" uid="uid://c6ce2r4i7v2os" path="res://ai/tasks/general/go_random_direction.gd" id="4_1q445"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_yay7t"]
+
+[sub_resource type="BBVariant" id="BBVariant_poa0m"]
+type = 1
+saved_value = true
+resource_name = "true"
+
+[sub_resource type="BTCheckVar" id="BTCheckVar_kukbl"]
+variable = &"is_hungry"
+value = SubResource("BBVariant_poa0m")
+
+[sub_resource type="BBVariant" id="BBVariant_xfhia"]
+saved_value = null
+resource_name = "<null>"
+
+[sub_resource type="BTCheckVar" id="BTCheckVar_u7huc"]
+variable = &"food_target"
+check_type = 5
+value = SubResource("BBVariant_xfhia")
+
+[sub_resource type="BTAction" id="BTAction_0sbtc"]
+script = ExtResource("1_yay7t")
+min_distance = 1.0
+move_anim_tree_state = &"run"
+
+[sub_resource type="BTAction" id="BTAction_ret84"]
+script = ExtResource("2_fvakk")
+eat_anim_tree_state = &""
+
+[sub_resource type="BTAction" id="BTAction_gr1kv"]
+script = ExtResource("3_p0sew")
+
+[sub_resource type="BTSequence" id="BTSequence_qriek"]
+children = [SubResource("BTCheckVar_u7huc"), SubResource("BTAction_0sbtc"), SubResource("BTAction_ret84"), SubResource("BTAction_gr1kv")]
+
+[sub_resource type="BTAction" id="BTAction_qo2gu"]
+script = ExtResource("4_1q445")
+move_anim_tree_state = &"run"
+
+[sub_resource type="BTTimeLimit" id="BTTimeLimit_4g3if"]
+time_limit = 7.0
+children = [SubResource("BTAction_qo2gu")]
+
+[sub_resource type="BTRepeat" id="BTRepeat_uxrpy"]
+forever = true
+children = [SubResource("BTTimeLimit_4g3if")]
+
+[sub_resource type="BTSequence" id="BTSequence_gw8a0"]
+children = [SubResource("BTRepeat_uxrpy")]
+
+[sub_resource type="BTDynamicSelector" id="BTDynamicSelector_svtvj"]
+children = [SubResource("BTSequence_qriek"), SubResource("BTSequence_gw8a0")]
+
+[sub_resource type="BTSequence" id="BTSequence_bawk5"]
+custom_name = "EatWhenHungry"
+children = [SubResource("BTCheckVar_kukbl"), SubResource("BTDynamicSelector_svtvj")]
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_yay7t")
+root_task = SubResource("BTSequence_bawk5")

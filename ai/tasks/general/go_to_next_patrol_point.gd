@@ -33,5 +33,5 @@ func _tick(delta: float) -> Status:
 		blackboard.set_var("patrol_point_idx", current_point_index)
 		return SUCCESS
 		
-	agent.move_towards(delta, patrol_points[current_point_index].global_position)
+	agent.move_towards(delta, patrol_points[current_point_index].global_position, false, false)
 	return RUNNING

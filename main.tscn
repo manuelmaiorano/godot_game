@@ -1,10 +1,13 @@
-[gd_scene load_steps=11 format=3 uid="uid://dkk0f5wj0at7x"]
+[gd_scene load_steps=14 format=3 uid="uid://dkk0f5wj0at7x"]
 
 [ext_resource type="PackedScene" uid="uid://cjca6mx3264lj" path="res://scenes/player/player.tscn" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://dpswfe7dkn232" path="res://scenes/gameloop/gameloop.tscn" id="1_ycdy4"]
 [ext_resource type="PackedScene" uid="uid://cun5hi2ne8vti" path="res://scenes/ui/ui.tscn" id="5_7mycd"]
 [ext_resource type="PackedScene" uid="uid://cmskmuufwfvw6" path="res://scenes/interactable/Food.tscn" id="5_lquwl"]
+[ext_resource type="PackedScene" uid="uid://bhw884mxsuvea" path="res://scenes/wackyenemies/knight.tscn" id="6_5vw27"]
 [ext_resource type="PackedScene" uid="uid://byyvlii6hkmwh" path="res://scenes/wackyenemies/biteguy.tscn" id="6_7mycd"]
+[ext_resource type="PackedScene" uid="uid://bposrsr7ekfv6" path="res://scenes/wackyenemies/roll_guy.tscn" id="7_272bh"]
+[ext_resource type="PackedScene" uid="uid://dypxun2hmd5ba" path="res://scenes/interactable/item.tscn" id="9_kek77"]
 [ext_resource type="PackedScene" uid="uid://bv37dfiqpjay6" path="res://scenes/interactable/spaceship.tscn" id="12_ycdy4"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0xm2m"]
@@ -25,6 +28,10 @@ albedo_color = Color(0.31, 0.31, 0.31, 1)
 
 [node name="main" type="Node3D"]
 
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
 [node name="Gameloop" parent="." instance=ExtResource("1_ycdy4")]
 
 [node name="UI" parent="." instance=ExtResource("5_7mycd")]
@@ -33,58 +40,34 @@ albedo_color = Color(0.31, 0.31, 0.31, 1)
 environment = SubResource("Environment_1bvp3")
 
 [node name="Player" parent="." instance=ExtResource("1_ig7tw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.96061, 0.502813, 4.32285)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 218.242, 37.0591, -136.413)
 metadata/_edit_group_ = true
 
 [node name="Spaceship" parent="." instance=ExtResource("12_ycdy4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 223.379, 37.0563, -141.574)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60.7314, 0, -16.1047)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 66.2413, 0, -32.8395)
 use_collision = true
-size = Vector3(260.757, 1, 260.312)
+size = Vector3(373.737, 1, 334.854)
+material = SubResource("StandardMaterial3D_1bvp3")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 223.292, 17.8576, -136.658)
+use_collision = true
+size = Vector3(24.0584, 38.3973, 23.2903)
+material = SubResource("StandardMaterial3D_1bvp3")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="."]
+transform = Transform3D(0.540916, 0.841077, 0, -0.841077, 0.540916, 0, 0, 0, 1, 185.86, 6.10007, -136.658)
+use_collision = true
+size = Vector3(24.0584, 77.2387, 23.2903)
 material = SubResource("StandardMaterial3D_1bvp3")
 
 [node name="Food" type="Node3D" parent="."]
 
 [node name="Food" parent="Food" instance=ExtResource("5_lquwl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 97.8758, 1, 2.29286)
-
-[node name="Food4" parent="Food" instance=ExtResource("5_lquwl")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 171.932, 1, 4.15522)
-
-[node name="Food5" parent="Food" instance=ExtResource("5_lquwl")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 134.472, 1.00001, 77.7856)
-
-[node name="Food6" parent="Food" instance=ExtResource("5_lquwl")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50.6589, 0.999992, 68.4773)
-
-[node name="Food7" parent="Food" instance=ExtResource("5_lquwl")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.2332, 0.999985, -15.7485)
-
-[node name="Food8" parent="Food" instance=ExtResource("5_lquwl")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.2665, 1, -82.732)
-
-[node name="Food9" parent="Food" instance=ExtResource("5_lquwl")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 145.981, 1, -70.6097)
-
-[node name="Food10" parent="Food" instance=ExtResource("5_lquwl")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 94.7819, 1, -74.3473)
-
-[node name="Food11" parent="Food" instance=ExtResource("5_lquwl")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.23395, 1, -50.9929)
-
-[node name="Food12" parent="Food" instance=ExtResource("5_lquwl")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.6716, 1, 41.9113)
-
-[node name="Food13" parent="Food" instance=ExtResource("5_lquwl")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 113.334, 0.999985, 66.5384)
-
-[node name="Food14" parent="Food" instance=ExtResource("5_lquwl")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 155.407, 1, -40.0934)
-
-[node name="Food15" parent="Food" instance=ExtResource("5_lquwl")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 157.789, 0.999985, 44.388)
 
 [node name="Food2" parent="Food" instance=ExtResource("5_lquwl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 71.2358, 0.999985, -13.5168)
@@ -94,33 +77,73 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 71.5259, 0.999992, 20.17)
 
 [node name="NPCs" type="Node3D" parent="."]
 
-[node name="BiteGuy" parent="NPCs" node_paths=PackedStringArray("patrol_points") instance=ExtResource("6_7mycd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 53.3774, 0.504727, -9.48357)
-antagonist_groups = Array[StringName]([&"knights"])
-patrol_points = [NodePath("../../PatrolPoints/Marker3D"), NodePath("../../PatrolPoints/Marker3D2")]
+[node name="knights" type="Node3D" parent="NPCs"]
+
+[node name="Knight" parent="NPCs/knights" node_paths=PackedStringArray("patrol_points") instance=ExtResource("6_5vw27")]
+patrol_points = [NodePath("../../../PatrolPoints/Marker3D"), NodePath("../../../PatrolPoints/Marker3D2"), NodePath("../../../PatrolPoints/Marker3D4")]
+
+[node name="Knight2" parent="NPCs/knights" node_paths=PackedStringArray("patrol_points") instance=ExtResource("6_5vw27")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -121.362)
+patrol_points = [NodePath("../../../PatrolPoints/Marker3D"), NodePath("../../../PatrolPoints/Marker3D3"), NodePath("../../../PatrolPoints/Marker3D3"), NodePath("../../../PatrolPoints/Marker3D4")]
+
+[node name="Knight5" parent="NPCs/knights" node_paths=PackedStringArray("patrol_points") instance=ExtResource("6_5vw27")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.0923, 0, -43.3024)
+patrol_points = [NodePath("../../../PatrolPoints/Marker3D4"), NodePath("../../../PatrolPoints/Marker3D3")]
+
+[node name="Knight3" parent="NPCs/knights" node_paths=PackedStringArray("patrol_points") instance=ExtResource("6_5vw27")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -65.8558, 0, -121.362)
+patrol_points = [NodePath("../../../PatrolPoints/Marker3D4"), NodePath("../../../PatrolPoints/Marker3D2")]
+
+[node name="Knight4" parent="NPCs/knights" node_paths=PackedStringArray("patrol_points") instance=ExtResource("6_5vw27")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -65.8558, 0, -7.15619)
+patrol_points = [NodePath("../../../PatrolPoints/Marker3D4"), NodePath("../../../PatrolPoints/Marker3D")]
+
+[node name="animals" type="Node3D" parent="NPCs"]
+
+[node name="BiteGuy" parent="NPCs/animals" node_paths=PackedStringArray("patrol_points") instance=ExtResource("6_7mycd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 139.494, 0.504727, -72.6271)
+antagonist_groups = Array[StringName]([&"knights", &"animals"])
+patrol_points = [NodePath("../../../PatrolPoints/Marker3D"), NodePath("../../../PatrolPoints/Marker3D2")]
 metadata/_edit_group_ = true
 
-[node name="BiteGuy2" parent="NPCs" node_paths=PackedStringArray("patrol_points") instance=ExtResource("6_7mycd")]
-process_mode = 4
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78.0293, 0.504725, 1.92206)
+[node name="BiteGuy2" parent="NPCs/animals" node_paths=PackedStringArray("patrol_points") instance=ExtResource("6_7mycd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 160.498, 0.504725, 1.92206)
 antagonist_groups = Array[StringName]([&"knights"])
-patrol_points = [NodePath("../../PatrolPoints/Marker3D"), NodePath("../../PatrolPoints/Marker3D4")]
+patrol_points = [NodePath("../../../PatrolPoints/Marker3D"), NodePath("../../../PatrolPoints/Marker3D4")]
 metadata/_edit_group_ = true
+
+[node name="BiteGuy3" parent="NPCs/animals" node_paths=PackedStringArray("patrol_points") instance=ExtResource("6_7mycd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 211.706, 0.504725, 27.7145)
+antagonist_groups = Array[StringName]([&"knights"])
+patrol_points = [NodePath("../../../PatrolPoints/Marker3D"), NodePath("../../../PatrolPoints/Marker3D4")]
+metadata/_edit_group_ = true
+
+[node name="RollGuy" parent="NPCs/animals" instance=ExtResource("7_272bh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 151.111, 0.5425, -21.2128)
+
+[node name="RollGuy2" parent="NPCs/animals" instance=ExtResource("7_272bh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 196.341, 0.5425, -55.9579)
+
+[node name="RollGuy3" parent="NPCs/animals" instance=ExtResource("7_272bh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 168.894, 0.5425, -110.914)
 
 [node name="PatrolPoints" type="Node3D" parent="."]
 
 [node name="Marker3D" type="Marker3D" parent="PatrolPoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54.3001, 0.5, -11.5753)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 171.395, 0.5, -11.5753)
 gizmo_extents = 4.85
 
 [node name="Marker3D2" type="Marker3D" parent="PatrolPoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 89.0896, 0.5, -11.5753)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 214.907, 0.5, -11.5753)
 gizmo_extents = 4.85
 
 [node name="Marker3D3" type="Marker3D" parent="PatrolPoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 89.0896, 0.5, -41.2322)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 189.168, 0.5, -102.079)
 gizmo_extents = 4.85
 
 [node name="Marker3D4" type="Marker3D" parent="PatrolPoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 59.1574, 0.5, -41.2322)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 122.066, 0.5, -128.518)
 gizmo_extents = 4.85
+
+[node name="Item" parent="." instance=ExtResource("9_kek77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.9903, 0.510952, -49.5132)

@@ -1,10 +1,15 @@
-[gd_resource type="BehaviorTree" load_steps=29 format=3 uid="uid://8bnuyn34db0p"]
+[gd_resource type="BehaviorTree" load_steps=56 format=3 uid="uid://8bnuyn34db0p"]
 
+[ext_resource type="Script" uid="uid://ced8gxwab1rlb" path="res://ai/tasks/general/evade_target.gd" id="1_ms1tu"]
 [ext_resource type="Script" uid="uid://dfc34t1x6mr2d" path="res://ai/tasks/biteguy/attach.gd" id="1_y604q"]
 [ext_resource type="Script" uid="uid://co3b640qc2sgl" path="res://ai/tasks/rollguy/attack_target_rollguy.gd" id="2_y604q"]
 [ext_resource type="Script" uid="uid://0iyt8orb6i2p" path="res://ai/tasks/general/investigate_position.gd" id="3_ci6v3"]
 [ext_resource type="Script" uid="uid://cf3ajn1p71af3" path="res://ai/tasks/general/stand_idle.gd" id="4_go5tb"]
 [ext_resource type="Script" uid="uid://ctvf6ck11ej54" path="res://ai/tasks/general/go_to_next_patrol_point.gd" id="5_06vx3"]
+[ext_resource type="Script" uid="uid://tvbmr22qeln2" path="res://ai/tasks/general/go_towards_food_target.gd" id="6_ms1tu"]
+[ext_resource type="Script" uid="uid://c5q31mejwxhpb" path="res://ai/tasks/general/eat.gd" id="7_8yedm"]
+[ext_resource type="Script" uid="uid://181espjliyve" path="res://ai/tasks/general/try_find_nearby_food.gd" id="8_6wsb3"]
+[ext_resource type="Script" uid="uid://c6ce2r4i7v2os" path="res://ai/tasks/general/go_random_direction.gd" id="9_s37yr"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_apb05"]
 var/is_attached/name = &"is_attached"
@@ -12,6 +17,33 @@ var/is_attached/type = 1
 var/is_attached/value = false
 var/is_attached/hint = 0
 var/is_attached/hint_string = ""
+
+[sub_resource type="BBVariant" id="BBVariant_y604q"]
+saved_value = null
+resource_name = "true"
+
+[sub_resource type="BTCheckVar" id="BTCheckVar_xmijk"]
+variable = &"target"
+check_type = 5
+value = SubResource("BBVariant_y604q")
+
+[sub_resource type="BBVariant" id="BBVariant_6wsb3"]
+type = 3
+saved_value = 0.5
+resource_name = "0.5"
+
+[sub_resource type="BTCheckVar" id="BTCheckVar_s37yr"]
+variable = &"hunger_level"
+check_type = 1
+value = SubResource("BBVariant_6wsb3")
+
+[sub_resource type="BTAction" id="BTAction_ci6v3"]
+script = ExtResource("1_ms1tu")
+move_anim_tree_state = &"run"
+
+[sub_resource type="BTSequence" id="BTSequence_ci6v3"]
+custom_name = "EvadeTarget"
+children = [SubResource("BTCheckVar_xmijk"), SubResource("BTCheckVar_s37yr"), SubResource("BTAction_ci6v3")]
 
 [sub_resource type="BBVariant" id="BBVariant_ms1tu"]
 type = 1
@@ -30,14 +62,25 @@ follow_speed = 10.0
 [sub_resource type="BTSequence" id="BTSequence_s37yr"]
 custom_name = "AttachedToBigTarget"
 children = [SubResource("BTCheckVar_8yedm"), SubResource("BTAction_6wsb3")]
+_enabled = false
 
-[sub_resource type="BBVariant" id="BBVariant_de6g6"]
+[sub_resource type="BBVariant" id="BBVariant_8yedm"]
 saved_value = null
 resource_name = "<null>"
 
-[sub_resource type="BTCheckVar" id="BTCheckVar_3g2au"]
+[sub_resource type="BTCheckVar" id="BTCheckVar_6wsb3"]
 variable = &"target"
 check_type = 5
+value = SubResource("BBVariant_8yedm")
+
+[sub_resource type="BBVariant" id="BBVariant_de6g6"]
+type = 3
+saved_value = 0.5
+resource_name = "0.5"
+
+[sub_resource type="BTCheckVar" id="BTCheckVar_3g2au"]
+variable = &"hunger_level"
+check_type = 4
 value = SubResource("BBVariant_de6g6")
 
 [sub_resource type="BTAction" id="BTAction_xmijk"]
@@ -49,7 +92,7 @@ distance_to_kill = 1.0
 
 [sub_resource type="BTSequence" id="BTSequence_mhj6h"]
 custom_name = "AttackTarget"
-children = [SubResource("BTCheckVar_3g2au"), SubResource("BTAction_xmijk")]
+children = [SubResource("BTCheckVar_6wsb3"), SubResource("BTCheckVar_3g2au"), SubResource("BTAction_xmijk")]
 
 [sub_resource type="BBVariant" id="BBVariant_sbaqa"]
 saved_value = null
@@ -79,6 +122,62 @@ children = [SubResource("BTSequence_udyk7")]
 [sub_resource type="BTSequence" id="BTSequence_lue8v"]
 custom_name = "InvestigateLastKnownPosition"
 children = [SubResource("BTCheckVar_rco11"), SubResource("BTTimeLimit_mpgib")]
+_enabled = false
+
+[sub_resource type="BBVariant" id="BBVariant_3g2au"]
+type = 1
+saved_value = true
+resource_name = "true"
+
+[sub_resource type="BTCheckVar" id="BTCheckVar_huop6"]
+variable = &"is_hungry"
+value = SubResource("BBVariant_3g2au")
+
+[sub_resource type="BBVariant" id="BBVariant_mhj6h"]
+saved_value = null
+resource_name = "<null>"
+
+[sub_resource type="BTCheckVar" id="BTCheckVar_sbaqa"]
+variable = &"food_target"
+check_type = 5
+value = SubResource("BBVariant_mhj6h")
+
+[sub_resource type="BTAction" id="BTAction_rco11"]
+script = ExtResource("6_ms1tu")
+min_distance = 1.0
+move_anim_tree_state = &"run"
+
+[sub_resource type="BTAction" id="BTAction_udyk7"]
+script = ExtResource("7_8yedm")
+eat_anim_tree_state = &""
+
+[sub_resource type="BTAction" id="BTAction_mpgib"]
+script = ExtResource("8_6wsb3")
+
+[sub_resource type="BTSequence" id="BTSequence_5mg1a"]
+children = [SubResource("BTCheckVar_sbaqa"), SubResource("BTAction_rco11"), SubResource("BTAction_udyk7"), SubResource("BTAction_mpgib")]
+
+[sub_resource type="BTAction" id="BTAction_3nb1j"]
+script = ExtResource("9_s37yr")
+move_anim_tree_state = &"run"
+
+[sub_resource type="BTTimeLimit" id="BTTimeLimit_grxsn"]
+time_limit = 7.0
+children = [SubResource("BTAction_3nb1j")]
+
+[sub_resource type="BTRepeat" id="BTRepeat_l2w0h"]
+forever = true
+children = [SubResource("BTTimeLimit_grxsn")]
+
+[sub_resource type="BTSequence" id="BTSequence_gmr33"]
+children = [SubResource("BTRepeat_l2w0h")]
+
+[sub_resource type="BTDynamicSelector" id="BTDynamicSelector_f0idt"]
+children = [SubResource("BTSequence_5mg1a"), SubResource("BTSequence_gmr33")]
+
+[sub_resource type="BTSequence" id="BTSequence_qpemh"]
+custom_name = "EatWhenHungry"
+children = [SubResource("BTCheckVar_huop6"), SubResource("BTDynamicSelector_f0idt")]
 
 [sub_resource type="BTAction" id="BTAction_5mg1a"]
 script = ExtResource("5_06vx3")
@@ -105,7 +204,7 @@ custom_name = "Patrol"
 children = [SubResource("BTRepeat_7wxly")]
 
 [sub_resource type="BTDynamicSelector" id="BTDynamicSelector_gmr33"]
-children = [SubResource("BTSequence_s37yr"), SubResource("BTSequence_mhj6h"), SubResource("BTSequence_lue8v"), SubResource("BTSequence_l2w0h")]
+children = [SubResource("BTSequence_ci6v3"), SubResource("BTSequence_s37yr"), SubResource("BTSequence_mhj6h"), SubResource("BTSequence_lue8v"), SubResource("BTSequence_qpemh"), SubResource("BTSequence_l2w0h")]
 
 [resource]
 blackboard_plan = SubResource("BlackboardPlan_apb05")

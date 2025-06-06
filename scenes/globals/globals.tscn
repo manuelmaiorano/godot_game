@@ -5,4 +5,3 @@
 [node name="Globals" type="Node"]
 process_mode = 3
 script = ExtResource("1_ptmw4")
-debug_mode = true

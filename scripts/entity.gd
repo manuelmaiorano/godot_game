@@ -15,6 +15,7 @@ class_name BaseAgent
 @export var vision_cone: Node3D
 @export var debug_mode: bool = false
 @export var entity_size: EntitySize = EntitySize.SMALL
+@export var food_chain_idx = 0
 
 @onready var gravity = ProjectSettings.get_setting("physics/3d/default_gravity") * ProjectSettings.get_setting("physics/3d/default_gravity_vector")
 
@@ -61,7 +62,6 @@ func _ready():
 	for area in trigger_areas:
 		area.body_entered.connect(_on_body_sighted)
 		area.body_exited.connect(_on_body_hidden)
-		
 
 
 func _on_body_sighted(body: Node3D) -> void:
@@ -212,6 +212,7 @@ func take_explosion_damage(velocity, damage):
 			hip_bone.apply_central_impulse(velocity)
 			
 func die():
+	print("%s died" % name)
 	reduce_health(hp)
 	is_dead = true
 	dead.emit()
@@ -234,26 +235,40 @@ func ragdoll():
 	skeleton_modifier.physical_bones_start_simulation()
 	
 
+#func set_antagonists(value):
+	#antagonist_groups = value
+	#target_list = {}
+	#for body in vision_cone.get_visible_bodies():
+		#if body == self or body.is_dead:
+			#return
+	#
+		#if not check_if_antagonist(body):
+			#return
+		#var info = TargetInfo.new()
+		#info.visible = true
+		#target_list[body] = info
+		#
+	#target_list_changed.emit(target_list)
+
 func set_antagonists(value):
-	antagonist_groups = value
-	target_list = {}
-	for body in vision_cone.get_visible_bodies():
-		if body == self or body.is_dead:
-			return
-	
-		if not check_if_antagonist(body):
-			return
-		var info = TargetInfo.new()
-		info.visible = true
-		target_list[body] = info
-		
-	target_list_changed.emit(target_list)
+	pass
+
+#func check_if_antagonist(body):
+	#for group in body.get_groups():
+		#if antagonist_groups.find(group) > -1:
+			#return true
+	#return false
 
 func check_if_antagonist(body):
-	for group in body.get_groups():
-		if antagonist_groups.find(group) > -1:
+	if body.get_groups()[0] != self.get_groups()[0]:
 			return true
 	return false
+	
+func check_if_prey(other: BaseAgent):
+	return food_chain_idx < other.food_chain_idx
+
+func check_if_predator(other: BaseAgent):
+	return food_chain_idx > other.food_chain_idx
 	
 func disable_collision():
 	$CollisionShape3D.disabled = true
