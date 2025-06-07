@@ -4,7 +4,7 @@ extends Node
 
 @export var initial_hunger: float = 0
 
-@export var time_to_get_hungry_seconds: int = 200
+@export var time_to_get_hungry_seconds: int = 70
 @export var time_to_eat_seconds: int = 10
 
 var hunger = 0

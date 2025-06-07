@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://bp8m7gx8fqa1f"]
+
+[ext_resource type="PackedScene" uid="uid://cmskmuufwfvw6" path="res://scenes/interactable/Food.tscn" id="1_q4qph"]
+
+[node name="FoodCluster" type="Node3D"]
+
+[node name="Food" parent="." instance=ExtResource("1_q4qph")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.30264, 1, 2.29286)
+
+[node name="Food2" parent="." instance=ExtResource("1_q4qph")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.32454, 0.999985, -8.81095)
+
+[node name="Food3" parent="." instance=ExtResource("1_q4qph")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.93716, 0.999992, 7.95116)

@@ -87,8 +87,8 @@ value = SubResource("BBVariant_de6g6")
 script = ExtResource("2_y604q")
 move_anim_tree_state = &"run"
 roll_anim_tree_state = &"roll"
-distance_to_start_rolling = 10.0
-distance_to_kill = 1.0
+distance_to_start_rolling = 5.0
+distance_to_kill = 2.0
 
 [sub_resource type="BTSequence" id="BTSequence_mhj6h"]
 custom_name = "AttackTarget"
@@ -152,6 +152,7 @@ script = ExtResource("7_8yedm")
 eat_anim_tree_state = &""
 
 [sub_resource type="BTAction" id="BTAction_mpgib"]
+_enabled = false
 script = ExtResource("8_6wsb3")
 
 [sub_resource type="BTSequence" id="BTSequence_5mg1a"]

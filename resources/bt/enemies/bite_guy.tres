@@ -103,7 +103,7 @@ resource_name = "0.5"
 
 [sub_resource type="BTCheckVar" id="BTCheckVar_72svu"]
 variable = &"hunger_level"
-check_type = 1
+check_type = 3
 value = SubResource("BBVariant_qdtx0")
 
 [sub_resource type="BTAction" id="BTAction_6k1yw"]
@@ -130,7 +130,7 @@ resource_name = "0.5"
 
 [sub_resource type="BTCheckVar" id="BTCheckVar_la2tq"]
 variable = &"hunger_level"
-check_type = 4
+check_type = 2
 value = SubResource("BBVariant_0o78l")
 
 [sub_resource type="BTAction" id="BTAction_2tupo"]
@@ -201,6 +201,7 @@ script = ExtResource("7_0o78l")
 eat_anim_tree_state = &""
 
 [sub_resource type="BTAction" id="BTAction_v1iuk"]
+_enabled = false
 script = ExtResource("8_la2tq")
 
 [sub_resource type="BTSequence" id="BTSequence_6k1yw"]

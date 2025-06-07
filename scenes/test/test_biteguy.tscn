@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://dgxp2gmf3fv54"]
 
-[ext_resource type="PackedScene" uid="uid://0xnk1iydrnbm" path="res://scenes/wackyenemies/giant.tscn" id="3_s7uom"]
+[ext_resource type="PackedScene" uid="uid://bhw884mxsuvea" path="res://scenes/wackyenemies/knight.tscn" id="2_s7uom"]
 [ext_resource type="PackedScene" uid="uid://cjca6mx3264lj" path="res://scenes/player/player.tscn" id="3_xflel"]
 [ext_resource type="PackedScene" uid="uid://byyvlii6hkmwh" path="res://scenes/wackyenemies/biteguy.tscn" id="4_hebpx"]
 
@@ -20,7 +20,7 @@ glow_enabled = true
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_brt7b"]
 albedo_color = Color(0.35, 0.35, 0.35, 1)
 
-[node name="TestKnight" type="Node3D"]
+[node name="TestBiteguy" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_1n4ve")
@@ -30,7 +30,7 @@ transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -
 shadow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("3_xflel")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4595, 0.502828, 24.8788)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.0674, 0.502828, 34.9468)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.84167, 0, -7.69952)
@@ -38,23 +38,20 @@ use_collision = true
 size = Vector3(39.9192, 1, 93.9965)
 material = SubResource("StandardMaterial3D_brt7b")
 
-[node name="BiteGuy" parent="." node_paths=PackedStringArray("patrol_points") instance=ExtResource("4_hebpx")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.82488, 0.504726, -32.8809)
-collision_layer = 2
-patrol_points = [NodePath("../PatrolPoints/Marker3D"), NodePath("../PatrolPoints/Marker3D2")]
-
-[node name="Giant" parent="." node_paths=PackedStringArray("patrol_points") instance=ExtResource("3_s7uom")]
-process_mode = 4
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.012, 0.542498, -33.1423)
-antagonist_groups = Array[StringName]([&"player"])
-patrol_points = [NodePath("../PatrolPoints/Marker3D")]
-
 [node name="PatrolPoints" type="Node3D" parent="."]
 
 [node name="Marker3D" type="Marker3D" parent="PatrolPoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.3581, 0.5, -33.4357)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.195121, 0.5, -21.4826)
 gizmo_extents = 11.35
 
 [node name="Marker3D2" type="Marker3D" parent="PatrolPoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.38501, 0.5, -33.4357)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.135136, 0.5, -11.1167)
 gizmo_extents = 11.35
+
+[node name="Knight" parent="." node_paths=PackedStringArray("patrol_points") instance=ExtResource("2_s7uom")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.684634, -28.6334)
+patrol_points = [NodePath("../PatrolPoints/Marker3D"), NodePath("../PatrolPoints/Marker3D2")]
+
+[node name="BiteGuy" parent="." node_paths=PackedStringArray("patrol_points") instance=ExtResource("4_hebpx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -20.0214)
+patrol_points = [NodePath("../PatrolPoints/Marker3D"), NodePath("../PatrolPoints/Marker3D2")]

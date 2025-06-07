@@ -13,6 +13,16 @@ func _ready() -> void:
 	bt.blackboard.set_var("target", null)
 	bt.blackboard.set_var("last_known_target_position", null)
 	bt.blackboard.set_var("last_time_seen", null)
+	schedule_dead_check(2)
+
+func schedule_dead_check(timeout):
+	while true:
+		await agent.get_tree().create_timer(timeout).timeout
+		var current_target = bt.blackboard.get_var("target")
+		if current_target == null:
+			continue
+		if current_target.is_dead:
+			bt.blackboard.set_var("target", null)
 	
 	
 func on_target_list_changed(target_list: Dictionary[Node3D, BaseAgent.TargetInfo]):

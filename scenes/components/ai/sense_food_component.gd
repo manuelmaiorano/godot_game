@@ -7,6 +7,14 @@ extends Node
 func _ready() -> void:
 	bt.blackboard.set_var(&"food_target", null)
 	detect_area.area_entered.connect(_on_food_area_entered)
+	schedule_check_nearby_food(2)
+
+func schedule_check_nearby_food(timeout):
+	while true:
+		await agent.get_tree().create_timer(timeout).timeout
+		var current_target =  bt.blackboard.get_var(&"food_target") 
+		if current_target == null:
+			try_set_nearby_food()
 	
 func _on_food_area_entered(area: Area3D) -> void:
 	var current_target =  bt.blackboard.get_var(&"food_target") 

@@ -23,11 +23,12 @@ func _enter() -> void:
 	schedule_direction_updates()
 
 func schedule_direction_updates():
-	await agent.get_tree().create_timer(1).timeout
-	var target = blackboard.get_var(&"target")
-	if target == null:
-		return
-	direction = target.global_position - agent.global_position
+	while true:
+		await agent.get_tree().create_timer(1).timeout
+		var target = blackboard.get_var(&"target")
+		if target == null:
+			return
+		direction = target.global_position - agent.global_position
 	
 # Called each time this task is ticked (aka executed).
 func _tick(delta: float) -> Status:

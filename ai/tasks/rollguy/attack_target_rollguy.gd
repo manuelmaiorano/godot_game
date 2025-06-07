@@ -20,6 +20,9 @@ func _enter() -> void:
 	started_rolling = false
 	target = blackboard.get_var("target")
 	agent.animation_tree["parameters/Transition/transition_request"] = move_anim_tree_state
+	
+func _exit() -> void:
+	agent.reset_rotation()
 
 # Called each time this task is ticked (aka executed).
 func _tick(delta: float) -> Status:

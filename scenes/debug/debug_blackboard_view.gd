@@ -1,7 +1,6 @@
 extends Node3D
 
 @export var agent: BaseAgent
-@export var stat_component: Node
 @export var bt: BTPlayer
 
 func _ready() -> void:
@@ -14,8 +13,9 @@ func _process(delta: float) -> void:
 	
 func get_info():
 	return "hunger: %.3f; is_hungry: %s; food_target: %s; npc_target: %s" % \
-	[stat_component.hunger,
-	 bt.blackboard.get_var(&"is_hungry"),
-	 bt.blackboard.get_var(&"food_target"),
-	 bt.blackboard.get_var(&"target", null),
+	[
+	 bt.blackboard.get_var(&"hunger_level", 0.0, false),
+	 bt.blackboard.get_var(&"is_hungry", null, false),
+	 bt.blackboard.get_var(&"food_target", null, false),
+	 bt.blackboard.get_var(&"target", null, false),
 	]

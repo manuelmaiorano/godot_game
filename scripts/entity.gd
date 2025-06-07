@@ -200,8 +200,9 @@ func take_damage(attaker, damage):
 	if hp <= 0:
 		die()
 		return true
-	
-	hit.emit(attaker)
+		
+	if check_if_antagonist(attaker):
+		hit.emit(attaker)
 	print("%s attacked %s" % [attaker.name, self.name])
 
 func take_explosion_damage(velocity, damage):
@@ -261,7 +262,7 @@ func set_antagonists(value):
 
 func check_if_antagonist(body):
 	if body.get_groups()[0] != self.get_groups()[0]:
-			return true
+		return true
 	return false
 	
 func check_if_prey(other: BaseAgent):

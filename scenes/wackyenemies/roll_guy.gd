@@ -13,3 +13,7 @@ func spikes():
 func roll_towards(delta, point):
 	move_towards(delta, point)
 	pivot.rotate_x(roll_speed * delta)
+	
+func reset_rotation():
+	pivot.rotation.x = 0
+	
