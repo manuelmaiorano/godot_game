@@ -1,12 +1,12 @@
 [gd_resource type="Resource" script_class="Tile" load_steps=3 format=3 uid="uid://b66dhqiqf3llf"]
 
-[ext_resource type="PackedScene" uid="uid://bafh2cm8biq0s" path="res://assets/models/tiles/tile3.glb" id="1_361jn"]
-[ext_resource type="Script" uid="uid://cohipp34rdoj7" path="res://scripts/random_map_generation/tile_resource.gd" id="1_k1pjv"]
+[ext_resource type="PackedScene" uid="uid://bafh2cm8biq0s" path="res://assets/models/tiles/tile3.glb" id="1_v4fj7"]
+[ext_resource type="Script" uid="uid://cohipp34rdoj7" path="res://scripts/random_map_generation/tile_resource.gd" id="2_drf4y"]
 
 [resource]
-script = ExtResource("1_k1pjv")
+script = ExtResource("2_drf4y")
 id = 3
 edges = Array[int]([1, 0, 0, 1])
 debug_str = "/"
-scene = ExtResource("1_361jn")
+scene = ExtResource("1_v4fj7")
 metadata/_custom_type_script = "uid://cohipp34rdoj7"

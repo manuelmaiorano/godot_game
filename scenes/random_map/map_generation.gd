@@ -5,6 +5,8 @@ extends Node3D
 
 var current_map_step: RandomMapGeneration.MapStep = null
 
+var tile_frequency = {}
+
 func _ready() -> void:
 	pass
 
@@ -14,22 +16,27 @@ func populate_map():
 	var map = RandomMapGeneration.generate_map()
 	for row in map.size():
 		for column in map[0].size():
-			var tile = map[row][column]
-			add_tile(tile, row, column)
+			var step_res = map[row][column]
+			add_tile(step_res)
 	
 func _on_full_button_up() -> void:
 	populate_map()
+	print(tile_frequency)
 
 func clear():
+	tile_frequency = {}
 	current_map_step = null
 	for child in tiles.get_children():
 		child.queue_free()
 		
-func add_tile(tile: Tile, row, column):
+func add_tile(step_res: RandomMapGeneration.StepResult):
+	add_tile_freq_data(step_res.tile)
+	var tile = step_res.tile
 	var tile_scene = tile.scene
 	var instance = tile_scene.instantiate()
 	tiles.add_child(instance)
-	instance.global_position = Vector3(tile_size.x * column, 0, tile_size.y * row)
+	instance.global_position = Vector3(tile_size.x * step_res.col, 0, tile_size.y * step_res.row)
+	instance.rotate_y(deg_to_rad(step_res.rotation * 90))
 
 func _on_step_button_up() -> void:
 	if current_map_step == null:
@@ -42,6 +49,11 @@ func _on_step_button_up() -> void:
 		return
 	
 	var step_res = RandomMapGeneration.step_map(current_map_step)
-	add_tile(step_res.tile, step_res.row, step_res.col)
-	print(step_res.row, step_res.col)
+	add_tile(step_res)
+	
+func add_tile_freq_data(tile: Tile):
+	if tile_frequency.has(tile.id):
+		tile_frequency[tile.id] += 1
+	else:
+		tile_frequency[tile.id] = 1
 	
