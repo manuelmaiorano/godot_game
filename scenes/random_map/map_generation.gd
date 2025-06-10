@@ -31,12 +31,21 @@ func _on_step_button_up() -> void:
 
 func populate_map():
 	clear()
-		
+	
+	var exceptions = RandomMapGeneration.generate_guaranteed_path(0, 5, 9, 5)
 	var map = RandomMapGeneration.generate_map(exceptions)
 	for row in map.size():
 		for column in map[0].size():
 			var step_res = map[row][column]
 			add_tile(step_res)
+			
+	for exception in exceptions:
+		add_debug_mesh(exception)
+		
+func add_debug_mesh(exception):
+	var instance = preload("res://scripts/random_map_generation/debug_mesh.tscn").instantiate()
+	tiles.add_child(instance)
+	instance.global_position = Vector3(tile_size.x * exception.col, 0, tile_size.y * exception.row)
 
 func clear():
 	tile_frequency = {}
