@@ -49,7 +49,8 @@ var target_list: Dictionary[Node3D, TargetInfo]
 
 func _ready():
 	# Pre-initialize orientation transform.
-
+	set_ai_global_scope()
+	
 	hp = entity_stats.max_hp
 	if hp_bar:
 		hp_bar.set_health(1)
@@ -228,9 +229,11 @@ func attach_to(target):
 	disable_collision()
 	disable_ai()
 	reparent(target)
+	position = Vector3.ZERO
 
 
 func ragdoll():
+	return
 	animation_tree.active = false
 	skeleton_modifier.active = true
 	skeleton_modifier.physical_bones_start_simulation()
@@ -250,9 +253,11 @@ func ragdoll():
 		#target_list[body] = info
 		#
 	#target_list_changed.emit(target_list)
-
-func set_antagonists(value):
-	pass
+var is_antagonist_check_set = false
+var antagonist_check: Callable
+func set_antagonists_check(callable):
+	is_antagonist_check_set = true
+	antagonist_check = callable
 
 #func check_if_antagonist(body):
 	#for group in body.get_groups():
@@ -261,15 +266,10 @@ func set_antagonists(value):
 	#return false
 
 func check_if_antagonist(body):
-	if body.get_groups()[0] != self.get_groups()[0]:
-		return true
-	return false
-	
-func check_if_prey(other: BaseAgent):
-	return food_chain_idx < other.food_chain_idx
+	if is_antagonist_check_set:
+		return antagonist_check.call(body)
+	return body.get_groups()[0] != self.get_groups()[0]
 
-func check_if_predator(other: BaseAgent):
-	return food_chain_idx > other.food_chain_idx
 	
 func disable_collision():
 	$CollisionShape3D.disabled = true
@@ -283,3 +283,8 @@ func disable_ai():
 	for child in get_children():
 		if child is BTPlayer or child is LimboHSM:
 			child.set_active(false)
+			
+func set_ai_global_scope():
+	for child in get_children():
+		if child is BTPlayer:
+			child.blackboard.set_parent(WorldState.shared_scope)

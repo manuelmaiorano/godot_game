@@ -1,0 +1,57 @@
+[gd_scene load_steps=5 format=3 uid="uid://cxhw43rf72uut"]
+
+[ext_resource type="Script" uid="uid://r6sfp3al5lhc" path="res://scenes/random_map/map_generation.gd" id="1_snv1a"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_snv1a"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_6k45y"]
+sky_material = SubResource("ProceduralSkyMaterial_snv1a")
+
+[sub_resource type="Environment" id="Environment_c4imj"]
+background_mode = 2
+sky = SubResource("Sky_6k45y")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="MapGeneration" type="Node3D"]
+script = ExtResource("1_snv1a")
+tile_size = Vector2(20, 20)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_c4imj")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.524078, 0.13601, 0.84074, 0.689448, 0.647304, 0.325053, -0.500003, 0.749999, -0.43301, 0, 7.19063, 0)
+shadow_enabled = true
+
+[node name="Tiles" type="Node3D" parent="."]
+unique_name_in_owner = true
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Full" type="Button" parent="Control"]
+offset_left = 47.0
+offset_top = 58.0
+offset_right = 349.0
+offset_bottom = 95.0
+text = "Generate Map
+"
+
+[node name="Step" type="Button" parent="Control"]
+offset_left = 47.0
+offset_top = 114.0
+offset_right = 349.0
+offset_bottom = 151.0
+text = "Generate Step
+"
+
+[connection signal="button_up" from="Control/Full" to="." method="_on_full_button_up"]
+[connection signal="button_up" from="Control/Step" to="." method="_on_step_button_up"]

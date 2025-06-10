@@ -1,0 +1,18 @@
+[gd_scene load_steps=12 format=3 uid="uid://bnnu1xyp6vj3x"]
+
+[ext_resource type="Script" uid="uid://b7818br5dmra" path="res://scripts/random_map_generation/random_map_generation.gd" id="1_j4dna"]
+[ext_resource type="Script" uid="uid://cohipp34rdoj7" path="res://scripts/random_map_generation/tile_resource.gd" id="2_cwfqk"]
+[ext_resource type="Resource" uid="uid://bxw0fujjgasv1" path="res://scripts/random_map_generation/tile_resources/tile1.tres" id="3_scm23"]
+[ext_resource type="Resource" uid="uid://b240k6s24ikjl" path="res://scripts/random_map_generation/tile_resources/tile2.tres" id="4_xy5sx"]
+[ext_resource type="Resource" uid="uid://b66dhqiqf3llf" path="res://scripts/random_map_generation/tile_resources/tile3.tres" id="5_i2n4p"]
+[ext_resource type="Resource" uid="uid://cguplubsm57x2" path="res://scripts/random_map_generation/tile_resources/tile4.tres" id="6_n6gcr"]
+[ext_resource type="Resource" uid="uid://do3giv33kvhqe" path="res://scripts/random_map_generation/tile_resources/tile5.tres" id="7_scm23"]
+[ext_resource type="Resource" uid="uid://c8b0n4gwgwswv" path="res://scripts/random_map_generation/tile_resources/tile6.tres" id="8_i2n4p"]
+[ext_resource type="Resource" uid="uid://cnujic5n4pps5" path="res://scripts/random_map_generation/tile_resources/tile7.tres" id="9_n6gcr"]
+[ext_resource type="Resource" uid="uid://bsfujf18r4kt5" path="res://scripts/random_map_generation/tile_resources/tile8.tres" id="10_n6gcr"]
+[ext_resource type="Resource" uid="uid://dq85ng1fhprvn" path="res://scripts/random_map_generation/tile_resources/tile9.tres" id="11_cy0ba"]
+
+[node name="RandomMapGeneration" type="Node"]
+script = ExtResource("1_j4dna")
+tiles = Array[ExtResource("2_cwfqk")]([ExtResource("3_scm23"), ExtResource("4_xy5sx"), ExtResource("5_i2n4p"), ExtResource("6_n6gcr"), ExtResource("7_scm23"), ExtResource("8_i2n4p"), ExtResource("9_n6gcr"), ExtResource("10_n6gcr"), ExtResource("11_cy0ba")])
+size = Vector2i(10, 10)

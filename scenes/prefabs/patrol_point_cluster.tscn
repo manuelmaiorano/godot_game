@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://dhp2w8dl163qx"]
+
+[ext_resource type="PackedScene" uid="uid://cardb408gm2rn" path="res://scenes/interactable/PatrolPoint.tscn" id="1_v02pn"]
+
+[node name="PatrolPointCluster" type="Node3D"]
+
+[node name="PatrolPoint" parent="." instance=ExtResource("1_v02pn")]
+
+[node name="PatrolPoint2" parent="." instance=ExtResource("1_v02pn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -47.3072)
+
+[node name="PatrolPoint3" parent="." instance=ExtResource("1_v02pn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37.9332, 0, -47.3072)
+
+[node name="PatrolPoint4" parent="." instance=ExtResource("1_v02pn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.0599, 0, -9.79848)

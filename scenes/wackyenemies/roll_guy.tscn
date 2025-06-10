@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://bposrsr7ekfv6"]
+[gd_scene load_steps=26 format=3 uid="uid://bposrsr7ekfv6"]
 
 [ext_resource type="PackedScene" uid="uid://doj5g8bfjyh11" path="res://assets/models/rollingguy.glb" id="1_7nncw"]
 [ext_resource type="Script" uid="uid://c3j6uxyodb27m" path="res://scenes/wackyenemies/roll_guy.gd" id="1_dvbya"]
@@ -8,8 +8,10 @@
 [ext_resource type="PackedScene" uid="uid://dyriga41qx3tc" path="res://scenes/ui/health_bar.tscn" id="5_fmhqt"]
 [ext_resource type="Script" uid="uid://cmgcelj1qxg8o" path="res://addons/tattomoosa.vision_cone_3d/src/VisionCone3D.gd" id="5_xndqv"]
 [ext_resource type="PackedScene" uid="uid://cuko6flgho8ui" path="res://scenes/components/ai/StatsComponent.tscn" id="6_8ruxg"]
+[ext_resource type="PackedScene" uid="uid://duwx6outykkfk" path="res://scenes/components/ai/SensePatrolPointComponent.tscn" id="7_0jca1"]
 [ext_resource type="PackedScene" uid="uid://cq8ta0q06gohi" path="res://scenes/components/movement/avoid_edge_component.tscn" id="7_v6vaw"]
 [ext_resource type="PackedScene" uid="uid://b3d1ljpbp74ry" path="res://scenes/components/ai/TargetingComponent.tscn" id="7_xndqv"]
+[ext_resource type="PackedScene" uid="uid://duj3boyvoh0k1" path="res://scenes/components/ai/HitReactionComponent.tscn" id="8_0jca1"]
 [ext_resource type="PackedScene" uid="uid://crijjp2m7f3uc" path="res://scenes/debug/debug_blackboard_view.tscn" id="11_v6vaw"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_apb05"]
@@ -130,6 +132,15 @@ check_edge_raycast_l = NodePath("../PivotOrientation/CheckEdgeRaycastL")
 check_edge_raycast_r = NodePath("../PivotOrientation/CheckEdgeRaycastR")
 time_to_turn_on_edge = 0.1
 
+[node name="SensePatrolPointComponent" parent="." node_paths=PackedStringArray("agent", "bt", "detect_area") instance=ExtResource("7_0jca1")]
+agent = NodePath("..")
+bt = NodePath("../BTPlayer")
+detect_area = NodePath("../DetectArea")
+
+[node name="HitReactionComponent" parent="." node_paths=PackedStringArray("agent", "bt") instance=ExtResource("8_0jca1")]
+agent = NodePath("..")
+bt = NodePath("../BTPlayer")
+
 [node name="HealthBar" parent="." instance=ExtResource("5_fmhqt")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -150,18 +161,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.515196, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.486853, 0)
 
 [node name="Skeleton3D" parent="PivotOrientation/PivotSpin/rollingguy/Armature_001" index="0"]
-bones/1/position = Vector3(0.385226, 0.407386, -0.113603)
-bones/1/rotation = Quaternion(-8.67924e-08, 0.969625, -0.244594, 2.228e-07)
-bones/2/rotation = Quaternion(5.08624e-07, -7.45403e-23, 1, -1.46553e-16)
+bones/1/position = Vector3(0.385226, 0.223394, -0.0833275)
+bones/1/rotation = Quaternion(-9.08031e-08, 0.996304, -0.0858981, 2.03628e-07)
+bones/2/rotation = Quaternion(5.08624e-07, -6.06853e-22, 1, -1.19313e-15)
 bones/3/rotation = Quaternion(1.05802e-07, 0.964626, 0.263622, -7.28273e-08)
 bones/4/rotation = Quaternion(1, -1.74047e-14, -4.33126e-07, -7.21775e-08)
-bones/6/position = Vector3(0.385226, 0.407386, -0.113603)
-bones/6/rotation = Quaternion(-9.54841e-08, 0.969625, -0.244594, 1.88793e-07)
-bones/8/position = Vector3(-0.385226, -1.12892, -0.271101)
-bones/9/rotation = Quaternion(-2.33934e-07, 0.871388, 0.490595, 4.1551e-07)
+bones/6/position = Vector3(0.385226, 0.223394, -0.0833275)
+bones/6/rotation = Quaternion(-9.187e-08, 0.996304, -0.0858981, 1.93988e-07)
+bones/8/position = Vector3(-0.385226, -0.906454, -0.205263)
+bones/9/rotation = Quaternion(-3.07974e-07, 0.763449, 0.645868, 3.64041e-07)
 bones/10/rotation = Quaternion(-1.05802e-07, 0.964626, 0.263622, 7.28273e-08)
 bones/11/rotation = Quaternion(1, 3.29978e-14, 4.33126e-07, -5.96046e-08)
-bones/12/position = Vector3(-0.385226, -1.12892, -0.271101)
+bones/12/position = Vector3(-0.385226, -0.906454, -0.205263)
 bones/13/position = Vector3(-1.40602e-07, 3.76166e-35, -0.931164)
 bones/13/rotation = Quaternion(-0.707107, 5.33851e-08, 5.33851e-08, 0.707107)
 bones/14/rotation = Quaternion(-0.115342, -1.18414e-07, 1.37498e-08, 0.993326)
@@ -176,18 +187,18 @@ bones/22/rotation = Quaternion(0.468953, -0.382364, 0.599769, 0.523601)
 bones/23/rotation = Quaternion(0.436672, 0.00301372, 0.00620847, 0.899595)
 bones/24/rotation = Quaternion(0.317078, -4.43847e-08, 5.21864e-09, 0.948399)
 bones/25/rotation = Quaternion(-0.0269155, 3.13149e-12, -1.91569e-09, 0.999638)
-bones/27/rotation = Quaternion(-9.95645e-08, 0.393657, 0.919257, 6.07881e-07)
+bones/27/rotation = Quaternion(-4.71378e-08, 0.337357, 0.941377, 7.00954e-07)
 bones/27/scale = Vector3(1, 1, 1.00003)
-bones/28/rotation = Quaternion(-0.490513, 3.44788e-07, 1.09455e-06, 0.871434)
-bones/29/rotation = Quaternion(0.687613, -9.6028e-07, -4.8592e-07, 0.726077)
-bones/30/rotation = Quaternion(0.263749, 4.24756e-07, -6.54811e-07, 0.964591)
-bones/31/rotation = Quaternion(-3.46627e-07, -0.129661, 0.991558, -7.50529e-07)
+bones/28/rotation = Quaternion(-0.546944, 3.3123e-07, 1.22047e-06, 0.83717)
+bones/29/rotation = Quaternion(0.662109, -9.9471e-07, -5.81276e-07, 0.749408)
+bones/30/rotation = Quaternion(0.263784, 4.65474e-07, -8.03842e-07, 0.964582)
+bones/31/rotation = Quaternion(-4.77555e-07, 0.00461151, 0.999989, -9.8456e-07)
 bones/31/scale = Vector3(1, 1.00001, 1.00002)
-bones/32/rotation = Quaternion(-0.717604, -2.62474e-07, -1.25613e-06, 0.696451)
+bones/32/rotation = Quaternion(-0.813457, -2.19212e-07, -1.42391e-06, 0.581625)
 bones/32/scale = Vector3(1, 0.999987, 1.00001)
-bones/33/rotation = Quaternion(0.271915, 1.07328e-06, 8.40027e-07, 0.962321)
+bones/33/rotation = Quaternion(0.461644, 1.11687e-06, 8.22353e-07, 0.887066)
 bones/33/scale = Vector3(1, 1.00001, 0.99999)
-bones/34/rotation = Quaternion(0.263692, -3.71127e-07, 4.58504e-07, 0.964607)
+bones/34/rotation = Quaternion(0.263701, -3.77908e-07, 4.83328e-07, 0.964604)
 bones/35/position = Vector3(2.47136, 1.11428, -2.12231e-08)
 bones/35/rotation = Quaternion(-2.66925e-08, -2.66925e-08, -0.707107, 0.707107)
 bones/37/position = Vector3(-2.47136, 1.11428, -2.12231e-08)
@@ -213,8 +224,8 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 2.5
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("5_xndqv")
-range = 49.392
-angle = 120.04
+range = 33.9188
+angle = 88.2066
 vision_test_mode = 0
 vision_test_ignore_bodies = [NodePath("../..")]
 collision_layer_ = 0
@@ -247,7 +258,7 @@ libraries = {
 
 [node name="DetectArea" type="Area3D" parent="."]
 collision_layer = 0
-collision_mask = 10
+collision_mask = 24
 monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DetectArea"]

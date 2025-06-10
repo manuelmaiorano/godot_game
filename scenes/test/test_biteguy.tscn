@@ -49,7 +49,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.135136, 0.5, -11.1167)
 gizmo_extents = 11.35
 
 [node name="Knight" parent="." node_paths=PackedStringArray("patrol_points") instance=ExtResource("2_s7uom")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.684634, -28.6334)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.684634, -2.16551)
 patrol_points = [NodePath("../PatrolPoints/Marker3D"), NodePath("../PatrolPoints/Marker3D2")]
 
 [node name="BiteGuy" parent="." node_paths=PackedStringArray("patrol_points") instance=ExtResource("4_hebpx")]

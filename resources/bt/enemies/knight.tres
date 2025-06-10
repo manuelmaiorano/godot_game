@@ -1,5 +1,6 @@
-[gd_resource type="BehaviorTree" load_steps=26 format=3 uid="uid://bvik0r1itxevv"]
+[gd_resource type="BehaviorTree" load_steps=37 format=3 uid="uid://bvik0r1itxevv"]
 
+[ext_resource type="Script" uid="uid://b81tvdm6oljjo" path="res://ai/tasks/general/set_investigate_position_near_world_event.gd" id="1_lkmn0"]
 [ext_resource type="Script" uid="uid://c0r6gjup4rrgq" path="res://ai/tasks/general/go_towards_target.gd" id="1_vit60"]
 [ext_resource type="Script" uid="uid://chtqbnjed8vmf" path="res://ai/tasks/general/perform_attack.gd" id="2_lkmn0"]
 [ext_resource type="Script" uid="uid://0iyt8orb6i2p" path="res://ai/tasks/general/investigate_position.gd" id="3_o5hvy"]
@@ -7,6 +8,44 @@
 [ext_resource type="Script" uid="uid://ctvf6ck11ej54" path="res://ai/tasks/general/go_to_next_patrol_point.gd" id="5_no48s"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_a3hag"]
+
+[sub_resource type="BBVariant" id="BBVariant_vit60"]
+saved_value = null
+resource_name = "<null>"
+
+[sub_resource type="BTCheckVar" id="BTCheckVar_lkmn0"]
+variable = &"world_event"
+check_type = 5
+value = SubResource("BBVariant_vit60")
+
+[sub_resource type="BTAction" id="BTAction_o5hvy"]
+script = ExtResource("1_lkmn0")
+
+[sub_resource type="BTAction" id="BTAction_vit60"]
+script = ExtResource("3_o5hvy")
+min_distance = 3.0
+move_anim_tree_state = &"run"
+
+[sub_resource type="BTConsolePrint" id="BTConsolePrint_vit60"]
+text = "reach pos"
+
+[sub_resource type="BTAction" id="BTAction_lkmn0"]
+script = ExtResource("4_khiww")
+idle_anim_tree_state = &"idle"
+
+[sub_resource type="BTTimeLimit" id="BTTimeLimit_khiww"]
+time_limit = 10.0
+children = [SubResource("BTAction_lkmn0")]
+
+[sub_resource type="BTSequence" id="BTSequence_vit60"]
+children = [SubResource("BTAction_o5hvy"), SubResource("BTAction_vit60"), SubResource("BTConsolePrint_vit60"), SubResource("BTTimeLimit_khiww")]
+
+[sub_resource type="BTProbability" id="BTProbability_lkmn0"]
+children = [SubResource("BTSequence_vit60")]
+
+[sub_resource type="BTSequence" id="BTSequence_wp7y2"]
+custom_name = "ReactToWorldEvent"
+children = [SubResource("BTCheckVar_lkmn0"), SubResource("BTProbability_lkmn0")]
 
 [sub_resource type="BBVariant" id="BBVariant_cllr2"]
 saved_value = null
@@ -49,21 +88,21 @@ move_anim_tree_state = &"run"
 script = ExtResource("4_khiww")
 idle_anim_tree_state = &"idle"
 
-[sub_resource type="BTSequence" id="BTSequence_63ctc"]
-children = [SubResource("BTAction_qgbf7"), SubResource("BTAction_i234v")]
-
 [sub_resource type="BTTimeLimit" id="BTTimeLimit_hyntx"]
 time_limit = 10.0
-children = [SubResource("BTSequence_63ctc")]
+children = [SubResource("BTAction_i234v")]
+
+[sub_resource type="BTSequence" id="BTSequence_63ctc"]
+children = [SubResource("BTAction_qgbf7"), SubResource("BTTimeLimit_hyntx")]
 
 [sub_resource type="BTSequence" id="BTSequence_hp6t1"]
 custom_name = "InvestigateLastKnownPosition"
-children = [SubResource("BTCheckVar_bl4ci"), SubResource("BTTimeLimit_hyntx")]
+children = [SubResource("BTCheckVar_bl4ci"), SubResource("BTSequence_63ctc")]
 
 [sub_resource type="BTAction" id="BTAction_bmgra"]
 script = ExtResource("5_no48s")
 walk_anim_tree_state = &"walk"
-point_reach_distance = 0.1
+point_reach_distance = 1.0
 
 [sub_resource type="BTAction" id="BTAction_87dlr"]
 script = ExtResource("4_khiww")
@@ -85,7 +124,7 @@ custom_name = "Patrol"
 children = [SubResource("BTRepeat_8bx5h")]
 
 [sub_resource type="BTDynamicSelector" id="BTDynamicSelector_nr8mx"]
-children = [SubResource("BTSequence_ccnsm"), SubResource("BTSequence_hp6t1"), SubResource("BTSequence_8s3ni")]
+children = [SubResource("BTSequence_wp7y2"), SubResource("BTSequence_ccnsm"), SubResource("BTSequence_hp6t1"), SubResource("BTSequence_8s3ni")]
 
 [resource]
 blackboard_plan = SubResource("BlackboardPlan_a3hag")

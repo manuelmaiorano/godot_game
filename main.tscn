@@ -1,15 +1,21 @@
-[gd_scene load_steps=15 format=3 uid="uid://dkk0f5wj0at7x"]
+[gd_scene load_steps=21 format=3 uid="uid://dkk0f5wj0at7x"]
 
 [ext_resource type="PackedScene" uid="uid://gttj5o8it4ks" path="res://scenes/debug/debug_info.tscn" id="1_4c57u"]
 [ext_resource type="PackedScene" uid="uid://cjca6mx3264lj" path="res://scenes/player/player.tscn" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://dpswfe7dkn232" path="res://scenes/gameloop/gameloop.tscn" id="1_ycdy4"]
 [ext_resource type="PackedScene" uid="uid://cun5hi2ne8vti" path="res://scenes/ui/ui.tscn" id="5_7mycd"]
+[ext_resource type="Script" uid="uid://dqlji11317nbq" path="res://scripts/resources/item.gd" id="5_vivmo"]
+[ext_resource type="Resource" uid="uid://dh66upo5w26a" path="res://resources/items/branch.tres" id="6_2cqfq"]
 [ext_resource type="PackedScene" uid="uid://bp8m7gx8fqa1f" path="res://scenes/prefabs/food_cluster.tscn" id="6_4c57u"]
 [ext_resource type="PackedScene" uid="uid://bhw884mxsuvea" path="res://scenes/wackyenemies/knight.tscn" id="6_5vw27"]
 [ext_resource type="PackedScene" uid="uid://byyvlii6hkmwh" path="res://scenes/wackyenemies/biteguy.tscn" id="6_7mycd"]
 [ext_resource type="PackedScene" uid="uid://bposrsr7ekfv6" path="res://scenes/wackyenemies/roll_guy.tscn" id="7_272bh"]
+[ext_resource type="Resource" uid="uid://t3iiak64ogdp" path="res://resources/items/pew.tres" id="7_yaehf"]
+[ext_resource type="Resource" uid="uid://dbi8ijwjyydfa" path="res://resources/items/trap.tres" id="8_074og"]
 [ext_resource type="PackedScene" uid="uid://dypxun2hmd5ba" path="res://scenes/interactable/item.tscn" id="9_kek77"]
+[ext_resource type="PackedScene" uid="uid://dhp2w8dl163qx" path="res://scenes/prefabs/patrol_point_cluster.tscn" id="10_efxa6"]
 [ext_resource type="PackedScene" uid="uid://bv37dfiqpjay6" path="res://scenes/interactable/spaceship.tscn" id="12_ycdy4"]
+[ext_resource type="PackedScene" uid="uid://dc2p2xrkuy031" path="res://scenes/objects/Enviromental_hazard.tscn" id="16_2cqfq"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0xm2m"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -45,6 +51,11 @@ environment = SubResource("Environment_1bvp3")
 
 [node name="Player" parent="." instance=ExtResource("1_ig7tw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 218.242, 37.0591, -136.413)
+item_amounts = Dictionary[ExtResource("5_vivmo"), int]({
+ExtResource("6_2cqfq"): 10,
+ExtResource("7_yaehf"): 10,
+ExtResource("8_074og"): 10
+})
 metadata/_edit_group_ = true
 
 [node name="Spaceship" parent="." instance=ExtResource("12_ycdy4")]
@@ -94,23 +105,23 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 196.667, 0, -56.9865)
 
 [node name="Knight" parent="NPCs/knights" node_paths=PackedStringArray("patrol_points") instance=ExtResource("6_5vw27")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.13075, 0, -40.1216)
-patrol_points = [NodePath("../../../PatrolPoints/Marker3D"), NodePath("../../../PatrolPoints/Marker3D2"), NodePath("../../../PatrolPoints/Marker3D4")]
+patrol_points = [null, null, null]
 
 [node name="Knight2" parent="NPCs/knights" node_paths=PackedStringArray("patrol_points") instance=ExtResource("6_5vw27")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.13075, 0, -161.484)
-patrol_points = [NodePath("../../../PatrolPoints/Marker3D"), NodePath("../../../PatrolPoints/Marker3D3"), NodePath("../../../PatrolPoints/Marker3D3"), NodePath("../../../PatrolPoints/Marker3D4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40.0047, 0, -104.042)
+patrol_points = [null, null, null, null]
 
 [node name="Knight5" parent="NPCs/knights" node_paths=PackedStringArray("patrol_points") instance=ExtResource("6_5vw27")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.96155, 0, -83.424)
-patrol_points = [NodePath("../../../PatrolPoints/Marker3D4"), NodePath("../../../PatrolPoints/Marker3D3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.96155, 0, -24.056)
+patrol_points = [null, null]
 
 [node name="Knight3" parent="NPCs/knights" node_paths=PackedStringArray("patrol_points") instance=ExtResource("6_5vw27")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -74.9865, 0, -161.484)
-patrol_points = [NodePath("../../../PatrolPoints/Marker3D4"), NodePath("../../../PatrolPoints/Marker3D2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -74.9865, 0, -102.116)
+patrol_points = [null, null]
 
 [node name="Knight4" parent="NPCs/knights" node_paths=PackedStringArray("patrol_points") instance=ExtResource("6_5vw27")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -74.9865, 0, -47.2777)
-patrol_points = [NodePath("../../../PatrolPoints/Marker3D4"), NodePath("../../../PatrolPoints/Marker3D")]
+patrol_points = [null, null]
 
 [node name="animals" type="Node3D" parent="NPCs"]
 
@@ -140,21 +151,17 @@ transform = Transform3D(0.464827, 0, 0.885402, 0, 1, 0, -0.885402, 0, 0.464827, 
 
 [node name="PatrolPoints" type="Node3D" parent="."]
 
-[node name="Marker3D" type="Marker3D" parent="PatrolPoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -53.8686, 0.5, -11.5753)
-gizmo_extents = 4.85
+[node name="PatrolPointCluster" parent="PatrolPoints" instance=ExtResource("10_efxa6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.3014, 0, -61.0034)
 
-[node name="Marker3D2" type="Marker3D" parent="PatrolPoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.3566, 0.5, -11.5753)
-gizmo_extents = 4.85
+[node name="PatrolPointCluster2" parent="PatrolPoints" instance=ExtResource("10_efxa6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 145.472, 0, 92.752)
 
-[node name="Marker3D3" type="Marker3D" parent="PatrolPoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36.0956, 0.5, -102.079)
-gizmo_extents = 4.85
-
-[node name="Marker3D4" type="Marker3D" parent="PatrolPoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -103.198, 0.5, -128.518)
-gizmo_extents = 4.85
+[node name="PatrolPointCluster3" parent="PatrolPoints" instance=ExtResource("10_efxa6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 182.597, 0, -47.284)
 
 [node name="Item" parent="." instance=ExtResource("9_kek77")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.9903, 0.510952, -49.5132)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36.3046, 0.510952, -88.6872)
+
+[node name="EnviromentalHazard" parent="." instance=ExtResource("16_2cqfq")]
+transform = Transform3D(0.915754, 0, 0.40174, 0, 1, 0, -0.40174, 0, 0.915754, 116.025, 0.508781, -101.383)

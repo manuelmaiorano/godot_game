@@ -17,6 +17,8 @@ func schedule_check_nearby_food(timeout):
 			try_set_nearby_food()
 	
 func _on_food_area_entered(area: Area3D) -> void:
+	if not area.get_parent().is_in_group("food"):
+		return
 	var current_target =  bt.blackboard.get_var(&"food_target") 
 	if current_target == null:
 		bt.blackboard.set_var(&"food_target", area.get_parent())
@@ -24,9 +26,10 @@ func _on_food_area_entered(area: Area3D) -> void:
 		bt.blackboard.set_var(&"food_target", area.get_parent())
 
 func try_set_nearby_food():
-	var nearby_food = detect_area.get_overlapping_areas()
-	if not nearby_food.is_empty():
-		bt.blackboard.set_var(&"food_target", nearby_food[0].get_parent())
-		return true
+	var nearby_areas = detect_area.get_overlapping_areas()
+	for area in nearby_areas:
+		if area.get_parent().is_in_group("food"):
+			bt.blackboard.set_var(&"food_target", area.get_parent())
+			return true
 		
 	return false

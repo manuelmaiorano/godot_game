@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://duwx6outykkfk"]
+
+[ext_resource type="Script" uid="uid://cxaa0gao0tn3i" path="res://scenes/components/ai/sense_patrol_point_component.gd" id="1_xmgh1"]
+
+[node name="SensePatrolPointComponent" type="Node"]
+script = ExtResource("1_xmgh1")

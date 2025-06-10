@@ -230,7 +230,7 @@ func get_target_collider():
 	var ray_dir = camera_3d.project_ray_normal(ch_pos)
 		
 	var col = get_parent().get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(
-		ray_from, ray_from + ray_dir * 1000, collision_mask))
+		ray_from, ray_from + ray_dir * 1000, 0b10))
 	
 	if col.is_empty():
 		return null
@@ -287,11 +287,9 @@ func _on_aiming_state_unhandled_input(event: InputEvent) -> void:
 			var collider: Node = get_target_collider()
 
 			if collider:
-				for group in collider.get_groups():
-					if antagonist_groups.find(group) > -1:
-						collider.set_antagonists(antagonist_groups)
-						collider.add_to_group("player")
-						return
+				if collider.has_method("set_antagonists_check"):
+					collider.set_antagonists_check(func (x): return not x.is_in_group("player"))
+				return
 			
 	if Input.is_action_just_pressed("aim"):
 		camera_animation.play_backwards("zoom_in")

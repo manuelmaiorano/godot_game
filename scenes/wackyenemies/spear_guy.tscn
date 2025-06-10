@@ -1,0 +1,53 @@
+[gd_scene load_steps=3 format=3 uid="uid://ce24doystii46"]
+
+[ext_resource type="PackedScene" uid="uid://doyj2d0mlx5o6" path="res://assets/models/spearguy.glb" id="1_a05wo"]
+[ext_resource type="PackedScene" uid="uid://mnynsq63pq65" path="res://assets/models/spear.glb" id="2_u2cuk"]
+
+[node name="spear_guy" type="Node3D"]
+
+[node name="spearguy" parent="." instance=ExtResource("1_a05wo")]
+
+[node name="Skeleton3D" parent="spearguy/Armature_001" index="0"]
+bones/1/position = Vector3(0.185507, 0.516192, -7.22392e-08)
+bones/1/rotation = Quaternion(1.52918e-08, 0.979273, -0.202546, 7.3933e-08)
+bones/2/rotation = Quaternion(5.08624e-07, 3.61399e-21, 1, 7.10543e-15)
+bones/3/rotation = Quaternion(5.43144e-08, 0.9908, 0.135333, -7.48033e-08)
+bones/4/rotation = Quaternion(1, -3.76445e-14, -6.71544e-07, -6.70552e-08)
+bones/6/position = Vector3(0.185507, 0.516192, -7.22392e-08)
+bones/6/rotation = Quaternion(1.52918e-08, 0.979273, -0.202546, 7.3933e-08)
+bones/8/position = Vector3(-0.185507, -0.765093, 7.22392e-08)
+bones/8/rotation = Quaternion(-5.326e-15, 1, -2.98023e-08, -4.33126e-07)
+bones/10/rotation = Quaternion(-6.89359e-08, 0.939601, 0.342273, 6.15909e-08)
+bones/11/rotation = Quaternion(1, 2.55356e-14, 6.71544e-07, -5.96046e-08)
+bones/12/position = Vector3(-0.185507, -0.765093, 7.22392e-08)
+bones/12/rotation = Quaternion(9.18074e-08, 0.977277, 0.211965, -4.23284e-07)
+bones/13/position = Vector3(-5.97185e-07, -2.48449e-34, -1.53355)
+bones/19/rotation = Quaternion(0.501997, -0.018609, 0.714017, 0.487681)
+bones/20/rotation = Quaternion(0.620395, -1.38829e-08, -1.14641e-07, 0.78429)
+bones/21/rotation = Quaternion(-0.0885488, -0.523869, 0.660945, 0.529975)
+bones/23/rotation = Quaternion(0.515228, -0.230203, -0.336772, 0.753745)
+bones/24/rotation = Quaternion(0.640093, 0.405571, 0.526184, 0.385906)
+bones/25/rotation = Quaternion(-0.0173589, -2.79448e-09, -1.61698e-09, 0.999849)
+bones/27/rotation = Quaternion(-8.98455e-08, 0.183942, 0.982937, 1.31853e-08)
+bones/28/rotation = Quaternion(-0.00416166, 5.19242e-07, 1.07513e-08, 0.999991)
+bones/29/rotation = Quaternion(0.623157, -9.98986e-07, 2.60833e-07, 0.782097)
+bones/30/rotation = Quaternion(0.0717435, 2.67961e-08, -5.46451e-07, 0.997423)
+bones/31/rotation = Quaternion(-1.51515e-07, -0.0242697, 0.999705, -6.75927e-07)
+bones/32/rotation = Quaternion(-0.301676, -4.95055e-07, -7.79341e-07, 0.953411)
+bones/33/rotation = Quaternion(0.693824, 1.10736e-06, 1.28149e-07, 0.720144)
+bones/34/rotation = Quaternion(0.342297, -5.00569e-08, 8.15427e-07, 0.939592)
+bones/35/position = Vector3(-0.0222027, 1.6657, 0.524105)
+bones/35/rotation = Quaternion(-0.0377719, 0.997558, -0.0587021, -0.0022224)
+bones/37/position = Vector3(-0.20122, -0.0641373, 0.374444)
+bones/37/rotation = Quaternion(0.647999, 0.341524, 0.619162, 0.283015)
+bones/42/position = Vector3(0.905904, -0.0188075, -4.16347)
+
+[node name="BoneAttachment3D" type="BoneAttachment3D" parent="spearguy/Armature_001/Skeleton3D" index="10"]
+transform = Transform3D(0.997137, -0.0756198, 9.05756e-08, 0.0750981, 0.990254, 0.117286, -0.00886921, -0.11695, 0.993098, -0.0172814, 2.64277, 0.589825)
+bone_name = "handweapon pivot"
+bone_idx = 26
+
+[node name="spear2" parent="spearguy/Armature_001/Skeleton3D/BoneAttachment3D" instance=ExtResource("2_u2cuk")]
+transform = Transform3D(1, -7.99361e-15, -7.33333e-15, -3.90799e-14, 1, -5.68434e-14, -2.63516e-14, 5.68434e-14, 1, -2.91039e-09, 3.16811, 1.3113e-06)
+
+[editable path="spearguy"]

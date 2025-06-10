@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://cardb408gm2rn"]
+
+[ext_resource type="Script" uid="uid://dlb3836ily1ah" path="res://scenes/interactable/patrol_point.gd" id="1_jg6or"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jg6or"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_jg6or"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_n64qk"]
+radius = 1.0
+
+[node name="PatrolPoint" type="Node3D" groups=["patrol_point"]]
+script = ExtResource("1_jg6or")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.559021, 0)
+material_override = SubResource("StandardMaterial3D_jg6or")
+mesh = SubResource("BoxMesh_jg6or")
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.567817, 0)
+collision_layer = 16
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_n64qk")

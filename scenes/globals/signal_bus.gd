@@ -33,3 +33,6 @@ signal BallistaModeEnter(which: Node3D)
 signal BallistaModeExit
 
 signal PauseGameDebug
+
+
+signal WorldEvent

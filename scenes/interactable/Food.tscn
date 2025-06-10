@@ -11,7 +11,7 @@ material = SubResource("StandardMaterial3D_n64qk")
 [sub_resource type="SphereShape3D" id="SphereShape3D_n64qk"]
 radius = 0.677385
 
-[node name="Food" type="Node3D"]
+[node name="Food" type="Node3D" groups=["food"]]
 script = ExtResource("1_bt5ji")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]

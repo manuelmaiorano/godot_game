@@ -1,4 +1,4 @@
-[gd_resource type="BehaviorTree" load_steps=56 format=3 uid="uid://8bnuyn34db0p"]
+[gd_resource type="BehaviorTree" load_steps=75 format=3 uid="uid://8bnuyn34db0p"]
 
 [ext_resource type="Script" uid="uid://ced8gxwab1rlb" path="res://ai/tasks/general/evade_target.gd" id="1_ms1tu"]
 [ext_resource type="Script" uid="uid://dfc34t1x6mr2d" path="res://ai/tasks/biteguy/attach.gd" id="1_y604q"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://c5q31mejwxhpb" path="res://ai/tasks/general/eat.gd" id="7_8yedm"]
 [ext_resource type="Script" uid="uid://181espjliyve" path="res://ai/tasks/general/try_find_nearby_food.gd" id="8_6wsb3"]
 [ext_resource type="Script" uid="uid://c6ce2r4i7v2os" path="res://ai/tasks/general/go_random_direction.gd" id="9_s37yr"]
+[ext_resource type="Script" uid="uid://b81tvdm6oljjo" path="res://ai/tasks/general/set_investigate_position_near_world_event.gd" id="10_8yedm"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_apb05"]
 var/is_attached/name = &"is_attached"
@@ -34,16 +35,20 @@ resource_name = "0.5"
 
 [sub_resource type="BTCheckVar" id="BTCheckVar_s37yr"]
 variable = &"hunger_level"
-check_type = 1
+check_type = 3
 value = SubResource("BBVariant_6wsb3")
 
 [sub_resource type="BTAction" id="BTAction_ci6v3"]
 script = ExtResource("1_ms1tu")
 move_anim_tree_state = &"run"
 
+[sub_resource type="BTTimeLimit" id="BTTimeLimit_ms1tu"]
+time_limit = 10.0
+children = [SubResource("BTAction_ci6v3")]
+
 [sub_resource type="BTSequence" id="BTSequence_ci6v3"]
 custom_name = "EvadeTarget"
-children = [SubResource("BTCheckVar_xmijk"), SubResource("BTCheckVar_s37yr"), SubResource("BTAction_ci6v3")]
+children = [SubResource("BTCheckVar_xmijk"), SubResource("BTCheckVar_s37yr"), SubResource("BTTimeLimit_ms1tu")]
 
 [sub_resource type="BBVariant" id="BBVariant_ms1tu"]
 type = 1
@@ -80,7 +85,7 @@ resource_name = "0.5"
 
 [sub_resource type="BTCheckVar" id="BTCheckVar_3g2au"]
 variable = &"hunger_level"
-check_type = 4
+check_type = 2
 value = SubResource("BBVariant_de6g6")
 
 [sub_resource type="BTAction" id="BTAction_xmijk"]
@@ -93,6 +98,35 @@ distance_to_kill = 2.0
 [sub_resource type="BTSequence" id="BTSequence_mhj6h"]
 custom_name = "AttackTarget"
 children = [SubResource("BTCheckVar_6wsb3"), SubResource("BTCheckVar_3g2au"), SubResource("BTAction_xmijk")]
+
+[sub_resource type="BBVariant" id="BBVariant_s37yr"]
+saved_value = null
+resource_name = "true"
+
+[sub_resource type="BTCheckVar" id="BTCheckVar_de6g6"]
+variable = &"attacker"
+check_type = 5
+value = SubResource("BBVariant_s37yr")
+
+[sub_resource type="BTAction" id="BTAction_ms1tu"]
+script = ExtResource("3_ci6v3")
+min_distance = 0.5
+move_anim_tree_state = &"run"
+
+[sub_resource type="BTAction" id="BTAction_8yedm"]
+script = ExtResource("4_go5tb")
+idle_anim_tree_state = &"idle"
+
+[sub_resource type="BTSequence" id="BTSequence_6wsb3"]
+children = [SubResource("BTAction_ms1tu"), SubResource("BTAction_8yedm")]
+
+[sub_resource type="BTTimeLimit" id="BTTimeLimit_s37yr"]
+time_limit = 10.0
+children = [SubResource("BTSequence_6wsb3")]
+
+[sub_resource type="BTSequence" id="BTSequence_3g2au"]
+custom_name = "CheckAttacker"
+children = [SubResource("BTCheckVar_de6g6"), SubResource("BTTimeLimit_s37yr")]
 
 [sub_resource type="BBVariant" id="BBVariant_sbaqa"]
 saved_value = null
@@ -180,10 +214,48 @@ children = [SubResource("BTSequence_5mg1a"), SubResource("BTSequence_gmr33")]
 custom_name = "EatWhenHungry"
 children = [SubResource("BTCheckVar_huop6"), SubResource("BTDynamicSelector_f0idt")]
 
+[sub_resource type="BBVariant" id="BBVariant_huop6"]
+saved_value = null
+resource_name = "<null>"
+
+[sub_resource type="BTCheckVar" id="BTCheckVar_mhj6h"]
+variable = &"world_event"
+check_type = 5
+value = SubResource("BBVariant_huop6")
+
+[sub_resource type="BTAction" id="BTAction_sbaqa"]
+script = ExtResource("10_8yedm")
+
+[sub_resource type="BTAction" id="BTAction_lue8v"]
+script = ExtResource("3_ci6v3")
+min_distance = 3.0
+move_anim_tree_state = &"run"
+
+[sub_resource type="BTConsolePrint" id="BTConsolePrint_5mg1a"]
+text = "reach pos"
+
+[sub_resource type="BTAction" id="BTAction_grxsn"]
+script = ExtResource("4_go5tb")
+idle_anim_tree_state = &"idle"
+
+[sub_resource type="BTTimeLimit" id="BTTimeLimit_7wxly"]
+time_limit = 10.0
+children = [SubResource("BTAction_grxsn")]
+
+[sub_resource type="BTSequence" id="BTSequence_f0idt"]
+children = [SubResource("BTAction_sbaqa"), SubResource("BTAction_lue8v"), SubResource("BTConsolePrint_5mg1a"), SubResource("BTTimeLimit_7wxly")]
+
+[sub_resource type="BTProbability" id="BTProbability_qpemh"]
+children = [SubResource("BTSequence_f0idt")]
+
+[sub_resource type="BTSequence" id="BTSequence_477ta"]
+custom_name = "ReactToWorldEvent"
+children = [SubResource("BTCheckVar_mhj6h"), SubResource("BTProbability_qpemh")]
+
 [sub_resource type="BTAction" id="BTAction_5mg1a"]
 script = ExtResource("5_06vx3")
 walk_anim_tree_state = &"run"
-point_reach_distance = 0.1
+point_reach_distance = 1.0
 
 [sub_resource type="BTAction" id="BTAction_d7fvw"]
 script = ExtResource("4_go5tb")
@@ -205,7 +277,7 @@ custom_name = "Patrol"
 children = [SubResource("BTRepeat_7wxly")]
 
 [sub_resource type="BTDynamicSelector" id="BTDynamicSelector_gmr33"]
-children = [SubResource("BTSequence_ci6v3"), SubResource("BTSequence_s37yr"), SubResource("BTSequence_mhj6h"), SubResource("BTSequence_lue8v"), SubResource("BTSequence_qpemh"), SubResource("BTSequence_l2w0h")]
+children = [SubResource("BTSequence_ci6v3"), SubResource("BTSequence_s37yr"), SubResource("BTSequence_mhj6h"), SubResource("BTSequence_3g2au"), SubResource("BTSequence_lue8v"), SubResource("BTSequence_qpemh"), SubResource("BTSequence_477ta"), SubResource("BTSequence_l2w0h")]
 
 [resource]
 blackboard_plan = SubResource("BlackboardPlan_apb05")

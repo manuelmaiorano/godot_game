@@ -12,10 +12,11 @@ func _process(delta: float) -> void:
 	DebugDraw2D.set_text(agent.name, get_info(), 64)
 	
 func get_info():
-	return "hunger: %.3f; is_hungry: %s; food_target: %s; npc_target: %s" % \
+	return "hunger: %.3f; is_hungry: %s; food_target: %s; npc_target: %s; attacker: %s" % \
 	[
-	 bt.blackboard.get_var(&"hunger_level", 0.0, false),
-	 bt.blackboard.get_var(&"is_hungry", null, false),
-	 bt.blackboard.get_var(&"food_target", null, false),
-	 bt.blackboard.get_var(&"target", null, false),
+		bt.blackboard.get_var(&"hunger_level", 0.0, false),
+		bt.blackboard.get_var(&"is_hungry", null, false),
+		bt.blackboard.get_var(&"food_target", null, false),
+		bt.blackboard.get_var(&"target", null, false),
+		bt.blackboard.get_var(&"attacker", null, false),
 	]

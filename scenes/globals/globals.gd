@@ -12,6 +12,8 @@ func _ready() -> void:
 	SignalBus.PauseGameDebug.connect(func () : get_tree().paused = true)
 
 func _unhandled_input(event: InputEvent) -> void:
+	if Input.is_action_just_pressed("reset"):
+		get_tree().reload_current_scene()
 	if Input.is_action_just_pressed("unpause") and get_tree().paused == true:
 		get_tree().paused = false
 	if Input.is_action_just_pressed("pause") and get_tree().paused == false:

@@ -32,9 +32,6 @@ func schedule_direction_updates():
 	
 # Called each time this task is ticked (aka executed).
 func _tick(delta: float) -> Status:
-	var target = blackboard.get_var(&"target")
-	if target == null or target.is_dead:
-		return SUCCESS
 	direction = avoid_component.update_direction(delta, direction)
 	agent.move_along_direction(delta, direction)
 	return RUNNING

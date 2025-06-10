@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://dc2p2xrkuy031"]
+
+[ext_resource type="Script" uid="uid://c2eyn243brf57" path="res://scenes/objects/boulder.gd" id="1_gh4if"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gh4if"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.133333)
+
+[sub_resource type="SphereMesh" id="SphereMesh_gffw4"]
+radius = 3.0
+height = 6.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_gh4if"]
+radius = 3.0
+
+[node name="EnviromentalHazard" type="Node3D"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.128479, 9.06995, -2.48132)
+use_collision = true
+size = Vector3(20.6554, 18.1575, 9.46216)
+material = SubResource("StandardMaterial3D_gh4if")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 21.418, 0)
+collision_mask = 3
+can_sleep = false
+contact_monitor = true
+max_contacts_reported = 1
+script = ExtResource("1_gh4if")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
+mesh = SubResource("SphereMesh_gffw4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+shape = SubResource("SphereShape3D_gh4if")
+
+[connection signal="body_entered" from="RigidBody3D" to="RigidBody3D" method="_on_body_entered"]
