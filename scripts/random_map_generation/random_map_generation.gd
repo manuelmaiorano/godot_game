@@ -33,7 +33,7 @@ func print_map(map):
 				s = s+"@"
 		print(s)
 
-func generate_map(exceptions: Array[StepResult]=[]):
+func generate_map(exceptions: Array[TileException]=[]):
 	var map = MathUtils.create_matrix(size, null)
 	for row in size.y:
 		for col in size.x:
@@ -43,7 +43,7 @@ func generate_map(exceptions: Array[StepResult]=[]):
 			
 	return map
 
-func step_map(mapstep: MapStep, exceptions: Array[StepResult]=[]):
+func step_map(mapstep: MapStep, exceptions: Array[TileException]=[]):
 	if mapstep.map == null:
 		mapstep.map = MathUtils.create_matrix(size, null)
 		mapstep.current_col = 0
@@ -58,12 +58,15 @@ func step_map(mapstep: MapStep, exceptions: Array[StepResult]=[]):
 			mapstep.last_step = true
 	return step_result
 	
-func set_new_tile(tiles: Array[Tile], map, row, col, exceptions: Array[StepResult]=[]):
+func set_new_tile(tiles: Array[Tile], map, row, col, exceptions: Array[TileException]=[]):
 	
 	for exception in exceptions:
 		if exception.row == row and exception.col == col:
-			map[row][col] = exception
-			return exception
+			var step_info = StepResult.new()
+			step_info.tile = exception.tile
+			step_info.row =  exception.row; step_info.col =  exception.col;
+			map[row][col] = step_info
+			return step_info
 			
 	if row == 0 and col == 0:
 		var chosen_tile = tiles.pick_random()

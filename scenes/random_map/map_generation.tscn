@@ -1,6 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://cxhw43rf72uut"]
+[gd_scene load_steps=8 format=3 uid="uid://cxhw43rf72uut"]
 
 [ext_resource type="Script" uid="uid://r6sfp3al5lhc" path="res://scenes/random_map/map_generation.gd" id="1_snv1a"]
+[ext_resource type="Script" uid="uid://seew4v4a720c" path="res://scripts/random_map_generation/tile_exception.gd" id="2_6k45y"]
+[ext_resource type="Resource" uid="uid://ro4oi4d1d5gt" path="res://scripts/random_map_generation/tile_resources/special_tile.tres" id="3_c4imj"]
+
+[sub_resource type="Resource" id="Resource_c4imj"]
+script = ExtResource("2_6k45y")
+tile = ExtResource("3_c4imj")
+row = 5
+col = 5
+metadata/_custom_type_script = "uid://seew4v4a720c"
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_snv1a"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -18,6 +27,7 @@ glow_enabled = true
 [node name="MapGeneration" type="Node3D"]
 script = ExtResource("1_snv1a")
 tile_size = Vector2(20, 20)
+exceptions = Array[ExtResource("2_6k45y")]([SubResource("Resource_c4imj")])
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_c4imj")
@@ -38,6 +48,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Full" type="Button" parent="Control"]
+layout_mode = 0
 offset_left = 47.0
 offset_top = 58.0
 offset_right = 349.0
@@ -46,6 +57,7 @@ text = "Generate Map
 "
 
 [node name="Step" type="Button" parent="Control"]
+layout_mode = 0
 offset_left = 47.0
 offset_top = 114.0
 offset_right = 349.0

@@ -12,4 +12,4 @@
 [node name="RandomMapGeneration" type="Node"]
 script = ExtResource("1_j4dna")
 tiles = Array[ExtResource("2_cwfqk")]([ExtResource("3_scm23"), ExtResource("5_i2n4p"), ExtResource("7_scm23"), ExtResource("8_i2n4p"), ExtResource("7_xy5sx"), ExtResource("8_n6gcr")])
-size = Vector2i(10, 10)
+size = Vector2i(11, 11)
