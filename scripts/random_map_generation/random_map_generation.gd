@@ -117,8 +117,6 @@ func get_tiles_statisfying_constraints_include_rotation(tiles: Array[Tile], tile
 			var bottom_direction_rotated = Direction.BOTTOM 
 			var right_direction_rotated = Direction.RIGHT
 			if tile_top:
-				if tile_top.rotation > 0:
-					pass
 				bottom_direction_rotated = (Direction.BOTTOM + tile_top.rotation) % 4
 			if tile_left:
 				right_direction_rotated = (Direction.RIGHT + tile_left.rotation) % 4
