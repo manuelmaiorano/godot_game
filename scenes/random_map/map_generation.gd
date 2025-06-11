@@ -8,6 +8,7 @@ extends Node3D
 var current_map_step: RandomMapGeneration.MapStep = null
 
 var tile_frequency = {}
+var initial_tile = null
 
 func _ready() -> void:
 	pass
@@ -33,12 +34,13 @@ func populate_map():
 	clear()
 	
 	var exceptions = RandomMapGeneration.generate_guaranteed_path(0, 5, 9, 5)
+	initial_tile = exceptions[0]
 	var map = RandomMapGeneration.generate_map(exceptions)
 	for row in map.size():
 		for column in map[0].size():
 			var step_res = map[row][column]
 			add_tile(step_res)
-			
+	#return
 	for exception in exceptions:
 		add_debug_mesh(exception)
 		
@@ -68,3 +70,11 @@ func add_tile_freq_data(tile: Tile):
 	else:
 		tile_frequency[tile.id] = 1
 	
+
+
+func _on_play_button_up() -> void:
+	var instance = preload("res://scenes/player/player.tscn").instantiate()
+	tiles.add_child(instance)
+	instance.global_position = Vector3(tile_size.x * initial_tile.col, 0, tile_size.y * initial_tile.row)
+	instance.camera_3d.make_current()
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)

@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Tile" load_steps=3 format=3 uid="uid://dke6akvbis5rw"]
+
+[ext_resource type="PackedScene" uid="uid://bfc2lwyidnpmn" path="res://scenes/tile_scenes/tile0.tscn" id="1_6fm6e"]
+[ext_resource type="Script" uid="uid://cohipp34rdoj7" path="res://scripts/random_map_generation/tile_resource.gd" id="2_vlkv4"]
+
+[resource]
+script = ExtResource("2_vlkv4")
+id = 0
+edges = Array[int]([0, 0, 0, 0])
+debug_str = "-"
+scene = ExtResource("1_6fm6e")
+metadata/_custom_type_script = "uid://cohipp34rdoj7"

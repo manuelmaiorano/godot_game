@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Tile" load_steps=3 format=3 uid="uid://cw4rrk0w6d0h6"]
 
-[ext_resource type="PackedScene" uid="uid://bwcx0i4nefvaa" path="res://assets/models/tiles/tile11.glb" id="1_sbrjr"]
+[ext_resource type="PackedScene" uid="uid://b3gb3g1r1hybn" path="res://scenes/tile_scenes/tile11.tscn" id="1_sbrjr"]
 [ext_resource type="Script" uid="uid://cohipp34rdoj7" path="res://scripts/random_map_generation/tile_resource.gd" id="2_sdvyf"]
 
 [resource]

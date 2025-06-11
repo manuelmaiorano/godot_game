@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://cxhw43rf72uut"]
+[gd_scene load_steps=9 format=3 uid="uid://cxhw43rf72uut"]
 
 [ext_resource type="Script" uid="uid://r6sfp3al5lhc" path="res://scenes/random_map/map_generation.gd" id="1_snv1a"]
 [ext_resource type="Script" uid="uid://seew4v4a720c" path="res://scripts/random_map_generation/tile_exception.gd" id="2_6k45y"]
 [ext_resource type="Resource" uid="uid://ro4oi4d1d5gt" path="res://scripts/random_map_generation/tile_resources/special_tile.tres" id="3_c4imj"]
+[ext_resource type="PackedScene" uid="uid://gttj5o8it4ks" path="res://scenes/debug/debug_info.tscn" id="4_xkoju"]
 
 [sub_resource type="Resource" id="Resource_c4imj"]
 script = ExtResource("2_6k45y")
@@ -29,6 +30,8 @@ script = ExtResource("1_snv1a")
 tile_size = Vector2(20, 20)
 exceptions = Array[ExtResource("2_6k45y")]([SubResource("Resource_c4imj")])
 
+[node name="DebugInfo" parent="." instance=ExtResource("4_xkoju")]
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_c4imj")
 
@@ -46,6 +49,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 
 [node name="Full" type="Button" parent="Control"]
 layout_mode = 0
@@ -65,5 +69,14 @@ offset_bottom = 151.0
 text = "Generate Step
 "
 
+[node name="Play" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 47.0
+offset_top = 168.0
+offset_right = 349.0
+offset_bottom = 205.0
+text = "Play"
+
 [connection signal="button_up" from="Control/Full" to="." method="_on_full_button_up"]
 [connection signal="button_up" from="Control/Step" to="." method="_on_step_button_up"]
+[connection signal="button_up" from="Control/Play" to="." method="_on_play_button_up"]

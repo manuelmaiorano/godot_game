@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://ctgnenccr26ar"]
+
+[ext_resource type="PackedScene" uid="uid://vtyonyairdgc" path="res://scenes/blockout/rock.tscn" id="1_1quxh"]
+[ext_resource type="PackedScene" uid="uid://bafh2cm8biq0s" path="res://assets/models/tiles/tile3.glb" id="2_1quxh"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_1quxh"]
+size = Vector2(20, 20)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_fj0v3"]
+data = PackedVector3Array(10, 0, 10, -10, 0, 10, 10, 0, -10, -10, 0, 10, -10, 0, -10, 10, 0, -10)
+
+[node name="Tile3" type="Node3D"]
+
+[node name="Rock" parent="." instance=ExtResource("1_1quxh")]
+transform = Transform3D(3.37817, 0.254779, 0.365806, -0.336976, 3.09698, 0.359144, -0.411283, -0.444758, 2.71037, 8.54612, 0, -6.41788)
+
+[node name="Rock2" parent="." instance=ExtResource("1_1quxh")]
+transform = Transform3D(6.75478, 0.275702, 0.414891, -0.673796, 3.35132, 0.407336, -0.822377, -0.481284, 3.07406, 0.232523, 0.235426, -7.29387)
+
+[node name="Rock3" parent="." instance=ExtResource("1_1quxh")]
+transform = Transform3D(1.74797, 0, 1.28867, 0, 2.17166, 0, -1.28867, 0, 1.74797, -7.82703, 1.65371, -8.78457)
+
+[node name="Rock4" parent="." instance=ExtResource("1_1quxh")]
+transform = Transform3D(2.34126, 0, 1.72606, 0, 2.90875, 0, -1.72606, 0, 2.34126, 6.63813, -0.183853, 6.42806)
+
+[node name="Rock6" parent="." instance=ExtResource("1_1quxh")]
+transform = Transform3D(-1.0768, -1.10615, 3.05532, 1.69776, 1.97193, 1.73023, -7.04227, 0.644532, -0.050051, -7.57889, 0.735746, 0.0890813)
+
+[node name="Rock7" parent="." instance=ExtResource("1_1quxh")]
+transform = Transform3D(-0.318656, -1.01967, 1.88567, 0.502413, 1.81777, 1.06785, -2.084, 0.594143, -0.0308903, -7.62887, -0.620935, 8.20256)
+
+[node name="tile32" parent="." instance=ExtResource("2_1quxh")]
+visible = false
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_1quxh")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D2/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_fj0v3")

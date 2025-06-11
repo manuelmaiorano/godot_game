@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://cdor6o1mkgr5p"]
+
+[ext_resource type="PackedScene" uid="uid://vtyonyairdgc" path="res://scenes/blockout/rock.tscn" id="2_6wmcv"]
+[ext_resource type="PackedScene" uid="uid://gnx3230jfbhs" path="res://assets/models/tiles/tile5.glb" id="2_7hwh4"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_6wmcv"]
+size = Vector2(20, 20)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_5g5ym"]
+data = PackedVector3Array(10, 0, 10, -10, 0, 10, 10, 0, -10, -10, 0, 10, -10, 0, -10, 10, 0, -10)
+
+[node name="Tile5" type="Node3D"]
+
+[node name="Rock" parent="." instance=ExtResource("2_6wmcv")]
+transform = Transform3D(2.52668, 0, 1.86276, 0, 3.13911, 0, -1.86276, 0, 2.52668, 8.54612, 0, -6.41788)
+
+[node name="Rock3" parent="." instance=ExtResource("2_6wmcv")]
+transform = Transform3D(1.74797, 0, 1.28867, 0, 2.17166, 0, -1.28867, 0, 1.74797, -7.82703, 1.65371, -8.78457)
+
+[node name="Rock4" parent="." instance=ExtResource("2_6wmcv")]
+transform = Transform3D(2.34126, 0, 1.72606, 0, 2.90875, 0, -1.72606, 0, 2.34126, 7.48415, -0.61446, 8.22721)
+
+[node name="Rock6" parent="." instance=ExtResource("2_6wmcv")]
+transform = Transform3D(-0.50788, -1.62517, 3.00542, 0.800756, 2.89719, 1.70197, -3.32152, 0.946957, -0.0492335, -8.13666, -1.17025, 7.06745)
+
+[node name="Rock7" parent="." instance=ExtResource("2_6wmcv")]
+transform = Transform3D(-0.318656, -1.01967, 1.88567, 0.502413, 1.81777, 1.06785, -2.084, 0.594143, -0.0308903, -7.62887, -0.620935, 8.20256)
+
+[node name="tile52" parent="." instance=ExtResource("2_7hwh4")]
+visible = false
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_6wmcv")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_5g5ym")

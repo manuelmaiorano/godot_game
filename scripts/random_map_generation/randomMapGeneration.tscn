@@ -5,14 +5,14 @@
 [ext_resource type="Resource" uid="uid://bxw0fujjgasv1" path="res://scripts/random_map_generation/tile_resources/tile1.tres" id="3_scm23"]
 [ext_resource type="Resource" uid="uid://b66dhqiqf3llf" path="res://scripts/random_map_generation/tile_resources/tile3.tres" id="5_i2n4p"]
 [ext_resource type="Resource" uid="uid://do3giv33kvhqe" path="res://scripts/random_map_generation/tile_resources/tile5.tres" id="7_scm23"]
-[ext_resource type="Resource" uid="uid://blhmw5ytvngn4" path="res://scripts/random_map_generation/tile_resources/tile10.tres" id="7_xy5sx"]
+[ext_resource type="Resource" uid="uid://dke6akvbis5rw" path="res://scripts/random_map_generation/tile_resources/tile0.tres" id="8_cy0ba"]
 [ext_resource type="Resource" uid="uid://c8b0n4gwgwswv" path="res://scripts/random_map_generation/tile_resources/tile6.tres" id="8_i2n4p"]
 [ext_resource type="Resource" uid="uid://cw4rrk0w6d0h6" path="res://scripts/random_map_generation/tile_resources/tile11.tres" id="8_n6gcr"]
 [ext_resource type="Resource" uid="uid://ro4oi4d1d5gt" path="res://scripts/random_map_generation/tile_resources/special_tile.tres" id="9_i2n4p"]
 
 [node name="RandomMapGeneration" type="Node"]
 script = ExtResource("1_j4dna")
-tiles = Array[ExtResource("2_cwfqk")]([ExtResource("3_scm23"), ExtResource("5_i2n4p"), ExtResource("7_scm23"), ExtResource("8_i2n4p"), ExtResource("7_xy5sx"), ExtResource("8_n6gcr")])
+tiles = Array[ExtResource("2_cwfqk")]([ExtResource("3_scm23"), ExtResource("5_i2n4p"), ExtResource("7_scm23"), ExtResource("8_i2n4p"), ExtResource("8_n6gcr"), ExtResource("8_cy0ba")])
 type1_tiles = Array[ExtResource("2_cwfqk")]([ExtResource("3_scm23")])
 type2_tiles = Array[ExtResource("2_cwfqk")]([ExtResource("7_scm23")])
 type3_tiles = Array[ExtResource("2_cwfqk")]([ExtResource("8_i2n4p")])

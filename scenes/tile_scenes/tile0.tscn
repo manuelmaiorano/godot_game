@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://bfc2lwyidnpmn"]
+
+[ext_resource type="PackedScene" uid="uid://bposrsr7ekfv6" path="res://scenes/wackyenemies/roll_guy.tscn" id="1_7iiy1"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_l2kv1"]
+size = Vector2(20, 20)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_l2kv1"]
+data = PackedVector3Array(10, 0, 10, -10, 0, 10, 10, 0, -10, -10, 0, 10, -10, 0, -10, 10, 0, -10)
+
+[node name="Tile0" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_l2kv1")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_l2kv1")
+
+[node name="RollGuy" parent="." instance=ExtResource("1_7iiy1")]

@@ -43,7 +43,7 @@ bones/37/rotation = Quaternion(0.647999, 0.341524, 0.619162, 0.283015)
 bones/42/position = Vector3(0.905904, -0.0188075, -4.16347)
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="spearguy/Armature_001/Skeleton3D" index="10"]
-transform = Transform3D(0.997137, -0.0756198, 9.05756e-08, 0.0750981, 0.990254, 0.117286, -0.00886921, -0.11695, 0.993098, -0.0172814, 2.64277, 0.589825)
+transform = Transform3D(0.997137, -0.0756207, 1.58069e-06, 0.0750987, 0.990254, 0.117285, -0.00887073, -0.11695, 0.993098, -0.0172811, 2.64277, 0.589825)
 bone_name = "handweapon pivot"
 bone_idx = 26
 
