@@ -102,8 +102,11 @@ func _on_body_hidden(body: Node3D) -> void:
 		target_list[body].last_time_seen = Time.get_ticks_msec()
 	
 	target_list_changed.emit(target_list)
-
-func rotate_towards_point(delta, point, run_away = false):
+	
+func rotate_towards_velocity(delta, interpolation_speed=rotation_interpolate_spped):
+	rotate_towards_point(delta, global_position + velocity, interpolation_speed)
+	
+func rotate_towards_point(delta, point, interpolation_speed=rotation_interpolate_spped, run_away = false):
 	var direction: Vector3 = global_position - point
 	direction.y = 0
 	
@@ -118,7 +121,7 @@ func rotate_towards_point(delta, point, run_away = false):
 	
 	
 	# Interpolate current rotation with desired one.
-	orientation.basis = Basis(q_from.slerp(q_to, delta * rotation_interpolate_spped))
+	orientation.basis = Basis(q_from.slerp(q_to, delta * interpolation_speed))
 	
 func rotate_towards_target(delta, target, run_away = false):
 	rotate_towards_point(delta, target.global_position, run_away)

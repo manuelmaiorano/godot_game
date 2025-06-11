@@ -1,5 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://dgxp2gmf3fv54"]
+[gd_scene load_steps=9 format=3 uid="uid://dgxp2gmf3fv54"]
 
+[ext_resource type="PackedScene" uid="uid://gttj5o8it4ks" path="res://scenes/debug/debug_info.tscn" id="1_hebpx"]
 [ext_resource type="PackedScene" uid="uid://bhw884mxsuvea" path="res://scenes/wackyenemies/knight.tscn" id="2_s7uom"]
 [ext_resource type="PackedScene" uid="uid://cjca6mx3264lj" path="res://scenes/player/player.tscn" id="3_xflel"]
 [ext_resource type="PackedScene" uid="uid://byyvlii6hkmwh" path="res://scenes/wackyenemies/biteguy.tscn" id="4_hebpx"]
@@ -21,6 +22,8 @@ glow_enabled = true
 albedo_color = Color(0.35, 0.35, 0.35, 1)
 
 [node name="TestBiteguy" type="Node3D"]
+
+[node name="DebugInfo" parent="." instance=ExtResource("1_hebpx")]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_1n4ve")
@@ -49,9 +52,35 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.135136, 0.5, -11.1167)
 gizmo_extents = 11.35
 
 [node name="Knight" parent="." node_paths=PackedStringArray("patrol_points") instance=ExtResource("2_s7uom")]
+process_mode = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.684634, -2.16551)
+visible = false
 patrol_points = [NodePath("../PatrolPoints/Marker3D"), NodePath("../PatrolPoints/Marker3D2")]
 
 [node name="BiteGuy" parent="." node_paths=PackedStringArray("patrol_points") instance=ExtResource("4_hebpx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -20.0214)
+patrol_points = [NodePath("../PatrolPoints/Marker3D"), NodePath("../PatrolPoints/Marker3D2")]
+
+[node name="BiteGuy2" parent="." node_paths=PackedStringArray("patrol_points") instance=ExtResource("4_hebpx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.0718, 0, -20.0214)
+patrol_points = [NodePath("../PatrolPoints/Marker3D"), NodePath("../PatrolPoints/Marker3D2")]
+
+[node name="BiteGuy3" parent="." node_paths=PackedStringArray("patrol_points") instance=ExtResource("4_hebpx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.1783, 0, -18.9873)
+patrol_points = [NodePath("../PatrolPoints/Marker3D"), NodePath("../PatrolPoints/Marker3D2")]
+
+[node name="BiteGuy4" parent="." node_paths=PackedStringArray("patrol_points") instance=ExtResource("4_hebpx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.01489, 0, -19.2482)
+patrol_points = [NodePath("../PatrolPoints/Marker3D"), NodePath("../PatrolPoints/Marker3D2")]
+
+[node name="BiteGuy5" parent="." node_paths=PackedStringArray("patrol_points") instance=ExtResource("4_hebpx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.08541, 0, -19.2482)
+patrol_points = [NodePath("../PatrolPoints/Marker3D"), NodePath("../PatrolPoints/Marker3D2")]
+
+[node name="BiteGuy6" parent="." node_paths=PackedStringArray("patrol_points") instance=ExtResource("4_hebpx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.15959, 0, -12.0968)
+patrol_points = [NodePath("../PatrolPoints/Marker3D"), NodePath("../PatrolPoints/Marker3D2")]
+
+[node name="BiteGuy7" parent="." node_paths=PackedStringArray("patrol_points") instance=ExtResource("4_hebpx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.51304, 0, -12.0968)
 patrol_points = [NodePath("../PatrolPoints/Marker3D"), NodePath("../PatrolPoints/Marker3D2")]

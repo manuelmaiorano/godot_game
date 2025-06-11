@@ -38,6 +38,9 @@ func _ready():
 	SignalBus.ItemsChanged.emit(item_amounts)
 	SignalBus.MoneyChanged.emit(money)
 	SignalBus.PlayerHealthChanged.emit(1)
+
+func die():
+	return
 	
 
 func reduce_health(damage):
@@ -77,6 +80,7 @@ func on_inventory_item_selected(item: Item):
 	active_item = item
 
 func attach_to(target):
+	return
 	disable_collision()
 	state_chart.set_physics_process(false)
 	reparent(target)

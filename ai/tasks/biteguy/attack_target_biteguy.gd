@@ -9,10 +9,14 @@ extends BTAction
 @export var min_distance_to_start_bite: float = 5.0
 
 var target = null
+var boid_comp = null
 
 # Called to generate a display name for the task (requires @tool).
 func _generate_name() -> String:
 	return "AttackTargetBiteGuy"
+
+func _setup() -> void:
+	boid_comp = agent.find_child("BoidMovementComponent")
 
 func _enter() -> void:
 	target = blackboard.get_var("target")
@@ -37,6 +41,9 @@ func _tick(delta: float) -> Status:
 			agent.jump()
 			blackboard.set_var("is_attached", true)
 		return SUCCESS
-		
-	agent.move_towards(delta, target.global_position)
+	
+	if not boid_comp:
+		agent.move_towards(delta, target.global_position)
+	else:
+		boid_comp.move_towards(delta, target.global_position)
 	return RUNNING
